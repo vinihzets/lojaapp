@@ -1,6 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
+import 'package:lojaapp/features/home/data/datasources/home_datasources.dart';
+import 'package:lojaapp/features/home/data/datasources/remote/home_datasources_remote_imp.dart';
+import 'package:lojaapp/features/home/data/repositories/home_repository_imp.dart';
+import 'package:lojaapp/features/home/domain/repositories/home_repository.dart';
+import 'package:lojaapp/features/home/domain/usecases/sign_out_usecase.dart';
+import 'package:lojaapp/features/home/domain/usecases/sign_out_usecase_imp.dart';
+import 'package:lojaapp/features/home/presentation/controllers/home_bloc.dart';
 import 'package:lojaapp/features/initialize/presentation/controllers/initialize_bloc.dart';
 import 'package:lojaapp/features/login/data/datasources/login_datasource.dart';
 import 'package:lojaapp/features/login/data/datasources/remote/login_datasource_remote_imp.dart';
@@ -31,6 +38,8 @@ class Injector {
 
     getIt.registerLazySingleton<LoginDataSource>(
         () => LoginDataSourceRemoteImp(getIt()));
+    getIt.registerLazySingleton<HomeDataSource>(
+        () => HomeDataSourceRemoteImp(getIt()));
 
     //repositories
     getIt.registerLazySingleton<RegisterRepository>(
@@ -38,6 +47,8 @@ class Injector {
 
     getIt.registerLazySingleton<LoginRepository>(
         () => LoginRepositoryImp(getIt()));
+    getIt.registerLazySingleton<HomeRepository>(
+        () => HomeRepositoryImp(getIt()));
 
     //usecases
     getIt.registerLazySingleton<RegisterUseCase>(
@@ -45,8 +56,12 @@ class Injector {
 
     getIt.registerLazySingleton<LoginUseCase>(() => LoginUseCaseImp(getIt()));
 
+    getIt.registerLazySingleton<SignOutUseCase>(
+        () => SignOutUseCaseImp(getIt()));
+
     //controllers
 
+    getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));
     getIt.registerFactory<RegisterBloC>(
         () => RegisterBloC(registerUseCase: getIt()));
 

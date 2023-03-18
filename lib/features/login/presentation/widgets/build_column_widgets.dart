@@ -28,6 +28,7 @@ Widget buildColumnWidgetsLoginScreen(
         child: SizedBox(
           width: (width / 2) * 1.2,
           child: TextField(
+            obscureText: true,
             controller: passwordController,
             textAlign: TextAlign.center,
             decoration: const InputDecoration(
