@@ -1,30 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lojaapp/core/architeture/bloc_event.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/home/presentation/controllers/home_bloc.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_event.dart';
 import 'package:lojaapp/features/home/presentation/widgets/custom_drawer_widgets.dart';
 
-class BlocScrenBuilder extends StatelessWidget {
-  final Stream<BlocState> stream;
-  final Widget Function(BlocState) builder;
-
-  const BlocScrenBuilder(
-      {required this.stream, required this.builder, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: stream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return builder(snapshot.data!);
-          }
-          return const SizedBox.shrink();
-        });
-  }
-}
+import '../../../../core/architeture/bloc_builder.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -77,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 )),
         actions: [
           TextButton(
-              onPressed: () => bloc.event.add(HomeEventSignOut(context)),
+              onPressed: () => bloc.event.add(BlocEventSignOutHome(context)),
               child: const Text(
                 'Sair',
                 style: TextStyle(color: Colors.white),
@@ -89,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
         buildGradientColor(),
         Padding(
             padding: const EdgeInsets.all(16.0),
-            child: BlocScrenBuilder(
+            child: BlocScreenBuilder(
                 stream: bloc.state,
                 builder: (state) {
                   if (state is BlocStableState) {
@@ -98,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return CircularProgressIndicator();
                   }
 
-                  return Container();
+                  return CircularProgressIndicator();
                 }))
       ]),
     );
