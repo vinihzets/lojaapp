@@ -1,16 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/home/domain/usecases/sign_out_usecase.dart';
+import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/features/home/domain/usecases/use_case.dart';
 import 'package:lojaapp/features/home/presentation/controllers/home_event.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_state.dart';
 import 'package:lojaapp/main.dart';
+
+import '../../domain/usecases/sign_out_usecase.dart';
 
 class HomeBloc {
   SignOutUseCase signOutUseCase;
 
-  late StreamController<HomeState> _state;
-  Stream<HomeState> get state => _state.stream;
+  late StreamController<BlocState> _state;
+  Stream<BlocState> get state => _state.stream;
 
   late StreamController<HomeEvent> _event;
   Sink<HomeEvent> get event => _event.sink;
@@ -20,6 +22,10 @@ class HomeBloc {
     _event = StreamController.broadcast();
 
     _event.stream.listen(_eventSendState);
+  }
+
+  void _dispatchState(BlocState state) {
+    _state.add(state);
   }
 
   _eventSendState(HomeEvent event) {
@@ -37,7 +43,9 @@ class HomeBloc {
   }
 
   signOut(BuildContext context) async {
-    final requestSignOut = await signOutUseCase.signOut();
+    await Future.delayed(Duration(seconds: 3));
+
+    final requestSignOut = await signOutUseCase(params: NoParams());
 
     requestSignOut.fold((l) {
       ScaffoldMessenger.of(context)
