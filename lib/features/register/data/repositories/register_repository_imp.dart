@@ -9,6 +9,7 @@ class RegisterRepositoryImp implements RegisterRepository {
 
   RegisterRepositoryImp(this.registerDataSource);
 
+  @override
   Future<Either<Failure, UserCredential>> register(
       String email, String password) {
     return registerDataSource.register(email, password);

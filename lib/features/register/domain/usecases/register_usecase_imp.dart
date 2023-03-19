@@ -9,6 +9,7 @@ class RegisterUseCaseImp implements RegisterUseCase {
 
   RegisterUseCaseImp(this.registerRepository);
 
+  @override
   Future<Either<Failure, UserCredential>> register(
       String email, String password) {
     return registerRepository.register(email, password);

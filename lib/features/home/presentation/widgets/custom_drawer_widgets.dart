@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/core/architeture/bloc_event.dart';
 import 'package:lojaapp/features/home/presentation/controllers/home_bloc.dart';
+import 'package:lojaapp/features/home/presentation/controllers/home_event.dart';
 import 'package:lojaapp/features/home/presentation/widgets/drawer_tile_widgets.dart';
 import 'package:lojaapp/main.dart';
 
@@ -42,22 +42,22 @@ class CustomDrawer extends StatelessWidget {
               const Divider(),
               DrawerTile(
                   onPressed: () => bloc.event.add(
-                      BlocEventDrawerNavigateHome(context, gConsts.homeScreen)),
+                      HomeEventDrawerNavigate(context, gConsts.homeScreen)),
                   icon: Icons.home,
                   text: 'Home'),
               DrawerTile(
                   onPressed: () => bloc.event.add(
-                      BlocEventDrawerNavigateHome(context, gConsts.homeScreen)),
+                      HomeEventDrawerNavigate(context, gConsts.homeScreen)),
                   icon: Icons.location_on,
                   text: 'Localizacao'),
               DrawerTile(
-                  onPressed: () => bloc.event.add(BlocEventDrawerNavigateHome(
+                  onPressed: () => bloc.event.add(HomeEventDrawerNavigate(
                       context, gConsts.categoriesScreen)),
                   icon: Icons.location_on,
                   text: 'Categorias'),
               DrawerTile(
                   onPressed: () => bloc.event.add(
-                      BlocEventDrawerNavigateHome(context, gConsts.homeScreen)),
+                      HomeEventDrawerNavigate(context, gConsts.homeScreen)),
                   icon: Icons.playlist_add_check,
                   text: 'Meus Pedidos'),
             ],

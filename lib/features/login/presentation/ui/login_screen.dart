@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/features/login/presentation/controllers/login_bloc.dart';
-import 'package:lojaapp/features/login/presentation/controllers/login_event.dart';
 import 'package:lojaapp/features/login/presentation/widgets/build_column_widgets.dart';
-import 'package:lojaapp/features/register/presentation/controllers/register_bloc.dart';
-import 'package:lojaapp/main.dart';
-
-import '../../../register/presentation/widgets/build_column_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

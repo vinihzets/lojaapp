@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:lojaapp/core/architeture/bloc.dart';
-import 'package:lojaapp/core/architeture/bloc_event.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/home/domain/usecases/use_case.dart';
+import 'package:lojaapp/features/home/presentation/controllers/home_event.dart';
 import 'package:lojaapp/main.dart';
 
 import '../../domain/usecases/sign_out_usecase.dart';
@@ -15,8 +13,8 @@ class HomeBloc {
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
 
-  late StreamController<BlocEvent> _event;
-  Sink<BlocEvent> get event => _event.sink;
+  late StreamController<HomeEvent> _event;
+  Sink<HomeEvent> get event => _event.sink;
 
   HomeBloc(this.signOutUseCase) {
     _state = StreamController.broadcast();
@@ -25,14 +23,10 @@ class HomeBloc {
     _event.stream.listen(_dispatchEvent);
   }
 
-  void _dispatchState(BlocState state) {
-    _state.add(state);
-  }
-
-  _dispatchEvent(BlocEvent event) {
-    if (event is BlocEventDrawerNavigateHome) {
+  _dispatchEvent(HomeEvent event) {
+    if (event is HomeEventDrawerNavigate) {
       onPressedNavigate(event.context, event.routeName);
-    } else if (event is BlocEventSignOutHome) {
+    } else if (event is HomeEventSignOut) {
       signOut(event.context);
     }
   }

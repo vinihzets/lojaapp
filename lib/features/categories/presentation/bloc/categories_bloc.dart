@@ -1,10 +1,7 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:lojaapp/core/architeture/bloc_event.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/categories/domain/usecases/get_categories_usecase.dart';
+import 'package:lojaapp/features/categories/presentation/bloc/categories_event.dart';
 
 class CategoriesBloc {
   GetCategoriesUseCase getCategoriesUseCase;
@@ -12,8 +9,8 @@ class CategoriesBloc {
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
 
-  late StreamController<BlocEvent> _event;
-  Sink<BlocEvent> get event => _event.sink;
+  late StreamController<BlocCategoriesEvent> _event;
+  Sink<BlocCategoriesEvent> get event => _event.sink;
 
   CategoriesBloc(
     this.getCategoriesUseCase,
@@ -21,11 +18,7 @@ class CategoriesBloc {
     _state = StreamController.broadcast();
     _event = StreamController.broadcast();
 
-    _event.stream.listen(_mapEventState(BlocEventGetCategories()));
-  }
-
-  _handlerEvent(BlocEvent event) {
-    _event.add(event);
+    _event.stream.listen(_mapEventState(BlocCategoriesEventGetCategories()));
   }
 
   _dispatchState(BlocState state) {
@@ -40,8 +33,8 @@ class CategoriesBloc {
     });
   }
 
-  _mapEventState(BlocEvent event) {
-    if (event is BlocEventGetCategories) {
+  _mapEventState(BlocCategoriesEvent event) {
+    if (event is BlocCategoriesEventGetCategories) {
       getCategories();
     } else {}
   }

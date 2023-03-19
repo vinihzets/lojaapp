@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:lojaapp/core/failure/failure.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
@@ -16,6 +12,7 @@ class RegisterDataSourceImp implements RegisterDataSource {
   RegisterDataSourceImp(
       {required this.authService, required this.databaseService});
 
+  @override
   Future<Either<Failure, UserCredential>> register(
       String email, String password) async {
     try {

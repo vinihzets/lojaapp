@@ -8,6 +8,7 @@ class HomeRepositoryImp implements HomeRepository {
 
   HomeRepositoryImp(this.homeDataSource);
 
+  @override
   Future<Either<Failure, void>> signOut() {
     return homeDataSource.signOut();
   }

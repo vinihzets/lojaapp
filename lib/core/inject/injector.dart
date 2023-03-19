@@ -11,7 +11,6 @@ import 'package:lojaapp/features/home/data/datasources/home_datasources.dart';
 import 'package:lojaapp/features/home/data/datasources/remote/home_datasources_remote_imp.dart';
 import 'package:lojaapp/features/home/data/repositories/home_repository_imp.dart';
 import 'package:lojaapp/features/home/domain/repositories/home_repository.dart';
-import 'package:lojaapp/features/home/domain/usecases/use_case.dart';
 import 'package:lojaapp/features/home/domain/usecases/sign_out_usecase.dart';
 import 'package:lojaapp/features/home/presentation/controllers/home_bloc.dart';
 import 'package:lojaapp/features/initialize/presentation/controllers/initialize_bloc.dart';

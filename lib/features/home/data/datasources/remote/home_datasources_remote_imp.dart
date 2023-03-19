@@ -9,6 +9,7 @@ class HomeDataSourceRemoteImp implements HomeDataSource {
 
   HomeDataSourceRemoteImp(this.authService);
 
+  @override
   Future<Either<Failure, void>> signOut() async {
     try {
       final requestSignOut = await authService.auth.signOut();

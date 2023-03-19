@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/core/commons/commons_dependency_injector.dart';
-import 'package:lojaapp/main.dart';
 
 import '../controllers/initialize_bloc.dart';
 
