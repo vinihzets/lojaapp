@@ -3,4 +3,5 @@ class Consts {
   final String homeScreen = '/homeScreen';
   final String loginScreen = '/loginScreen';
   final String registerScreen = '/registerScreen';
+  final String categoriesScreen = '/categoriesScreen';
 }

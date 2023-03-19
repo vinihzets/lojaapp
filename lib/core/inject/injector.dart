@@ -1,6 +1,12 @@
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
+import 'package:lojaapp/features/categories/data/datasources/categories_datasource.dart';
+import 'package:lojaapp/features/categories/data/datasources/remote/categories_datasource_remote_imp.dart';
+import 'package:lojaapp/features/categories/data/repositories/categories_repository_imp.dart';
+import 'package:lojaapp/features/categories/domain/repositories/categories_repository.dart';
+import 'package:lojaapp/features/categories/domain/usecases/get_categories_usecase.dart';
+import 'package:lojaapp/features/categories/presentation/bloc/categories_bloc.dart';
 import 'package:lojaapp/features/home/data/datasources/home_datasources.dart';
 import 'package:lojaapp/features/home/data/datasources/remote/home_datasources_remote_imp.dart';
 import 'package:lojaapp/features/home/data/repositories/home_repository_imp.dart';
@@ -40,6 +46,8 @@ class Injector {
         () => LoginDataSourceRemoteImp(getIt()));
     getIt.registerLazySingleton<HomeDataSource>(
         () => HomeDataSourceRemoteImp(getIt()));
+    getIt.registerLazySingleton<CategoriesDataSource>(
+        () => CategoriesDataSourceRemoteImp(getIt()));
 
     //repositories
     getIt.registerLazySingleton<RegisterRepository>(
@@ -49,6 +57,8 @@ class Injector {
         () => LoginRepositoryImp(getIt()));
     getIt.registerLazySingleton<HomeRepository>(
         () => HomeRepositoryImp(getIt()));
+    getIt.registerLazySingleton<CategoriesRepository>(
+        () => CategoriesRepositoryImp(getIt()));
 
     //usecases
     getIt.registerLazySingleton<RegisterUseCase>(
@@ -57,9 +67,11 @@ class Injector {
     getIt.registerLazySingleton<LoginUseCase>(() => LoginUseCaseImp(getIt()));
 
     getIt.registerLazySingleton(() => SignOutUseCase(getIt()));
+    getIt.registerLazySingleton(() => GetCategoriesUseCase(getIt()));
 
     //controllers
 
+    getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
     getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));
     getIt.registerFactory<RegisterBloC>(
         () => RegisterBloC(registerUseCase: getIt()));
