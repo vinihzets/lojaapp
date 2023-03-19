@@ -4,15 +4,15 @@ abstract class BlocState<T> {
 }
 
 class BlocStableState<T> extends BlocState<T> {
-  BlocStableState({required super.data});
+  BlocStableState({super.data});
 }
 
 class BlocLoadingState<T> extends BlocState<T> {
-  BlocLoadingState({required super.data});
+  BlocLoadingState({super.data});
 }
 
 class BlocEmptyState<T> extends BlocState<T> {
-  BlocEmptyState({required super.data});
+  BlocEmptyState({super.data});
 }
 
 class BlocErrorState<T> extends BlocState<T> {

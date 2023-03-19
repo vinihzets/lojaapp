@@ -27,8 +27,12 @@ abstract class BloC<Event> {
   late StreamController<BlocState> _state;
   Stream<BlocState> get bloc => _state.stream;
 
+  late StreamController<Event> _event;
+  Sink<Event> get event => _event.sink;
+
   BloC() {
     _state = StreamController.broadcast();
+    _event = StreamController.broadcast();
   }
 
   void sendEvent(Event event) {
