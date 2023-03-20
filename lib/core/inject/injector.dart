@@ -21,6 +21,13 @@ import 'package:lojaapp/features/login/domain/repositories/login_repository.dart
 import 'package:lojaapp/features/login/domain/usecases/login_usecase.dart';
 import 'package:lojaapp/features/login/domain/usecases/login_usecase_imp.dart';
 import 'package:lojaapp/features/login/presentation/bloc/login_bloc.dart';
+import 'package:lojaapp/features/products/data/datasources/products_datasource.dart';
+import 'package:lojaapp/features/products/data/datasources/remote/products_datasource_remote_imp.dart';
+import 'package:lojaapp/features/products/data/repositories/products_repository_imp.dart';
+import 'package:lojaapp/features/products/domain/repositories/products_repository.dart';
+import 'package:lojaapp/features/products/domain/usecases/get_products_usecase.dart';
+import 'package:lojaapp/features/products/domain/usecases/usecase.dart';
+import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
 import 'package:lojaapp/features/register/data/datasources/register_datasources.dart';
 import 'package:lojaapp/features/register/data/datasources/remote/register_datasources_imp.dart';
 import 'package:lojaapp/features/register/data/repositories/register_repository_imp.dart';
@@ -48,6 +55,8 @@ class Injector {
     getIt.registerLazySingleton<CategoriesDataSource>(
         () => CategoriesDataSourceRemoteImp(getIt()));
 
+    getIt.registerLazySingleton<ProductsDataSource>(
+        () => ProductsDataSourceRemoteImp(getIt()));
     //repositories
     getIt.registerLazySingleton<RegisterRepository>(
         () => RegisterRepositoryImp(getIt()));
@@ -58,6 +67,8 @@ class Injector {
         () => HomeRepositoryImp(getIt()));
     getIt.registerLazySingleton<CategoriesRepository>(
         () => CategoriesRepositoryImp(getIt()));
+    getIt.registerLazySingleton<ProductsRepository>(
+        () => ProductsRepositoryImp(getIt()));
 
     //usecases
     getIt.registerLazySingleton<RegisterUseCase>(
@@ -67,9 +78,11 @@ class Injector {
 
     getIt.registerLazySingleton(() => SignOutUseCase(getIt()));
     getIt.registerLazySingleton(() => GetCategoriesUseCase(getIt()));
+    getIt.registerLazySingleton<UseCase>(() => GetProductsUseCase(getIt()));
 
     //controllers
 
+    getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt()));
     getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
     getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));
     getIt.registerFactory<RegisterBloC>(

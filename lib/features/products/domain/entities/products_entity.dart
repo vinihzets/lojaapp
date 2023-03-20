@@ -1,7 +1,10 @@
 class ProductsEntity {
   String name;
-  List<String> sizes;
+  List sizes;
+  String price;
   String description;
+  String imageUrl;
 
-  ProductsEntity(this.name, this.sizes, this.description);
+  ProductsEntity(
+      this.name, this.sizes, this.price, this.description, this.imageUrl);
 }

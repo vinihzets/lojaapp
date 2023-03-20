@@ -3,8 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
+import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
+import 'package:lojaapp/features/products/presentation/ui/grid_product_tile.dart';
+import 'package:lojaapp/features/products/presentation/ui/list_product_tile.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -28,15 +31,54 @@ class _ProductsScreenState extends State<ProductsScreen> {
         ModalRoute.of(context)!.settings.arguments as CategoriesEntity;
     bloc.event.add(ProductsEventGet(context, categories.id));
 
-    return Scaffold(
-        appBar: AppBar(),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: const TabBar(tabs: [
+            Tab(
+              icon: Icon(Icons.grid_on),
+            ),
+            Tab(
+              icon: Icon(Icons.list),
+            )
+          ]),
+        ),
         body: BlocScreenBuilder(
             stream: bloc.state,
             builder: (state) {
               if (state is BlocStableState) {
-                return const SizedBox.shrink();
+                List<ProductsEntity> listProducts = state.data;
+
+                return TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      GridView.builder(
+                          itemCount: 8,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 4.0,
+                                  crossAxisSpacing: 4.0,
+                                  childAspectRatio: 0.65),
+                          itemBuilder: (context, index) {
+                            return GridProductTile(listProducts: listProducts);
+                          }),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 6,
+                          padding: const EdgeInsets.all(4),
+                          itemBuilder: (context, index) {
+                            return ListProductTile(
+                              listProducts: listProducts,
+                            );
+                          })
+                    ]);
+              } else {
+                return SizedBox.shrink();
               }
-              return const SizedBox.shrink();
-            }));
+            }),
+      ),
+    );
   }
 }

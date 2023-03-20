@@ -57,7 +57,7 @@ class CustomDrawer extends StatelessWidget {
               DrawerTile(
                   onPressed: () => bloc.event.add(HomeEventDrawerNavigate(
                       context, gConsts.categoriesScreen)),
-                  icon: Icons.location_on,
+                  icon: Icons.list,
                   text: 'Categorias'),
               DrawerTile(
                   onPressed: () => bloc.event.add(
