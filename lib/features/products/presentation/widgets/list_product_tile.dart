@@ -13,7 +13,6 @@ class ListProductTile extends StatelessWidget {
           .map((e) => Padding(
                 padding: const EdgeInsets.all(3.0),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
                       flex: 1,
@@ -25,8 +24,8 @@ class ListProductTile extends StatelessWidget {
                     ),
                     Flexible(
                       flex: 1,
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 100.0, right: 40),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
                             Text(

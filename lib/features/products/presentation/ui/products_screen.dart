@@ -6,8 +6,8 @@ import 'package:lojaapp/features/categories/domain/entities/categories_entity.da
 import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
-import 'package:lojaapp/features/products/presentation/ui/grid_product_tile.dart';
-import 'package:lojaapp/features/products/presentation/ui/list_product_tile.dart';
+import 'package:lojaapp/features/products/presentation/widgets/grid_product_tile.dart';
+import 'package:lojaapp/features/products/presentation/widgets/list_product_tile.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -75,7 +75,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           })
                     ]);
               } else {
-                return SizedBox.shrink();
+                return const SizedBox.shrink();
               }
             }),
       ),
