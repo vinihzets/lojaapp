@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/home/domain/usecases/use_case.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_event.dart';
+import 'package:lojaapp/features/home/presentation/bloc/home_event.dart';
 import 'package:lojaapp/main.dart';
 
 import '../../domain/usecases/sign_out_usecase.dart';

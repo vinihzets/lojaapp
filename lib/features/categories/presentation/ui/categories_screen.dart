@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
 import 'package:lojaapp/features/categories/presentation/bloc/categories_bloc.dart';
+import 'package:lojaapp/main.dart';
 
 import '../../../../core/architeture/bloc_state.dart';
 
@@ -36,11 +37,26 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 List<CategoriesEntity> categories = state.data!;
 
                 return ListView(
-                  children: categories.map((e) => Text(e.name)).toList(),
+                  children: categories
+                      .map((e) => GestureDetector(
+                            child: ListTile(
+                                leading: Image.network(e.imageCategory),
+                                trailing: const Icon(
+                                  Icons.arrow_right_alt,
+                                  color: Colors.black,
+                                ),
+                                title: Text(e.name)),
+                            onTap: () => bloc.navigateToProducts(
+                                context, gConsts.categoryScreen, e),
+                          ))
+                      .toList(),
                 );
-              } else {
-                return const SizedBox.shrink();
+              } else if (state is BlocLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
+              return const SizedBox.shrink();
             }));
   }
 }

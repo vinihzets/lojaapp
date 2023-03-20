@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/login/presentation/controllers/login_bloc.dart';
+import 'package:lojaapp/features/login/presentation/bloc/login_bloc.dart';
 
-import '../controllers/login_event.dart';
+import '../bloc/login_event.dart';
 
 Widget buildColumnWidgetsLoginScreen(
     double width,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../controllers/initialize_bloc.dart';
+import '../bloc/initialize_bloc.dart';
 
 class InitializeScreen extends StatefulWidget {
   const InitializeScreen({super.key});

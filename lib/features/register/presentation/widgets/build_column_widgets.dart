@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/register/presentation/controllers/register_bloc.dart';
-import 'package:lojaapp/features/register/presentation/controllers/register_event.dart';
+import 'package:lojaapp/features/register/presentation/bloc/register_bloc.dart';
+import 'package:lojaapp/features/register/presentation/bloc/register_event.dart';
 
 Widget buildColumnWidgets(TextEditingController emailController,
     TextEditingController passwordController, RegisterBloC bloc, context) {

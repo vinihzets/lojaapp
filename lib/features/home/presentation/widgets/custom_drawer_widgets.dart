@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_bloc.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_event.dart';
+import 'package:lojaapp/features/home/presentation/bloc/home_bloc.dart';
+import 'package:lojaapp/features/home/presentation/bloc/home_event.dart';
 import 'package:lojaapp/features/home/presentation/widgets/drawer_tile_widgets.dart';
 import 'package:lojaapp/main.dart';
 
@@ -41,10 +41,14 @@ class CustomDrawer extends StatelessWidget {
             children: [
               const Divider(),
               DrawerTile(
-                  onPressed: () => bloc.event.add(
-                      HomeEventDrawerNavigate(context, gConsts.homeScreen)),
-                  icon: Icons.home,
-                  text: 'Home'),
+                onPressed: () {
+                  bloc.event.add(
+                      HomeEventDrawerNavigate(context, gConsts.homeScreen));
+                  bloc.event.add(HomeEventGetCategories());
+                },
+                icon: Icons.home,
+                text: 'Home',
+              ),
               DrawerTile(
                   onPressed: () => bloc.event.add(
                       HomeEventDrawerNavigate(context, gConsts.homeScreen)),

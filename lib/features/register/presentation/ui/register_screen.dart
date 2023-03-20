@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/features/register/presentation/controllers/register_bloc.dart';
+import 'package:lojaapp/features/register/presentation/bloc/register_bloc.dart';
 
 import '../widgets/build_column_widgets.dart';
 

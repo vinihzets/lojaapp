@@ -12,22 +12,22 @@ import 'package:lojaapp/features/home/data/datasources/remote/home_datasources_r
 import 'package:lojaapp/features/home/data/repositories/home_repository_imp.dart';
 import 'package:lojaapp/features/home/domain/repositories/home_repository.dart';
 import 'package:lojaapp/features/home/domain/usecases/sign_out_usecase.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_bloc.dart';
-import 'package:lojaapp/features/initialize/presentation/controllers/initialize_bloc.dart';
+import 'package:lojaapp/features/home/presentation/bloc/home_bloc.dart';
+import 'package:lojaapp/features/initialize/presentation/bloc/initialize_bloc.dart';
 import 'package:lojaapp/features/login/data/datasources/login_datasource.dart';
 import 'package:lojaapp/features/login/data/datasources/remote/login_datasource_remote_imp.dart';
 import 'package:lojaapp/features/login/data/repositories/login_repository_imp.dart';
 import 'package:lojaapp/features/login/domain/repositories/login_repository.dart';
 import 'package:lojaapp/features/login/domain/usecases/login_usecase.dart';
 import 'package:lojaapp/features/login/domain/usecases/login_usecase_imp.dart';
-import 'package:lojaapp/features/login/presentation/controllers/login_bloc.dart';
+import 'package:lojaapp/features/login/presentation/bloc/login_bloc.dart';
 import 'package:lojaapp/features/register/data/datasources/register_datasources.dart';
 import 'package:lojaapp/features/register/data/datasources/remote/register_datasources_imp.dart';
 import 'package:lojaapp/features/register/data/repositories/register_repository_imp.dart';
 import 'package:lojaapp/features/register/domain/repositories/register_repository.dart';
 import 'package:lojaapp/features/register/domain/usecases/register_usecase.dart';
 import 'package:lojaapp/features/register/domain/usecases/register_usecase_imp.dart';
-import 'package:lojaapp/features/register/presentation/controllers/register_bloc.dart';
+import 'package:lojaapp/features/register/presentation/bloc/register_bloc.dart';
 
 class Injector {
   static initialize() async {

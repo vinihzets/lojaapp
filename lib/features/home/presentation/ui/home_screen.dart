@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_bloc.dart';
-import 'package:lojaapp/features/home/presentation/controllers/home_event.dart';
+import 'package:lojaapp/features/home/presentation/bloc/home_bloc.dart';
+import 'package:lojaapp/features/home/presentation/bloc/home_event.dart';
 import 'package:lojaapp/features/home/presentation/widgets/custom_drawer_widgets.dart';
 
 import '../../../../core/architeture/bloc_builder.dart';

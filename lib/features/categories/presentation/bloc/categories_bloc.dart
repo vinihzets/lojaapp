@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:flutter/material.dart';
 import 'package:lojaapp/features/categories/domain/usecases/get_categories_usecase.dart';
 import 'package:lojaapp/features/categories/presentation/bloc/categories_event.dart';
 
@@ -25,6 +26,10 @@ class CategoriesBloc {
     _state.add(state);
   }
 
+  sendEvent(BlocCategoriesEvent event) {
+    _event.add(event);
+  }
+
   getCategories() async {
     final getRequest = await getCategoriesUseCase(params: NoParams());
 
@@ -36,6 +41,12 @@ class CategoriesBloc {
   _mapEventState(BlocCategoriesEvent event) {
     if (event is BlocCategoriesEventGetCategories) {
       getCategories();
-    } else {}
+    } else if (event is BlocCategoriesEventNavigateToCategorie) {
+      //  navigateToCategorie(event);
+    }
+  }
+
+  navigateToProducts(BuildContext context, String routeName, args) {
+    Navigator.of(context).pushNamed(routeName, arguments: args);
   }
 }
