@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
+import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
 import 'package:lojaapp/features/products/domain/usecases/usecase.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
+import 'package:lojaapp/main.dart';
 
 class ProductsBloc {
   UseCase useCase;
@@ -28,7 +30,14 @@ class ProductsBloc {
   _mapEventState(ProductsEvent event) {
     if (event is ProductsEventGet) {
       getProducts(event.context);
+    } else if (event is ProductsEventNavigateDetails) {
+      navigateToDetails(event.context, event.entity);
     }
+  }
+
+  navigateToDetails(BuildContext context, ProductsEntity entity) {
+    Navigator.of(context)
+        .pushNamed(gConsts.productsDetailsScreen, arguments: entity);
   }
 
   getProducts(BuildContext context) async {

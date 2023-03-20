@@ -62,7 +62,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                   crossAxisSpacing: 4.0,
                                   childAspectRatio: 0.65),
                           itemBuilder: (context, index) {
-                            return GridProductTile(listProducts: listProducts);
+                            return GridProductTile(
+                              listProducts: listProducts,
+                              bloc: bloc,
+                            );
                           }),
                       ListView.builder(
                           shrinkWrap: true,
@@ -71,6 +74,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           itemBuilder: (context, index) {
                             return ListProductTile(
                               listProducts: listProducts,
+                              bloc: bloc,
                             );
                           })
                     ]);
