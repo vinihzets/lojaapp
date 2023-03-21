@@ -4,5 +4,7 @@ class Consts {
   final String loginScreen = '/loginScreen';
   final String registerScreen = '/registerScreen';
   final String categoriesScreen = '/categoriesScreen';
-  final String categoryScreen = '/categoryScreen';
+  final String productsScreen = '/productsScreen';
+  final String productsDetailsScreen = '/productsDetails';
+  final String cartScreen = '/cartScreen';
 }
