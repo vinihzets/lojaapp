@@ -20,7 +20,6 @@ void main() async {
   Injector.initialize();
 
   runApp(MaterialApp(
-    theme: ThemeData(primaryColor: Colors.blueGrey),
     routes: {
       gConsts.initializeScreen: (_) => const InitializeScreen(),
       gConsts.loginScreen: (_) => const LoginScreen(),
