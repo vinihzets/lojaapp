@@ -19,7 +19,7 @@ class CategoriesBloc {
     _state = StreamController.broadcast();
     _event = StreamController.broadcast();
 
-    _event.stream.listen(_mapEventState(BlocCategoriesEventGetCategories()));
+    _event.stream.listen(_mapEventState);
   }
 
   _dispatchState(BlocState state) {

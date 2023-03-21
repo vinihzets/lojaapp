@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
 import 'package:lojaapp/features/categories/presentation/bloc/categories_bloc.dart';
+import 'package:lojaapp/features/categories/presentation/bloc/categories_event.dart';
 import 'package:lojaapp/main.dart';
 
 import '../../../../core/architeture/bloc_state.dart';
@@ -20,7 +21,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   void initState() {
     bloc = GetIt.I.get();
-
+    bloc.event.add(BlocCategoriesEventGetCategories());
     super.initState();
   }
 
@@ -47,7 +48,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                 ),
                                 title: Text(e.name)),
                             onTap: () => bloc.navigateToProducts(
-                                context, gConsts.categoryScreen, e),
+                                context, gConsts.productsScreen, e),
                           ))
                       .toList(),
                 );

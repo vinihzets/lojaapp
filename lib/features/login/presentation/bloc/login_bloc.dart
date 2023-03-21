@@ -29,8 +29,9 @@ class LoginBloc {
   }
 
   onPressedNavigate(BuildContext context) {
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(gConsts.registerScreen, (route) => false);
+    Navigator.of(context).pushNamed(
+      gConsts.registerScreen,
+    );
   }
 
   signIn(BuildContext context, String email, String password) async {

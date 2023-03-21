@@ -20,35 +20,38 @@ Widget buildColumnWidgetsLoginScreen(
           decoration: const InputDecoration(
               hintText: 'e-mail',
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20)))),
+                  borderRadius: BorderRadius.all(Radius.circular(5)))),
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          width: (width / 2) * 1.2,
-          child: TextField(
-            obscureText: true,
-            controller: passwordController,
-            textAlign: TextAlign.center,
-            decoration: const InputDecoration(
-                hintText: 'password',
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)))),
-          ),
-        ),
+      const SizedBox(
+        height: 10,
       ),
-      ElevatedButton(
-        style: const ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(Colors.grey)),
-        onPressed: () => bloc.event.add(LoginEventSignIn(
-            context, emailController.text, passwordController.text)),
-        child: const Text('login'),
+      SizedBox(
+        width: (width / 2) * 1.2,
+        child: TextField(
+          obscureText: true,
+          controller: passwordController,
+          textAlign: TextAlign.center,
+          decoration: const InputDecoration(
+              hintText: 'password',
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5)))),
+        ),
       ),
       TextButton(
-          onPressed: () => bloc.onPressedNavigate(context),
-          child:
-              const Text('registre-se', style: TextStyle(color: Colors.grey)))
+          onPressed: () {},
+          child: const Text('Esqueci Minha Senha',
+              style: TextStyle(color: Colors.blue))),
+      SizedBox(
+        width: 240,
+        child: ElevatedButton(
+          style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+          onPressed: () => bloc.event.add(LoginEventSignIn(
+              context, emailController.text, passwordController.text)),
+          child: const Text('login'),
+        ),
+      ),
     ],
   );
 }

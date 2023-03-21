@@ -27,6 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
     final passwordController = TextEditingController();
 
     return Scaffold(
+      appBar: AppBar(title: Text('Entrar'), centerTitle: true, actions: [
+        TextButton(
+            onPressed: () => bloc.onPressedNavigate(context),
+            child: const Text(
+              'Criar Conta',
+              style: TextStyle(color: Colors.white),
+            )),
+      ]),
       body: Center(
           child: buildColumnWidgetsLoginScreen(
               width, context, bloc, emailController, passwordController)),
