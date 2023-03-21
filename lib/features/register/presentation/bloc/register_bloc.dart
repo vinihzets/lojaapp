@@ -22,7 +22,10 @@ class RegisterBloC {
   }
 
   onPressedRegister(String email, String password, BuildContext context) async {
-    final registerRequest = await registerUseCase.register(email, password);
+    final registerRequest = await registerUseCase.register(
+      email,
+      password,
+    );
     registerRequest.fold((l) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(l.message)));

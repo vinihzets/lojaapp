@@ -9,18 +9,28 @@ class RegisterDataSourceImp implements RegisterDataSource {
   AuthService authService;
   DatabaseService databaseService;
 
-  RegisterDataSourceImp(
-      {required this.authService, required this.databaseService});
+  RegisterDataSourceImp({
+    required this.authService,
+    required this.databaseService,
+  });
 
   @override
   Future<Either<Failure, UserCredential>> register(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     try {
       final registerRequest = await authService.auth
           .createUserWithEmailAndPassword(email: email, password: password);
       final db = databaseService.db.collection('users');
 
-      db.add({'email': email, 'password': password}).then((value) => value.id);
+      db.add({
+        'email': email,
+        'password': password,
+        'id': '',
+      }).then((value) => {
+            db.doc(value.id).update({'docId': value.id})
+          });
 
       return Right(registerRequest);
     } on FirebaseAuthException catch (e) {

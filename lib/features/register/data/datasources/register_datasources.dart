@@ -5,5 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class RegisterDataSource {
   Future<Either<Failure, UserCredential>> register(
-      String email, String password);
+    String email,
+    String password,
+  );
 }
