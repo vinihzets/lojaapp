@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
-import 'package:lojaapp/features/cart/domain/usecases/add_item_cart_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/get_cart_item_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/discount_cart_items_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/inc_product_usecase.dart';
