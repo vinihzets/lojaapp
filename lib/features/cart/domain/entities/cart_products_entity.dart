@@ -1,5 +1,3 @@
-import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
-
 class CartProductsEntity {
   String description;
   String name;

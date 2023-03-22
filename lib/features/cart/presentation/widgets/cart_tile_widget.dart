@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
-import 'package:lojaapp/features/cart/presentation/widgets/discount_card_widget.dart';
 
 class CartTileWidget extends StatefulWidget {
   CartProductsDto product;

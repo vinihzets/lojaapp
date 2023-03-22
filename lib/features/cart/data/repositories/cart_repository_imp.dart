@@ -10,6 +10,7 @@ class CartRepositoryImp implements CartRepository {
 
   CartRepositoryImp(this.cartDataSource);
 
+  @override
   Future<Either<Failure, List<CartProductsDto>>> getCartItems() {
     return cartDataSource.getCartItems();
   }

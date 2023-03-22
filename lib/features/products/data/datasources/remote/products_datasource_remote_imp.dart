@@ -3,7 +3,6 @@ import 'package:lojaapp/core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
-import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
 import 'package:lojaapp/features/products/data/datasources/products_datasource.dart';
 import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/products/domain/entities/products_entity.dart';

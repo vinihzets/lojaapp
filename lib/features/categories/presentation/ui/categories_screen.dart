@@ -40,16 +40,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             return ListView(
               children: categories
                   .map((e) => GestureDetector(
-                        child: ListTile(
-                            leading: Image.network(e.imageCategory),
-                            trailing: const Icon(
-                              Icons.arrow_right_alt,
-                              color: Colors.black,
-                            ),
-                            title: Text(e.name)),
-                        onTap: () => bloc.navigateToProducts(
-                            context, gConsts.productsScreen, e),
-                      ))
+                      child: ListTile(
+                          leading: Image.network(e.imageCategory),
+                          trailing: const Icon(
+                            Icons.arrow_right_alt,
+                            color: Colors.black,
+                          ),
+                          title: Text(e.name)),
+                      onTap: () => bloc.event.add(
+                          BlocCategoriesEventNavigateToProductDetails(
+                              context, gConsts.productsScreen, e))))
                   .toList(),
             );
           } else if (state is BlocLoadingState) {
@@ -62,7 +62,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
-        onPressed: () {},
+        onPressed: () => bloc.event
+            .add(BlocCategoriesEventNavigate(context, gConsts.cartScreen)),
         child: const Icon(
           Icons.card_travel_rounded,
           color: Colors.white,

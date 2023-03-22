@@ -4,9 +4,19 @@ class BlocCategoriesEvent {}
 
 class BlocCategoriesEventGetCategories implements BlocCategoriesEvent {}
 
-class BlocCategoriesEventNavigateToCategorie implements BlocCategoriesEvent {
+class BlocCategoriesEventNavigateToProductDetails
+    implements BlocCategoriesEvent {
+  BuildContext context;
+  String routeName;
+  Object arguments;
+
+  BlocCategoriesEventNavigateToProductDetails(
+      this.context, this.routeName, this.arguments);
+}
+
+class BlocCategoriesEventNavigate implements BlocCategoriesEvent {
   BuildContext context;
   String routeName;
 
-  BlocCategoriesEventNavigateToCategorie(this.context, this.routeName);
+  BlocCategoriesEventNavigate(this.context, this.routeName);
 }

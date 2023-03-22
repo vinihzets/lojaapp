@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/features/initialize/presentation/bloc/initialize_event.dart';
-
 import '../bloc/initialize_bloc.dart';
 
 class InitializeScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class _InitializeScreenState extends State<InitializeScreen> {
 
     super.initState();
     Future.delayed(const Duration(seconds: 3))
-        .then((value) => bloc.event.add(InitializeEvent(context)));
+        .then((value) => bloc.isLogged(context));
   }
 
   @override

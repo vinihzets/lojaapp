@@ -62,6 +62,7 @@ class Injector {
     getIt.registerLazySingleton<AuthService>(() => AuthService());
     getIt.registerLazySingleton<DatabaseService>(() => DatabaseService());
     //datasources
+
     getIt.registerLazySingleton<RegisterDataSource>(() =>
         RegisterDataSourceImp(authService: getIt(), databaseService: getIt()));
 
@@ -79,6 +80,7 @@ class Injector {
         () => CartDataSourcesRemoteImp(getIt(), getIt()));
 
     //repositories
+
     getIt.registerLazySingleton<RegisterRepository>(
         () => RegisterRepositoryImp(getIt()));
 
@@ -94,6 +96,7 @@ class Injector {
         () => CartRepositoryImp(getIt()));
 
     //usecases
+
     getIt.registerLazySingleton<RegisterUseCase>(
         () => RegisterUseCaseImp(getIt()));
 

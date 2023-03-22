@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
-import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
 

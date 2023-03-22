@@ -4,7 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:lojaapp/features/categories/domain/usecases/get_categories_usecase.dart';
 import 'package:lojaapp/features/categories/presentation/bloc/categories_event.dart';
 
-class CategoriesBloc {
+mixin NavigateMixin {
+  void navigateWithaArguments(
+      BuildContext context, String routeName, Object? args) {
+    Navigator.of(context).pushNamed(routeName, arguments: args);
+  }
+
+  void navigate(BuildContext context, String routeName) {
+    Navigator.of(context).pushNamed(routeName);
+  }
+}
+
+class CategoriesBloc with NavigateMixin {
   GetCategoriesUseCase getCategoriesUseCase;
 
   late StreamController<BlocState> _state;
@@ -41,12 +52,10 @@ class CategoriesBloc {
   _mapEventState(BlocCategoriesEvent event) {
     if (event is BlocCategoriesEventGetCategories) {
       getCategories();
-    } else if (event is BlocCategoriesEventNavigateToCategorie) {
-      //  navigateToCategorie(event);
+    } else if (event is BlocCategoriesEventNavigateToProductDetails) {
+      navigateWithaArguments(event.context, event.routeName, event.arguments);
+    } else if (event is BlocCategoriesEventNavigate) {
+      navigate(event.context, event.routeName);
     }
-  }
-
-  navigateToProducts(BuildContext context, String routeName, args) {
-    Navigator.of(context).pushNamed(routeName, arguments: args);
   }
 }

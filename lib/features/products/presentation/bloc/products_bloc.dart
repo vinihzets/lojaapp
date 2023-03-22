@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/features/cart/domain/usecases/add_item_cart_usecase.dart';
 import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
 import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
