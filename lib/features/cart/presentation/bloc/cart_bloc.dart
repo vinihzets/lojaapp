@@ -93,8 +93,7 @@ class CartBloc with SnackMixin {
     removeitemRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(gConsts.cartScreen, (route) => false);
+      r;
     });
   }
 }

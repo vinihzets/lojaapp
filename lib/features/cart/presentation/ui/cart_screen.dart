@@ -18,7 +18,6 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   late CartBloc bloc;
-  int index = 0;
 
   @override
   void initState() {

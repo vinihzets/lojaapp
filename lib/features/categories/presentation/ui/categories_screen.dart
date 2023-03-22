@@ -28,36 +28,46 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-        ),
-        body: BlocScreenBuilder(
-            stream: bloc.state,
-            builder: (state) {
-              if (state is BlocStableState) {
-                List<CategoriesEntity> categories = state.data!;
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
+      body: BlocScreenBuilder(
+        stream: bloc.state,
+        builder: (state) {
+          if (state is BlocStableState) {
+            List<CategoriesEntity> categories = state.data!;
 
-                return ListView(
-                  children: categories
-                      .map((e) => GestureDetector(
-                            child: ListTile(
-                                leading: Image.network(e.imageCategory),
-                                trailing: const Icon(
-                                  Icons.arrow_right_alt,
-                                  color: Colors.black,
-                                ),
-                                title: Text(e.name)),
-                            onTap: () => bloc.navigateToProducts(
-                                context, gConsts.productsScreen, e),
-                          ))
-                      .toList(),
-                );
-              } else if (state is BlocLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return const SizedBox.shrink();
-            }));
+            return ListView(
+              children: categories
+                  .map((e) => GestureDetector(
+                        child: ListTile(
+                            leading: Image.network(e.imageCategory),
+                            trailing: const Icon(
+                              Icons.arrow_right_alt,
+                              color: Colors.black,
+                            ),
+                            title: Text(e.name)),
+                        onTap: () => bloc.navigateToProducts(
+                            context, gConsts.productsScreen, e),
+                      ))
+                  .toList(),
+            );
+          } else if (state is BlocLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () {},
+        child: const Icon(
+          Icons.card_travel_rounded,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 }
