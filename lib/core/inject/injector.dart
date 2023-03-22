@@ -6,8 +6,14 @@ import 'package:lojaapp/features/cart/data/datasources/cart_datasources.dart';
 import 'package:lojaapp/features/cart/data/datasources/remote/cart_datasources_remote_imp.dart';
 import 'package:lojaapp/features/cart/data/repositories/cart_repository_imp.dart';
 import 'package:lojaapp/features/cart/domain/repositories/cart_repository.dart';
-import 'package:lojaapp/features/cart/domain/usecases/add_cart_usecase.dart';
-import 'package:lojaapp/features/cart/domain/usecases/add_cart_usecase_imp.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_item_cart_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_item_cart_usecase_imp.dart';
+import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase_imp.dart';
+import 'package:lojaapp/features/cart/domain/usecases/inc_product_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/inc_product_usecase_imp.dart';
+import 'package:lojaapp/features/cart/domain/usecases/remove_item_cart_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/remove_item_cart_usecase_imp.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/categories/data/datasources/categories_datasource.dart';
 import 'package:lojaapp/features/categories/data/datasources/remote/categories_datasource_remote_imp.dart';
@@ -99,10 +105,17 @@ class Injector {
 
     getIt.registerLazySingleton<AddItemToCartUseCase>(
         () => AddItemToCartUseCaseImp(getIt()));
+    getIt.registerLazySingleton<RemoveItemCartUseCase>(
+        () => RemoveItemCartUseCaseImp(getIt()));
+    getIt.registerLazySingleton<IncProductUseCase>(
+        () => IncProductUseCaseImp(getIt()));
+    getIt.registerLazySingleton<DecProductUseCase>(
+        () => DecProductUseCaseImp(getIt()));
 
     //controllers
 
-    getIt.registerFactory<CartBloc>(() => CartBloc(getIt()));
+    getIt.registerFactory<CartBloc>(
+        () => CartBloc(getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt(), getIt()));
     getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
     getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));

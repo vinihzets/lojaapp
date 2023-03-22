@@ -38,23 +38,29 @@ class _CartScreenState extends State<CartScreen> {
           title: const Text('Meu Carrinho'),
           centerTitle: true,
         ),
-        body: BlocScreenBuilder(
-            stream: bloc.state,
-            builder: (state) {
-              if (state is BlocStableState) {
-                List<CartProductsDto> products = state.data;
+        body: Card(
+          margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          child: BlocScreenBuilder(
+              stream: bloc.state,
+              builder: (state) {
+                if (state is BlocStableState) {
+                  List<CartProductsDto> products = state.data;
 
-                return ListView(
-                  children: [
-                    Column(
-                      children: products
-                          .map((e) => CartTileWidget(product: e))
-                          .toList(),
-                    )
-                  ],
-                );
-              }
-              return const SizedBox.shrink();
-            }));
+                  return ListView(
+                    children: [
+                      Column(
+                        children: products
+                            .map((e) => CartTileWidget(
+                                  product: e,
+                                  bloc: bloc,
+                                ))
+                            .toList(),
+                      )
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              }),
+        ));
   }
 }

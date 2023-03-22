@@ -8,3 +8,24 @@ class CartEventAddItem implements CartEvent {
 
   CartEventAddItem(this.context);
 }
+
+class CartEventRemoveItem implements CartEvent {
+  BuildContext context;
+  String id;
+
+  CartEventRemoveItem(this.context, this.id);
+}
+
+class CartEventIncItem implements CartEvent {
+  BuildContext context;
+  CartProductsDto cartProductsDto;
+
+  CartEventIncItem(this.context, this.cartProductsDto);
+}
+
+class CartEventDecItem implements CartEvent {
+  BuildContext context;
+  CartProductsDto cartProductsDto;
+
+  CartEventDecItem(this.context, this.cartProductsDto);
+}

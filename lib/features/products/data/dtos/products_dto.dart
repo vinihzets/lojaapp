@@ -31,7 +31,7 @@ class ProductsDto extends ProductsEntity {
       'price': price,
       'description': description,
       'size': sizeProduct,
-      // 'quantity': quantity,
+      'image': imageUrl,
     };
   }
 }

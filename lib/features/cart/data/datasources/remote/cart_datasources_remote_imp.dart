@@ -37,4 +37,54 @@ class CartDataSourcesRemoteImp implements CartDataSource {
       return Left(RemoteFailure(message: e.message ?? 'Erro nulo'));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> removeCartItems(String id) async {
+    try {
+      final dbRequest = await databaseService.db
+          .collection('cart')
+          .doc(authService.auth.currentUser!.uid)
+          .collection('items')
+          .doc(id)
+          .delete();
+
+      return Right(dbRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> decProduct(
+      CartProductsDto cartProductsDto) async {
+    try {
+      cartProductsDto.quantity--;
+      final dbRequest = await databaseService.db
+          .collection('cart')
+          .doc(authService.auth.currentUser!.uid)
+          .collection('items')
+          .doc(cartProductsDto.id)
+          .update(cartProductsDto.toMap());
+      return Right(dbRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> incProduct(
+      CartProductsDto cartProductsDto) async {
+    try {
+      cartProductsDto.quantity++;
+      final dbRequest = await databaseService.db
+          .collection('cart')
+          .doc(authService.auth.currentUser!.uid)
+          .collection('items')
+          .doc(cartProductsDto.id)
+          .update(cartProductsDto.toMap());
+      return Right(dbRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
 }

@@ -2,33 +2,36 @@ import 'package:lojaapp/features/cart/domain/entities/cart_products_entity.dart'
 
 class CartProductsDto extends CartProductsEntity {
   CartProductsDto(
-    // super.cartId,
     super.description,
     super.name,
+    super.imageUrl,
     super.price,
-    // super.quantity,
     super.size,
+    super.quantity,
+    super.id,
   );
 
   factory CartProductsDto.fromJson(Map map) {
     return CartProductsDto(
-      // map['cartId'],
       map['description'],
       map['name'],
+      map['image'],
       map['price'],
-      // map['quantity'],
       map['size'],
+      map['quantity'],
+      map['id'],
     );
   }
 
   toMap() {
     return {
-      // 'cartId': cartId,
       'description': description,
       'name': name,
+      'image': imageUrl,
       'price': price,
-      // 'quantity': quantity,
-      'size': size
+      'size': size,
+      'quantity': quantity,
+      'id': id,
     };
   }
 }

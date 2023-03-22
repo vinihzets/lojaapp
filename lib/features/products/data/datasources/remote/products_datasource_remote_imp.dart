@@ -23,6 +23,7 @@ class ProductsDataSourceRemoteImp implements ProductsDataSource {
           .doc(uid)
           .collection('items')
           .get();
+
       final request =
           getProducts.docs.map((e) => ProductsDto.fromJson(e.data())).toList();
       return Right(request);
@@ -42,7 +43,7 @@ class ProductsDataSourceRemoteImp implements ProductsDataSource {
 
       final dbRequest =
           await dbCart.add(productsDto.toResumedMap()).then((value) {
-        dbCart.doc(value.id).update({'id': value.id});
+        dbCart.doc(value.id).update({'id': value.id, 'quantity': 1});
       });
 
       products.add(productsDto);

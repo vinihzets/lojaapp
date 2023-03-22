@@ -1,16 +1,82 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
+import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
 
-class CartTileWidget extends StatelessWidget {
+class CartTileWidget extends StatefulWidget {
   CartProductsDto product;
+  CartBloc bloc;
 
-  CartTileWidget({required this.product, super.key});
+  CartTileWidget({required this.product, required this.bloc, super.key});
 
   @override
+  State<CartTileWidget> createState() => _CartTileWidgetState();
+}
+
+class _CartTileWidgetState extends State<CartTileWidget> {
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      child: Text(product.name),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          width: 120,
+          child: Image.network(widget.product.imageUrl),
+        ),
+        Expanded(
+            child: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.product.name,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
+              ),
+              Text(
+                'Tamanho: ${widget.product.size}',
+                style: const TextStyle(fontWeight: FontWeight.w300),
+              ),
+              Text(
+                'R\$ ${widget.product.price}',
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                      onPressed: widget.product.quantity < 2
+                          ? null
+                          : () => widget.bloc.event
+                              .add(CartEventDecItem(context, widget.product)),
+                      icon: const Icon(Icons.remove)),
+                  Text(widget.product.quantity.toString()),
+                  IconButton(
+                      onPressed: () {
+                        widget.bloc.event
+                            .add(CartEventIncItem(context, widget.product));
+                      },
+                      icon: const Icon(Icons.add)),
+                  ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.transparent)),
+                      onPressed: () => widget.bloc.event
+                          .add(CartEventRemoveItem(context, widget.product.id)),
+                      child: const Text('Remover'))
+                ],
+              )
+            ],
+          ),
+        ))
+      ],
     );
   }
 }
