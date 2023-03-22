@@ -13,4 +13,19 @@ class CartRepositoryImp implements CartRepository {
   Future<Either<Failure, List<CartProductsDto>>> getCartItems() {
     return cartDataSource.getCartItems();
   }
+
+  @override
+  Future<Either<Failure, void>> removeCartItems(String id) {
+    return cartDataSource.removeCartItems(id);
+  }
+
+  @override
+  Future<Either<Failure, void>> decProduct(CartProductsDto cartProductsDto) {
+    return cartDataSource.decProduct(cartProductsDto);
+  }
+
+  @override
+  Future<Either<Failure, void>> incProduct(CartProductsDto cartProductsDto) {
+    return cartDataSource.incProduct(cartProductsDto);
+  }
 }
