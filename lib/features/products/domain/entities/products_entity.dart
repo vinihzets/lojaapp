@@ -5,7 +5,18 @@ class ProductsEntity {
   String price;
   String description;
   String imageUrl;
+  String? sizeProduct;
+  // String? cartId;
+  // int quantity;
 
-  ProductsEntity(this.name, this.sizes, this.images, this.price,
-      this.description, this.imageUrl);
+  ProductsEntity(
+    this.name,
+    this.sizes,
+    this.images,
+    this.price,
+    this.description,
+    this.imageUrl,
+    this.sizeProduct,
+    // this.quantity,
+  );
 }

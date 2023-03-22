@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
-import 'package:lojaapp/core/services/user/user.dart';
 import 'package:lojaapp/features/initialize/presentation/bloc/initialize_event.dart';
 import 'package:lojaapp/main.dart';
 
@@ -33,9 +32,7 @@ class InitializeBloc {
   }
 
   _mapListenEvent(InitializeEvent event) {
-    if (event is InitializeEvent) {
-      isLogged(event.context);
-    }
+    isLogged(event.context);
   }
 
   navigate(BuildContext context, String routeName) {
@@ -47,12 +44,12 @@ class InitializeBloc {
 
   isLogged(BuildContext context) {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        dispatchState(
-            BlocStableState(data: navigate(context, gConsts.loginScreen)));
-      } else {
+      if (user != null) {
         dispatchState(
             BlocStableState(data: navigate(context, gConsts.homeScreen)));
+      } else {
+        dispatchState(
+            BlocStableState(data: navigate(context, gConsts.loginScreen)));
       }
     });
   }

@@ -2,7 +2,11 @@ import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
+import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
+import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
 
 class ProductsDetailsScreen extends StatefulWidget {
   const ProductsDetailsScreen({super.key});
@@ -12,12 +16,20 @@ class ProductsDetailsScreen extends StatefulWidget {
 }
 
 class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
+  late ProductsBloc bloc;
+
+  @override
+  void initState() {
+    bloc = GetIt.I.get();
+    super.initState();
+  }
+
   String size = '';
 
   @override
   Widget build(BuildContext context) {
-    ProductsEntity product =
-        ModalRoute.of(context)!.settings.arguments as ProductsEntity;
+    ProductsDto product =
+        ModalRoute.of(context)!.settings.arguments as ProductsDto;
 
     return Scaffold(
         backgroundColor: Colors.grey[200],
@@ -77,6 +89,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                 onTap: () {
                                   setState(() {
                                     size = e;
+                                    product.sizeProduct = e;
                                   });
                                 },
                                 child: Container(
@@ -101,7 +114,10 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                   SizedBox(
                     width: 380,
                     child: ElevatedButton(
-                        onPressed: size == '' ? null : () {},
+                        onPressed: size == ''
+                            ? null
+                            : () => bloc.event
+                                .add(ProductsEventAddToCart(context, product)),
                         child: const Text('Adicionar ao carrinho')),
                   ),
                   const Text(

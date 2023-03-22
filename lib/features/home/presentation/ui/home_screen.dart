@@ -4,6 +4,7 @@ import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojaapp/features/home/presentation/bloc/home_event.dart';
 import 'package:lojaapp/features/home/presentation/widgets/custom_drawer_widgets.dart';
+import 'package:lojaapp/main.dart';
 
 import '../../../../core/architeture/bloc_builder.dart';
 
@@ -80,6 +81,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const CircularProgressIndicator();
                 }))
       ]),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () => bloc.event
+            .add(HomeEventDrawerNavigate(context, gConsts.cartScreen)),
+        child: const Icon(Icons.card_travel_rounded),
+      ),
     );
   }
 }

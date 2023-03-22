@@ -61,7 +61,7 @@ class CustomDrawer extends StatelessWidget {
                   text: 'Categorias'),
               DrawerTile(
                   onPressed: () => bloc.event.add(
-                      HomeEventDrawerNavigate(context, gConsts.homeScreen)),
+                      HomeEventDrawerNavigate(context, gConsts.cartScreen)),
                   icon: Icons.playlist_add_check,
                   text: 'Meus Pedidos'),
             ],

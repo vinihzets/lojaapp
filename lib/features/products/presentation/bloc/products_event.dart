@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
 
 abstract class ProductsEvent {}
@@ -15,4 +16,11 @@ class ProductsEventNavigateDetails implements ProductsEvent {
   ProductsEntity entity;
 
   ProductsEventNavigateDetails(this.context, this.entity);
+}
+
+class ProductsEventAddToCart implements ProductsEvent {
+  BuildContext context;
+  ProductsDto productsDto;
+
+  ProductsEventAddToCart(this.context, this.productsDto);
 }

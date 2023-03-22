@@ -35,6 +35,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black,
           bottom: const TabBar(tabs: [
             Tab(
               icon: Icon(Icons.grid_on),

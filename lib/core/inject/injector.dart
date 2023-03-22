@@ -1,6 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
+
+import 'package:lojaapp/features/cart/data/datasources/cart_datasources.dart';
+import 'package:lojaapp/features/cart/data/datasources/remote/cart_datasources_remote_imp.dart';
+import 'package:lojaapp/features/cart/data/repositories/cart_repository_imp.dart';
+import 'package:lojaapp/features/cart/domain/repositories/cart_repository.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_cart_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_cart_usecase_imp.dart';
+import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/categories/data/datasources/categories_datasource.dart';
 import 'package:lojaapp/features/categories/data/datasources/remote/categories_datasource_remote_imp.dart';
 import 'package:lojaapp/features/categories/data/repositories/categories_repository_imp.dart';
@@ -25,6 +33,8 @@ import 'package:lojaapp/features/products/data/datasources/products_datasource.d
 import 'package:lojaapp/features/products/data/datasources/remote/products_datasource_remote_imp.dart';
 import 'package:lojaapp/features/products/data/repositories/products_repository_imp.dart';
 import 'package:lojaapp/features/products/domain/repositories/products_repository.dart';
+import 'package:lojaapp/features/products/domain/usecases/add_item_to_cart_usecase.dart';
+import 'package:lojaapp/features/products/domain/usecases/add_item_to_cart_usecase_imp.dart';
 import 'package:lojaapp/features/products/domain/usecases/get_products_usecase.dart';
 import 'package:lojaapp/features/products/domain/usecases/usecase.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
@@ -43,7 +53,6 @@ class Injector {
     //core
     getIt.registerLazySingleton<AuthService>(() => AuthService());
     getIt.registerLazySingleton<DatabaseService>(() => DatabaseService());
-
     //datasources
     getIt.registerLazySingleton<RegisterDataSource>(() =>
         RegisterDataSourceImp(authService: getIt(), databaseService: getIt()));
@@ -56,7 +65,11 @@ class Injector {
         () => CategoriesDataSourceRemoteImp(getIt()));
 
     getIt.registerLazySingleton<ProductsDataSource>(
-        () => ProductsDataSourceRemoteImp(getIt()));
+        () => ProductsDataSourceRemoteImp(getIt(), getIt()));
+
+    getIt.registerLazySingleton<CartDataSource>(
+        () => CartDataSourcesRemoteImp(getIt(), getIt()));
+
     //repositories
     getIt.registerLazySingleton<RegisterRepository>(
         () => RegisterRepositoryImp(getIt()));
@@ -69,6 +82,8 @@ class Injector {
         () => CategoriesRepositoryImp(getIt()));
     getIt.registerLazySingleton<ProductsRepository>(
         () => ProductsRepositoryImp(getIt()));
+    getIt.registerLazySingleton<CartRepository>(
+        () => CartRepositoryImp(getIt()));
 
     //usecases
     getIt.registerLazySingleton<RegisterUseCase>(
@@ -79,10 +94,16 @@ class Injector {
     getIt.registerLazySingleton(() => SignOutUseCase(getIt()));
     getIt.registerLazySingleton(() => GetCategoriesUseCase(getIt()));
     getIt.registerLazySingleton<UseCase>(() => GetProductsUseCase(getIt()));
+    getIt.registerLazySingleton<AddCartUseCase>(
+        () => AddCartUseCaseImp(getIt()));
+
+    getIt.registerLazySingleton<AddItemToCartUseCase>(
+        () => AddItemToCartUseCaseImp(getIt()));
 
     //controllers
 
-    getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt()));
+    getIt.registerFactory<CartBloc>(() => CartBloc(getIt()));
+    getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt(), getIt()));
     getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
     getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));
     getIt.registerFactory<RegisterBloC>(
@@ -90,6 +111,6 @@ class Injector {
 
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt()));
 
-    getIt.registerFactory<InitializeBloc>(() => InitializeBloc());
+    getIt.registerFactory<InitializeBloc>(() => InitializeBloc(getIt()));
   }
 }

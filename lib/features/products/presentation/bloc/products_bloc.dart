@@ -1,14 +1,25 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_cart_usecase.dart';
 import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
+import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
+import 'package:lojaapp/features/products/domain/usecases/add_item_to_cart_usecase.dart';
 import 'package:lojaapp/features/products/domain/usecases/usecase.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
 import 'package:lojaapp/main.dart';
 
-class ProductsBloc {
+mixin SnackMixin {
+  showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+}
+
+class ProductsBloc with SnackMixin {
   UseCase useCase;
+  AddItemToCartUseCase addItemToCartUseCase;
 
   late StreamController<ProductsEvent> _event;
   Sink<ProductsEvent> get event => _event.sink;
@@ -16,14 +27,14 @@ class ProductsBloc {
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
 
-  ProductsBloc(this.useCase) {
+  ProductsBloc(this.useCase, this.addItemToCartUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
     _event.stream.listen(_mapEventState);
   }
 
-  _dispatchEvent(ProductsEvent event) {
+  dispatchEvent(ProductsEvent event) {
     _event.add(event);
   }
 
@@ -32,6 +43,8 @@ class ProductsBloc {
       getProducts(event.context);
     } else if (event is ProductsEventNavigateDetails) {
       navigateToDetails(event.context, event.entity);
+    } else if (event is ProductsEventAddToCart) {
+      addToCart(event.context, event.productsDto);
     }
   }
 
@@ -47,9 +60,19 @@ class ProductsBloc {
     final productsRequest = await useCase(categories.id);
 
     productsRequest.fold((l) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(l.message)));
+      showSnackBar(context, l.message);
     }, (r) {
+      _dispatchState(BlocStableState(data: r));
+    });
+  }
+
+  addToCart(BuildContext context, ProductsDto productsDto) async {
+    final cartRequest = await addItemToCartUseCase(productsDto);
+
+    cartRequest.fold((l) {
+      showSnackBar(context, l.message);
+    }, (r) {
+      showSnackBar(context, 'Item adicionado com sucesso ao carrinho!!');
       _dispatchState(BlocStableState(data: r));
     });
   }

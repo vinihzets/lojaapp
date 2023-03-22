@@ -41,12 +41,12 @@ Widget buildColumnWidgetsLoginScreen(
       TextButton(
           onPressed: () {},
           child: const Text('Esqueci Minha Senha',
-              style: TextStyle(color: Colors.blue))),
+              style: TextStyle(color: Colors.black))),
       SizedBox(
         width: 240,
         child: ElevatedButton(
           style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+              backgroundColor: MaterialStatePropertyAll(Colors.black)),
           onPressed: () => bloc.event.add(LoginEventSignIn(
               context, emailController.text, passwordController.text)),
           child: const Text('login'),
