@@ -29,3 +29,16 @@ class CartEventDecItem implements CartEvent {
 
   CartEventDecItem(this.context, this.cartProductsDto);
 }
+
+class CartEventNavigate implements CartEvent {
+  BuildContext context;
+
+  CartEventNavigate(this.context);
+}
+
+class CartEventAddDiscount implements CartEvent {
+  BuildContext context;
+  String coupon;
+
+  CartEventAddDiscount(this.context, this.coupon);
+}

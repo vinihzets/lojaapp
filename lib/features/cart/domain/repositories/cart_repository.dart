@@ -8,4 +8,5 @@ abstract class CartRepository {
   Future<Either<Failure, void>> removeCartItems(String id);
   Future<Either<Failure, void>> decProduct(CartProductsDto cartProductsDto);
   Future<Either<Failure, void>> incProduct(CartProductsDto cartProductsDto);
+  Future<Either<Failure, DocumentSnapshot>> discountCard(String counpon);
 }

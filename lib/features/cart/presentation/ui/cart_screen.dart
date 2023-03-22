@@ -8,6 +8,7 @@ import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
 import 'package:lojaapp/features/cart/presentation/widgets/cart_tile_widget.dart';
+import 'package:lojaapp/features/cart/presentation/widgets/discount_card_widget.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -42,7 +43,40 @@ class _CartScreenState extends State<CartScreen> {
           child: BlocScreenBuilder(
               stream: bloc.state,
               builder: (state) {
-                if (state is BlocStableState) {
+                if (state is BlocEmptyState) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.remove_shopping_cart_outlined,
+                        size: 80.0,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 70.0),
+                        child: Text(
+                          'O seu carrinho esta Vazio',
+                          style: TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ElevatedButton(
+                          style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Colors.black)),
+                          onPressed: () =>
+                              bloc.event.add(CartEventNavigate(context)),
+                          child: const Text('Adicionar Produtos'))
+                    ],
+                  );
+                } else if (state is BlocStableState) {
                   List<CartProductsDto> products = state.data;
 
                   return ListView(
@@ -54,10 +88,12 @@ class _CartScreenState extends State<CartScreen> {
                                   bloc: bloc,
                                 ))
                             .toList(),
-                      )
+                      ),
+                      DiscountCard(bloc: bloc)
                     ],
                   );
                 }
+
                 return const SizedBox.shrink();
               }),
         ));

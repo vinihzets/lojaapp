@@ -10,6 +10,8 @@ import 'package:lojaapp/features/cart/domain/usecases/add_item_cart_usecase.dart
 import 'package:lojaapp/features/cart/domain/usecases/add_item_cart_usecase_imp.dart';
 import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase_imp.dart';
+import 'package:lojaapp/features/cart/domain/usecases/discount_cart_items_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/discount_cart_items_usecase_imp.dart';
 import 'package:lojaapp/features/cart/domain/usecases/inc_product_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/inc_product_usecase_imp.dart';
 import 'package:lojaapp/features/cart/domain/usecases/remove_item_cart_usecase.dart';
@@ -112,10 +114,13 @@ class Injector {
     getIt.registerLazySingleton<DecProductUseCase>(
         () => DecProductUseCaseImp(getIt()));
 
+    getIt.registerLazySingleton<DiscountCardItemUseCase>(
+        () => DiscountCardItemUseCaseImp(getIt()));
+
     //controllers
 
     getIt.registerFactory<CartBloc>(
-        () => CartBloc(getIt(), getIt(), getIt(), getIt()));
+        () => CartBloc(getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt(), getIt()));
     getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
     getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));

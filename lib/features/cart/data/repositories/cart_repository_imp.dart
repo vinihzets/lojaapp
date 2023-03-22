@@ -28,4 +28,9 @@ class CartRepositoryImp implements CartRepository {
   Future<Either<Failure, void>> incProduct(CartProductsDto cartProductsDto) {
     return cartDataSource.incProduct(cartProductsDto);
   }
+
+  @override
+  Future<Either<Failure, DocumentSnapshot>> discountCard(String counpon) {
+    return cartDataSource.discountCard(counpon);
+  }
 }

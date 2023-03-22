@@ -87,4 +87,18 @@ class CartDataSourcesRemoteImp implements CartDataSource {
       return Left(RemoteFailure(message: e.message ?? ''));
     }
   }
+
+  @override
+  Future<Either<Failure, DocumentSnapshot>> discountCard(String coupon) async {
+    bool couponApply = false;
+
+    try {
+      final dbRequest =
+          await databaseService.db.collection('coupons').doc(coupon).get();
+
+      return Right(dbRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
 }
