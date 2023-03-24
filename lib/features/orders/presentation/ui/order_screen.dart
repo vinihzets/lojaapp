@@ -60,7 +60,11 @@ class _OrderScreenState extends State<OrderScreen> {
                           children: [
                             Card(
                               child: ExpansionTile(
-                                  title: Text(e.productsPrice.toString())),
+                                  title: Text(
+                                'Id: ${e.orderId}',
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              )),
                             ),
                           ],
                         ))
