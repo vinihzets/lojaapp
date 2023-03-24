@@ -38,7 +38,7 @@ class CartRepositoryImp implements CartRepository {
   }
 
   @override
-  Future<Either<Failure, DocumentReference>> addOrder(
+  Future<Either<Failure, void>> addOrder(
     List<CartProductsDto> cartProductsDto,
     double productsPrice,
     double discount,

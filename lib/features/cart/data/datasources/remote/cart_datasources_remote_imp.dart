@@ -100,7 +100,7 @@ class CartDataSourcesRemoteImp implements CartDataSource {
   }
 
   @override
-  Future<Either<Failure, DocumentReference>> addOrder(
+  Future<Either<Failure, void>> addOrder(
     List<CartProductsDto> cartProductsDto,
     double productsPrice,
     double discount,
@@ -121,7 +121,12 @@ class CartDataSourcesRemoteImp implements CartDataSource {
         'discount': discount,
         'totalPrice': totalPrice,
         'status': 1,
-      });
+      }).then((value) => dbService
+              .collection('orders')
+              .doc(userId)
+              .collection('order')
+              .doc(value.id)
+              .update({'orderId': value.id}));
 
       QuerySnapshot items = await databaseService.db
           .collection('cart')

@@ -10,7 +10,7 @@ class AddCartOrderUseCaseImp implements AddCartOrderUseCase {
 
   AddCartOrderUseCaseImp(this.cartRepository);
   @override
-  Future<Either<Failure, DocumentReference>> addOrder(
+  Future<Either<Failure, void>> addOrder(
     List<CartProductsDto> cartProductsDto,
     double productsPrice,
     double discount,
