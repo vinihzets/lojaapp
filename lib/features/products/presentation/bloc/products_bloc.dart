@@ -9,14 +9,18 @@ import 'package:lojaapp/features/products/domain/usecases/usecase.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
 import 'package:lojaapp/main.dart';
 
-mixin SnackMixin {
+mixin HudMixins {
   showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
   }
+
+  navigate(BuildContext context, String routeName) {
+    Navigator.of(context).pushNamed(routeName);
+  }
 }
 
-class ProductsBloc with SnackMixin {
+class ProductsBloc with HudMixins {
   UseCase useCase;
   AddItemToCartUseCase addItemToCartUseCase;
 
@@ -72,6 +76,7 @@ class ProductsBloc with SnackMixin {
       showSnackBar(context, l.message);
     }, (r) {
       showSnackBar(context, 'Item adicionado com sucesso ao carrinho!!');
+      navigate(context, gConsts.cartScreen);
       _dispatchState(BlocStableState(data: r));
     });
   }
