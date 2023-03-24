@@ -1,12 +1,12 @@
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/core/model/cart_model.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
-
 import 'package:lojaapp/features/cart/data/datasources/cart_datasources.dart';
 import 'package:lojaapp/features/cart/data/datasources/remote/cart_datasources_remote_imp.dart';
 import 'package:lojaapp/features/cart/data/repositories/cart_repository_imp.dart';
 import 'package:lojaapp/features/cart/domain/repositories/cart_repository.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_cart_order_usecase.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_cart_order_usecase_imp.dart';
 import 'package:lojaapp/features/cart/domain/usecases/get_cart_item_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/get_cart_item_usecase_imp.dart';
 import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase.dart';
@@ -62,7 +62,6 @@ class Injector {
     //core
     getIt.registerLazySingleton<AuthService>(() => AuthService());
     getIt.registerLazySingleton<DatabaseService>(() => DatabaseService());
-    getIt.registerLazySingleton<CartModel>(() => CartModel());
     //datasources
 
     getIt.registerLazySingleton<RegisterDataSource>(() =>
@@ -76,10 +75,10 @@ class Injector {
         () => CategoriesDataSourceRemoteImp(getIt()));
 
     getIt.registerLazySingleton<ProductsDataSource>(
-        () => ProductsDataSourceRemoteImp(getIt(), getIt(), getIt()));
+        () => ProductsDataSourceRemoteImp(getIt(), getIt()));
 
     getIt.registerLazySingleton<CartDataSource>(
-        () => CartDataSourcesRemoteImp(getIt(), getIt(), getIt()));
+        () => CartDataSourcesRemoteImp(getIt(), getIt()));
 
     //repositories
 
@@ -120,6 +119,8 @@ class Injector {
 
     getIt.registerLazySingleton<DiscountCardItemUseCase>(
         () => DiscountCardItemUseCaseImp(getIt()));
+    getIt.registerLazySingleton<AddCartOrderUseCase>(
+        () => AddCartOrderUseCaseImp(getIt()));
 
     //controllers
 

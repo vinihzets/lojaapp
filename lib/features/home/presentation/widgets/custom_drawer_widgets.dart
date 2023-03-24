@@ -5,9 +5,9 @@ import 'package:lojaapp/features/home/presentation/widgets/drawer_tile_widgets.d
 import 'package:lojaapp/main.dart';
 
 class CustomDrawer extends StatelessWidget {
-  HomeBloc bloc;
+  final HomeBloc bloc;
 
-  CustomDrawer({required this.bloc, super.key});
+  const CustomDrawer({required this.bloc, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
 
 class DiscountCard extends StatelessWidget {
-  CartBloc bloc;
-  var value;
-  CartStableData data;
-  DiscountCard({required this.bloc, required this.data, super.key});
+  final CartBloc bloc;
+  final CartStableData data;
+  const DiscountCard({required this.bloc, required this.data, super.key});
 
   @override
   Widget build(BuildContext context) {

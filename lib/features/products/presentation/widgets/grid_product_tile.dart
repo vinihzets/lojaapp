@@ -4,10 +4,11 @@ import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
 import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
 
 class GridProductTile extends StatelessWidget {
-  List<ProductsEntity> listProducts;
-  ProductsBloc bloc;
+  final List<ProductsEntity> listProducts;
+  final ProductsBloc bloc;
 
-  GridProductTile({required this.listProducts, required this.bloc, super.key});
+  const GridProductTile(
+      {required this.listProducts, required this.bloc, super.key});
 
   @override
   Widget build(BuildContext context) {

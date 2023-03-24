@@ -4,10 +4,10 @@ import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
 
 class CartTileWidget extends StatefulWidget {
-  CartProductsDto product;
-  CartBloc bloc;
+  final CartProductsDto product;
+  final CartBloc bloc;
 
-  CartTileWidget({required this.product, required this.bloc, super.key});
+  const CartTileWidget({required this.product, required this.bloc, super.key});
 
   @override
   State<CartTileWidget> createState() => _CartTileWidgetState();

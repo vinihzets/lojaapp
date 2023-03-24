@@ -34,8 +34,9 @@ class CartEventDecItem implements CartEvent {
 
 class CartEventNavigate implements CartEvent {
   BuildContext context;
+  String routeName;
 
-  CartEventNavigate(this.context);
+  CartEventNavigate(this.context, this.routeName);
 }
 
 class CartEventCouponVerify implements CartEvent {
@@ -52,4 +53,14 @@ class CartEventCouponExists implements CartEvent {
   bool applyCupom;
 
   CartEventCouponExists(this.totalValue, this.percent, this.applyCupom);
+}
+
+class CartEventCreateOrder implements CartEvent {
+  BuildContext context;
+  double productsPrice;
+  double discount;
+  double totalPrice;
+
+  CartEventCreateOrder(
+      this.context, this.productsPrice, this.discount, this.totalPrice);
 }

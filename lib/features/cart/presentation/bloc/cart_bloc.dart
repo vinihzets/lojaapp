@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/core/model/cart_model.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
+import 'package:lojaapp/features/cart/domain/usecases/add_cart_order_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/get_cart_item_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/discount_cart_items_usecase.dart';
@@ -22,9 +21,8 @@ class SnackMixin {
 }
 
 class NavigateMixin {
-  void navigate(BuildContext context) {
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil(gConsts.homeScreen, (route) => false);
+  void navigate(BuildContext context, String routeName) {
+    Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => false);
   }
 }
 
@@ -53,15 +51,16 @@ class CartBloc with SnackMixin, NavigateMixin {
   IncProductUseCase incProductUseCase;
   DecProductUseCase decProductUseCase;
   DiscountCardItemUseCase discountCardItemUseCase;
-  CartModel cartModel;
+  AddCartOrderUseCase addCartOrderUseCase;
 
   CartBloc(
-      this.getItemsUseCase,
-      this.removeItemCartUseCase,
-      this.incProductUseCase,
-      this.decProductUseCase,
-      this.discountCardItemUseCase,
-      this.cartModel) {
+    this.getItemsUseCase,
+    this.removeItemCartUseCase,
+    this.incProductUseCase,
+    this.decProductUseCase,
+    this.discountCardItemUseCase,
+    this.addCartOrderUseCase,
+  ) {
     _event = StreamController();
     _state = StreamController();
     _cache = [];
@@ -94,11 +93,14 @@ class CartBloc with SnackMixin, NavigateMixin {
     } else if (event is CartEventDecItem) {
       decItem(event.context, event.cartProductsDto);
     } else if (event is CartEventNavigate) {
-      navigate(event.context);
+      navigate(event.context, event.routeName);
     } else if (event is CartEventCouponVerify) {
       couponVerify(event.context, event.coupon, event.totalValue);
     } else if (event is CartEventCouponExists) {
       discountApply(event.totalValue, event.percent);
+    } else if (event is CartEventCreateOrder) {
+      addCartToOrder(
+          event.context, event.productsPrice, event.discount, event.totalPrice);
     }
   }
 
@@ -179,9 +181,20 @@ class CartBloc with SnackMixin, NavigateMixin {
 
   discountApply(double totalPrice, num percent) {
     double totalDiscount = 0.0;
-    for (final product in _cache) {
-      totalDiscount = (totalPrice / 100 * percent);
-    }
+    totalDiscount = (totalPrice / 100 * percent);
     _dispatchStable(_cache, totalDiscount);
+  }
+
+  addCartToOrder(BuildContext context, double productsPrice, double discount,
+      double totalPrice) async {
+    final orderRequest = await addCartOrderUseCase.addOrder(
+        _cache, productsPrice, discount, totalPrice);
+
+    orderRequest.fold((l) {
+      showSnack(context, l.message, Colors.red);
+    }, (r) {
+      showSnack(context, 'Ordem de Compra criada com sucesso', Colors.green);
+      navigate(context, gConsts.homeScreen);
+    });
   }
 }

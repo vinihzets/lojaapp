@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lojaapp/core/failure/failure.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
-import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 
 abstract class CartDataSource {
   Future<Either<Failure, List<CartProductsDto>>> getCartItems();
@@ -12,4 +10,10 @@ abstract class CartDataSource {
   Future<Either<Failure, void>> incProduct(CartProductsDto cartProductsDto);
   Future<Either<Failure, void>> decProduct(CartProductsDto cartProductsDto);
   Future<Either<Failure, DocumentSnapshot>> discountCard(String coupon);
+  Future<Either<Failure, DocumentReference>> addOrder(
+    List<CartProductsDto> cartProductsDto,
+    double productsPrice,
+    double discount,
+    double totalPrice,
+  );
 }

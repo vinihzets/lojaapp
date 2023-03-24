@@ -34,4 +34,13 @@ class CartProductsDto extends CartProductsEntity {
       'id': id,
     };
   }
+
+  toOrderMap() {
+    return {
+      'name': name,
+      'price': price,
+      'size': size,
+      'quantity': quantity,
+    };
+  }
 }

@@ -1,25 +1,19 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:lojaapp/core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/core/model/cart_model.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
 import 'package:lojaapp/features/cart/data/datasources/cart_datasources.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
-import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 
 class CartDataSourcesRemoteImp implements CartDataSource {
   DatabaseService databaseService;
   AuthService authService;
-  CartModel cartModel;
   CartDataSourcesRemoteImp(
     this.databaseService,
     this.authService,
-    this.cartModel,
   );
 
   @override
@@ -100,6 +94,46 @@ class CartDataSourcesRemoteImp implements CartDataSource {
           await databaseService.db.collection('coupons').doc(coupon).get();
 
       return Right(dbRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DocumentReference>> addOrder(
+    List<CartProductsDto> cartProductsDto,
+    double productsPrice,
+    double discount,
+    double totalPrice,
+  ) async {
+    final dbService = databaseService.db;
+    final userId = authService.auth.currentUser!.uid;
+
+    try {
+      final dbAddOrder = await dbService
+          .collection('orders')
+          .doc(userId)
+          .collection('order')
+          .add({
+        'userId': userId,
+        'products': cartProductsDto.map((e) => e.toMap()).toList(),
+        'productsPrice': productsPrice,
+        'discount': discount,
+        'totalPrice': totalPrice,
+        'status': 1,
+      });
+
+      QuerySnapshot items = await databaseService.db
+          .collection('cart')
+          .doc(userId)
+          .collection('items')
+          .get();
+
+      for (DocumentSnapshot document in items.docs) {
+        document.reference.delete();
+      }
+
+      return Right(dbAddOrder);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ''));
     }

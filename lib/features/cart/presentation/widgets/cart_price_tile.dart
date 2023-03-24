@@ -1,13 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 
 class CartPriceTile extends StatelessWidget {
   final VoidCallback buy;
   final CartStableData data;
-  CartPriceTile({required this.buy, required this.data, super.key});
+  const CartPriceTile({required this.buy, required this.data, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class CartPriceTile extends StatelessWidget {
             const Divider(),
             Row(
               children: [
-                Expanded(child: Text('Desconto')),
+                const Expanded(child: Text('Desconto')),
                 Text('R\$ ${data.discount.toStringAsFixed(2)}')
               ],
             ),
@@ -56,7 +55,7 @@ class CartPriceTile extends StatelessWidget {
                 const Expanded(child: Text('Total')),
                 Text(
                   'R\$ ${data.getTotalPrice(subTotal, data.discount).toStringAsFixed(2)}',
-                  style: TextStyle(color: Colors.blue),
+                  style: const TextStyle(color: Colors.blue),
                 )
               ],
             ),
@@ -67,7 +66,7 @@ class CartPriceTile extends StatelessWidget {
                         backgroundColor:
                             MaterialStatePropertyAll(Colors.black)),
                     onPressed: buy,
-                    child: Text('Comprar')))
+                    child: const Text('Comprar')))
           ],
         ),
       ),

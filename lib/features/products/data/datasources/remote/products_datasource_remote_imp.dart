@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lojaapp/core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/core/model/cart_model.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
 import 'package:lojaapp/features/products/data/datasources/products_datasource.dart';
@@ -13,9 +12,7 @@ import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
 class ProductsDataSourceRemoteImp implements ProductsDataSource {
   DatabaseService databaseService;
   AuthService authService;
-  CartModel cartModel;
-  ProductsDataSourceRemoteImp(
-      this.databaseService, this.authService, this.cartModel);
+  ProductsDataSourceRemoteImp(this.databaseService, this.authService);
 
   @override
   Future<Either<Failure, List<ProductsEntity>>> getProducts(String uid) async {
