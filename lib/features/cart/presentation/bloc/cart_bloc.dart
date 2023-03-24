@@ -21,8 +21,12 @@ class SnackMixin {
 }
 
 class NavigateMixin {
-  void navigate(BuildContext context, String routeName) {
+  void navigateRemoveUntil(BuildContext context, String routeName) {
     Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => false);
+  }
+
+  void navigateThenUntil(BuildContext context, String routeName) {
+    Navigator.of(context).pushNamed(routeName);
   }
 }
 
@@ -93,7 +97,7 @@ class CartBloc with SnackMixin, NavigateMixin {
     } else if (event is CartEventDecItem) {
       decItem(event.context, event.cartProductsDto);
     } else if (event is CartEventNavigate) {
-      navigate(event.context, event.routeName);
+      navigateRemoveUntil(event.context, event.routeName);
     } else if (event is CartEventCouponVerify) {
       couponVerify(event.context, event.coupon, event.totalValue);
     } else if (event is CartEventCouponExists) {
@@ -194,7 +198,7 @@ class CartBloc with SnackMixin, NavigateMixin {
       showSnack(context, l.message, Colors.red);
     }, (r) {
       showSnack(context, 'Ordem de Compra criada com sucesso', Colors.green);
-      navigate(context, gConsts.homeScreen);
+      navigateRemoveUntil(context, gConsts.orderScreen);
     });
   }
 }

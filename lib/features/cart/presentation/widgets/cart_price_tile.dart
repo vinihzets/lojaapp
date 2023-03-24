@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 
@@ -11,7 +9,6 @@ class CartPriceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subTotal = data.getSubTotalPrice();
-    inspect(data.discount);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: Container(

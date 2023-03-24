@@ -38,6 +38,13 @@ import 'package:lojaapp/features/login/domain/repositories/login_repository.dart
 import 'package:lojaapp/features/login/domain/usecases/login_usecase.dart';
 import 'package:lojaapp/features/login/domain/usecases/login_usecase_imp.dart';
 import 'package:lojaapp/features/login/presentation/bloc/login_bloc.dart';
+import 'package:lojaapp/features/orders/data/datasources/order_datasources.dart';
+import 'package:lojaapp/features/orders/data/datasources/remote/order_datasources_remote_imp.dart';
+import 'package:lojaapp/features/orders/data/repositories/order_repository_imp.dart';
+import 'package:lojaapp/features/orders/domain/repositories/order_repository.dart';
+import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
+import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase_imp.dart';
+import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
 import 'package:lojaapp/features/products/data/datasources/products_datasource.dart';
 import 'package:lojaapp/features/products/data/datasources/remote/products_datasource_remote_imp.dart';
 import 'package:lojaapp/features/products/data/repositories/products_repository_imp.dart';
@@ -80,6 +87,9 @@ class Injector {
     getIt.registerLazySingleton<CartDataSource>(
         () => CartDataSourcesRemoteImp(getIt(), getIt()));
 
+    getIt.registerLazySingleton<OrderDataSources>(
+        () => OrderDataSourcesRemoteImp(getIt(), getIt()));
+
     //repositories
 
     getIt.registerLazySingleton<RegisterRepository>(
@@ -95,6 +105,8 @@ class Injector {
         () => ProductsRepositoryImp(getIt()));
     getIt.registerLazySingleton<CartRepository>(
         () => CartRepositoryImp(getIt()));
+    getIt.registerLazySingleton<OrderRepository>(
+        () => OrderRepositoryImp(getIt()));
 
     //usecases
 
@@ -121,9 +133,12 @@ class Injector {
         () => DiscountCardItemUseCaseImp(getIt()));
     getIt.registerLazySingleton<AddCartOrderUseCase>(
         () => AddCartOrderUseCaseImp(getIt()));
+    getIt.registerLazySingleton<GetOrdersUseCase>(
+        () => GetOrdersUseCaseImp(getIt()));
 
     //controllers
 
+    getIt.registerFactory(() => OrderBloc(getIt()));
     getIt.registerFactory<CartBloc>(
         () => CartBloc(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt(), getIt()));

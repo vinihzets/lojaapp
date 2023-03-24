@@ -43,8 +43,6 @@ class ProductsDataSourceRemoteImp implements ProductsDataSource {
       final dbRequest =
           await dbCart.add(productsDto.toResumedMap()).then((value) {
         dbCart.doc(value.id).update({'id': value.id, 'quantity': 1});
-
-        inspect(productsDto.toResumedMap());
       });
 
       return Right(dbRequest);

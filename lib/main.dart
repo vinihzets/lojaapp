@@ -4,6 +4,7 @@ import 'package:lojaapp/core/inject/injector.dart';
 import 'package:lojaapp/core/utils/consts.dart';
 import 'package:lojaapp/features/cart/presentation/ui/cart_screen.dart';
 import 'package:lojaapp/features/categories/presentation/ui/categories_screen.dart';
+import 'package:lojaapp/features/orders/presentation/ui/order_screen.dart';
 import 'package:lojaapp/features/products/presentation/ui/products_details_screen.dart';
 import 'package:lojaapp/features/products/presentation/ui/products_screen.dart';
 import 'package:lojaapp/features/home/presentation/ui/home_screen.dart';
@@ -29,6 +30,7 @@ void main() async {
       gConsts.productsScreen: (_) => const ProductsScreen(),
       gConsts.productsDetailsScreen: (_) => const ProductsDetailsScreen(),
       gConsts.cartScreen: (_) => const CartScreen(),
+      gConsts.orderScreen: (_) => const OrderScreen(),
     },
     initialRoute: gConsts.initializeScreen,
   ));

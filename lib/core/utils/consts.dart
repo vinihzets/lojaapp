@@ -7,4 +7,5 @@ class Consts {
   final String productsScreen = '/productsScreen';
   final String productsDetailsScreen = '/productsDetails';
   final String cartScreen = '/cartScreen';
+  final String orderScreen = '/orderScreen';
 }
