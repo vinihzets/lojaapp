@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
@@ -5,7 +7,8 @@ import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
-import 'package:lojaapp/features/cart/presentation/widgets/cart_tile_widget.dart';
+import 'package:lojaapp/features/cart/presentation/widgets/cart_price_tile.dart';
+import 'package:lojaapp/features/cart/presentation/widgets/items_cart_tile_widget.dart';
 import 'package:lojaapp/features/cart/presentation/widgets/discount_card_widget.dart';
 
 class CartScreen extends StatefulWidget {
@@ -21,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     bloc = GetIt.I.get();
-    bloc.event.add(CartEventAddItem(
+    bloc.event.add(CartEventGetItemsCart(
       context,
     ));
 
@@ -75,19 +78,23 @@ class _CartScreenState extends State<CartScreen> {
                     ],
                   );
                 } else if (state is BlocStableState) {
-                  List<CartProductsDto> products = state.data;
+                  CartStableData data = state.data;
 
                   return ListView(
                     children: [
                       Column(
-                        children: products
+                        children: data.products
                             .map((e) => CartTileWidget(
                                   product: e,
                                   bloc: bloc,
                                 ))
                             .toList(),
                       ),
-                      DiscountCard(bloc: bloc)
+                      DiscountCard(bloc: bloc, value: data.getTotalPrice()),
+                      CartPriceTile(
+                        subTotal: data.getTotalPrice(),
+                        buy: () {},
+                      ),
                     ],
                   );
                 }

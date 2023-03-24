@@ -3,7 +3,8 @@ import 'package:lojaapp/core/architeture/bloc_builder.dart';
 
 class CartPriceTile extends StatelessWidget {
   final VoidCallback buy;
-  CartPriceTile({required this.buy, super.key});
+  final double subTotal;
+  CartPriceTile({required this.buy, required this.subTotal, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,34 +23,34 @@ class CartPriceTile extends StatelessWidget {
               height: 12.0,
             ),
             Row(
-              children: const [
-                Expanded(child: Text('Subtotal')),
-                Text('R\$ 0.0')
+              children: [
+                const Expanded(child: Text('Subtotal')),
+                Text('R\$ ${subTotal.toStringAsFixed(2)}')
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: const [
                 Expanded(child: Text('Desconto')),
                 Text('R\$ 0.0')
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: const [
                 Expanded(child: Text('Entrega')),
                 Text('R\$ 0.0')
               ],
             ),
-            Divider(),
-            SizedBox(
+            const Divider(),
+            const SizedBox(
               height: 12,
             ),
             Row(
-              children: const [
-                Expanded(child: Text('Total')),
+              children: [
+                const Expanded(child: Text('Total')),
                 Text(
-                  'R\$ 0.0',
+                  'R\$ ${subTotal}',
                   style: TextStyle(color: Colors.blue),
                 )
               ],

@@ -1,6 +1,8 @@
 abstract class BlocState<T> {
   T? data;
-  BlocState({required this.data});
+  BlocState({
+    required this.data,
+  });
 }
 
 class BlocStableState<T> extends BlocState<T> {

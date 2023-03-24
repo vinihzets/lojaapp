@@ -1,11 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
 
 class DiscountCard extends StatelessWidget {
   CartBloc bloc;
+  var value;
 
-  DiscountCard({required this.bloc, super.key});
+  DiscountCard({required this.bloc, required this.value, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class DiscountCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               onFieldSubmitted: (text) {
-                bloc.event.add(CartEventAddDiscount(context, text));
+                bloc.event.add(CartEventCouponVerify(context, text, value));
               },
               decoration: const InputDecoration(
                   hintText: 'Digite seu Cupom',

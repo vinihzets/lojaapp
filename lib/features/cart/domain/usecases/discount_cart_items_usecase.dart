@@ -3,5 +3,5 @@ import 'package:dartz/dartz.dart';
 import 'package:lojaapp/core/failure/failure.dart';
 
 abstract class DiscountCardItemUseCase {
-  Future<Either<Failure, DocumentSnapshot>> discountItem(String coupon);
+  Future<Either<Failure, DocumentSnapshot>> couponVerify(String coupon);
 }

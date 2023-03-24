@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/core/model/cart_model.dart';
 import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
 import 'package:lojaapp/features/cart/domain/usecases/get_cart_item_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/dec_product_usecase.dart';
@@ -8,6 +10,7 @@ import 'package:lojaapp/features/cart/domain/usecases/discount_cart_items_usecas
 import 'package:lojaapp/features/cart/domain/usecases/inc_product_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/remove_item_cart_usecase.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
+import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 import 'package:lojaapp/main.dart';
 
 class SnackMixin {
@@ -26,22 +29,38 @@ class NavigateMixin {
   }
 }
 
+class CartStableData {
+  final List<CartProductsDto> products;
+
+  getTotalPrice() {
+    double price = 0.0;
+    for (CartProductsDto c in products) {
+      price += double.parse(c.quantity.toString()) * double.parse(c.price);
+    }
+    return price;
+  }
+
+  CartStableData(this.products);
+}
+
 class CartBloc with SnackMixin, NavigateMixin {
-  AddCartUseCase addCartUseCase;
+  GetItemsCart getItemsUseCase;
   RemoveItemCartUseCase removeItemCartUseCase;
   IncProductUseCase incProductUseCase;
   DecProductUseCase decProductUseCase;
   DiscountCardItemUseCase discountCardItemUseCase;
+  CartModel cartModel;
 
   CartBloc(
-      this.addCartUseCase,
+      this.getItemsUseCase,
       this.removeItemCartUseCase,
       this.incProductUseCase,
       this.decProductUseCase,
-      this.discountCardItemUseCase) {
+      this.discountCardItemUseCase,
+      this.cartModel) {
     _event = StreamController();
     _state = StreamController();
-
+    _cache = [];
     _event.stream.listen(_mapListenEvent);
   }
 
@@ -50,6 +69,8 @@ class CartBloc with SnackMixin, NavigateMixin {
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
+
+  late List<CartProductsDto> _cache;
 
   dispatchEvent(CartEvent event) {
     _event.add(event);
@@ -60,8 +81,8 @@ class CartBloc with SnackMixin, NavigateMixin {
   }
 
   _mapListenEvent(CartEvent event) {
-    if (event is CartEventAddItem) {
-      addItemToCart(event.context);
+    if (event is CartEventGetItemsCart) {
+      getItemsCart(event.context);
     } else if (event is CartEventRemoveItem) {
       removeItemToCart(event.context, event.id);
     } else if (event is CartEventIncItem) {
@@ -70,22 +91,29 @@ class CartBloc with SnackMixin, NavigateMixin {
       decItem(event.context, event.cartProductsDto);
     } else if (event is CartEventNavigate) {
       navigate(event.context);
-    } else if (event is CartEventAddDiscount) {
-      addDiscount(event.context, event.coupon);
+    } else if (event is CartEventCouponVerify) {
+      couponVerify(event.context, event.coupon, event.totalValue);
+    } else if (event is CartEventCouponExists) {
+      discountApply(event.totalValue, event.percent);
     }
   }
 
-  addItemToCart(BuildContext context) async {
-    final itemAddRequest = await addCartUseCase();
+  _dispatchStable(List<CartProductsDto> products) {
+    _cache = products;
+    if (_cache.isEmpty) {
+      _dispatchState(BlocEmptyState());
+    } else {
+      _dispatchState(BlocStableState(data: CartStableData(_cache)));
+    }
+  }
 
-    itemAddRequest.fold((l) {
+  getItemsCart(BuildContext context) async {
+    final getItemsCartRequest = await getItemsUseCase();
+
+    getItemsCartRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      if (r.isEmpty) {
-        _dispatchState(BlocEmptyState(data: r));
-      } else {
-        _dispatchState(BlocStableState(data: r));
-      }
+      _dispatchStable(r);
     });
   }
 
@@ -95,7 +123,7 @@ class CartBloc with SnackMixin, NavigateMixin {
     incRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      r;
+      _dispatchStable(_cache);
     });
   }
 
@@ -105,7 +133,7 @@ class CartBloc with SnackMixin, NavigateMixin {
     decRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      r;
+      _dispatchStable(_cache);
     });
   }
 
@@ -115,21 +143,39 @@ class CartBloc with SnackMixin, NavigateMixin {
     removeitemRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      r;
+      _cache.removeWhere((element) => element.id == id);
+      if (_cache.isEmpty) {
+        _dispatchState(BlocEmptyState());
+      } else {
+        _dispatchStable(_cache);
+      }
     });
   }
 
-  addDiscount(BuildContext context, String coupon) async {
-    final addCoupon = await discountCardItemUseCase.discountItem(coupon);
+  couponVerify(BuildContext context, String coupon, double totalValue) async {
+    final addCoupon = await discountCardItemUseCase.couponVerify(coupon);
 
     addCoupon.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
       if (r.exists) {
         showSnack(context, 'Cupom Existente', Colors.green);
+
+        bool applyCupom = true;
+        int percent = r.get('cupom');
+        dispatchEvent(CartEventCouponExists(totalValue, percent, applyCupom));
       } else {
         showSnack(context, 'Cupom Inexistente', Colors.red);
       }
     });
+  }
+
+  discountApply(double totalPrice, num percent) {
+    double totalDiscount = 0.0;
+    for (final product in _cache) {
+      totalDiscount = (totalPrice / 100 * percent);
+    }
+    inspect(totalDiscount);
+    _dispatchStable(_cache);
   }
 }

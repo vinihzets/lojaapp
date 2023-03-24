@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:lojaapp/core/failure/failure.dart';
@@ -33,10 +35,5 @@ class CartRepositoryImp implements CartRepository {
   @override
   Future<Either<Failure, DocumentSnapshot>> discountCard(String counpon) {
     return cartDataSource.discountCard(counpon);
-  }
-
-  @override
-  Future<Either<Failure, dynamic>> getPrice(CartProductsDto cartProductsDto) {
-    return cartDataSource.getPrice(cartProductsDto);
   }
 }

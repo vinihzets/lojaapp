@@ -10,7 +10,7 @@ class DiscountCardItemUseCaseImp implements DiscountCardItemUseCase {
   DiscountCardItemUseCaseImp(this.cartRepository);
 
   @override
-  Future<Either<Failure, DocumentSnapshot>> discountItem(String coupon) {
+  Future<Either<Failure, DocumentSnapshot>> couponVerify(String coupon) {
     return cartRepository.discountCard(coupon);
   }
 }

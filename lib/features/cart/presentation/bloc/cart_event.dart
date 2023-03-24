@@ -3,10 +3,12 @@ import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
 
 abstract class CartEvent {}
 
-class CartEventAddItem implements CartEvent {
+class CartEventGetItemsCart implements CartEvent {
   BuildContext context;
 
-  CartEventAddItem(this.context);
+  CartEventGetItemsCart(
+    this.context,
+  );
 }
 
 class CartEventRemoveItem implements CartEvent {
@@ -36,9 +38,18 @@ class CartEventNavigate implements CartEvent {
   CartEventNavigate(this.context);
 }
 
-class CartEventAddDiscount implements CartEvent {
+class CartEventCouponVerify implements CartEvent {
   BuildContext context;
   String coupon;
+  double totalValue;
 
-  CartEventAddDiscount(this.context, this.coupon);
+  CartEventCouponVerify(this.context, this.coupon, this.totalValue);
+}
+
+class CartEventCouponExists implements CartEvent {
+  num percent;
+  double totalValue;
+  bool applyCupom;
+
+  CartEventCouponExists(this.totalValue, this.percent, this.applyCupom);
 }

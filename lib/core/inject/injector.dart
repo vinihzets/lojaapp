@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:lojaapp/core/model/cart_model.dart';
 import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
 
@@ -61,6 +62,7 @@ class Injector {
     //core
     getIt.registerLazySingleton<AuthService>(() => AuthService());
     getIt.registerLazySingleton<DatabaseService>(() => DatabaseService());
+    getIt.registerLazySingleton<CartModel>(() => CartModel());
     //datasources
 
     getIt.registerLazySingleton<RegisterDataSource>(() =>
@@ -74,10 +76,10 @@ class Injector {
         () => CategoriesDataSourceRemoteImp(getIt()));
 
     getIt.registerLazySingleton<ProductsDataSource>(
-        () => ProductsDataSourceRemoteImp(getIt(), getIt()));
+        () => ProductsDataSourceRemoteImp(getIt(), getIt(), getIt()));
 
     getIt.registerLazySingleton<CartDataSource>(
-        () => CartDataSourcesRemoteImp(getIt(), getIt()));
+        () => CartDataSourcesRemoteImp(getIt(), getIt(), getIt()));
 
     //repositories
 
@@ -105,8 +107,7 @@ class Injector {
     getIt.registerLazySingleton(() => SignOutUseCase(getIt()));
     getIt.registerLazySingleton(() => GetCategoriesUseCase(getIt()));
     getIt.registerLazySingleton<UseCase>(() => GetProductsUseCase(getIt()));
-    getIt.registerLazySingleton<AddCartUseCase>(
-        () => AddCartUseCaseImp(getIt()));
+    getIt.registerLazySingleton<GetItemsCart>(() => AddCartUseCaseImp(getIt()));
 
     getIt.registerLazySingleton<AddItemToCartUseCase>(
         () => AddItemToCartUseCaseImp(getIt()));
@@ -123,7 +124,7 @@ class Injector {
     //controllers
 
     getIt.registerFactory<CartBloc>(
-        () => CartBloc(getIt(), getIt(), getIt(), getIt(), getIt()));
+        () => CartBloc(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt(), getIt()));
     getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
     getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));

@@ -52,8 +52,10 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                   IconButton(
                       onPressed: widget.product.quantity < 2
                           ? null
-                          : () => widget.bloc.event
-                              .add(CartEventDecItem(context, widget.product)),
+                          : () {
+                              widget.bloc.event.add(
+                                  CartEventDecItem(context, widget.product));
+                            },
                       icon: const Icon(Icons.remove)),
                   Text(widget.product.quantity.toString()),
                   IconButton(
@@ -66,8 +68,10 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                       style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.transparent)),
-                      onPressed: () => widget.bloc.event
-                          .add(CartEventRemoveItem(context, widget.product.id)),
+                      onPressed: () {
+                        widget.bloc.event.add(
+                            CartEventRemoveItem(context, widget.product.id));
+                      },
                       child: const Text('Remover'))
                 ],
               ),
