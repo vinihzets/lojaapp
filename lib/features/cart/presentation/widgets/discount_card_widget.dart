@@ -7,11 +7,13 @@ import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
 class DiscountCard extends StatelessWidget {
   CartBloc bloc;
   var value;
-
-  DiscountCard({required this.bloc, required this.value, super.key});
+  CartStableData data;
+  DiscountCard({required this.bloc, required this.data, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final value = data.getSubTotalPrice();
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: ExpansionTile(

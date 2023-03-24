@@ -10,7 +10,6 @@ import 'package:lojaapp/features/cart/domain/usecases/discount_cart_items_usecas
 import 'package:lojaapp/features/cart/domain/usecases/inc_product_usecase.dart';
 import 'package:lojaapp/features/cart/domain/usecases/remove_item_cart_usecase.dart';
 import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
-import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
 import 'package:lojaapp/main.dart';
 
 class SnackMixin {
@@ -31,8 +30,8 @@ class NavigateMixin {
 
 class CartStableData {
   final List<CartProductsDto> products;
-
-  getTotalPrice() {
+  final double discount;
+  getSubTotalPrice() {
     double price = 0.0;
     for (CartProductsDto c in products) {
       price += double.parse(c.quantity.toString()) * double.parse(c.price);
@@ -40,7 +39,12 @@ class CartStableData {
     return price;
   }
 
-  CartStableData(this.products);
+  getTotalPrice(double subTotal, double discount) {
+    final sum = subTotal - discount;
+    return sum;
+  }
+
+  CartStableData(this.products, this.discount);
 }
 
 class CartBloc with SnackMixin, NavigateMixin {
@@ -98,12 +102,15 @@ class CartBloc with SnackMixin, NavigateMixin {
     }
   }
 
-  _dispatchStable(List<CartProductsDto> products) {
+  _dispatchStable(
+    List<CartProductsDto> products,
+    double discount,
+  ) {
     _cache = products;
     if (_cache.isEmpty) {
       _dispatchState(BlocEmptyState());
     } else {
-      _dispatchState(BlocStableState(data: CartStableData(_cache)));
+      _dispatchState(BlocStableState(data: CartStableData(_cache, discount)));
     }
   }
 
@@ -113,7 +120,7 @@ class CartBloc with SnackMixin, NavigateMixin {
     getItemsCartRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      _dispatchStable(r);
+      _dispatchStable(r, 0.0);
     });
   }
 
@@ -123,7 +130,7 @@ class CartBloc with SnackMixin, NavigateMixin {
     incRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      _dispatchStable(_cache);
+      _dispatchStable(_cache, 0.0);
     });
   }
 
@@ -133,7 +140,7 @@ class CartBloc with SnackMixin, NavigateMixin {
     decRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      _dispatchStable(_cache);
+      _dispatchStable(_cache, 0.0);
     });
   }
 
@@ -147,7 +154,7 @@ class CartBloc with SnackMixin, NavigateMixin {
       if (_cache.isEmpty) {
         _dispatchState(BlocEmptyState());
       } else {
-        _dispatchStable(_cache);
+        _dispatchStable(_cache, 0.0);
       }
     });
   }
@@ -175,7 +182,6 @@ class CartBloc with SnackMixin, NavigateMixin {
     for (final product in _cache) {
       totalDiscount = (totalPrice / 100 * percent);
     }
-    inspect(totalDiscount);
-    _dispatchStable(_cache);
+    _dispatchStable(_cache, totalDiscount);
   }
 }

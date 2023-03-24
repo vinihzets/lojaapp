@@ -90,9 +90,12 @@ class _CartScreenState extends State<CartScreen> {
                                 ))
                             .toList(),
                       ),
-                      DiscountCard(bloc: bloc, value: data.getTotalPrice()),
+                      DiscountCard(
+                        bloc: bloc,
+                        data: data,
+                      ),
                       CartPriceTile(
-                        subTotal: data.getTotalPrice(),
+                        data: data,
                         buy: () {},
                       ),
                     ],

@@ -1,13 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
+import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
 
 class CartPriceTile extends StatelessWidget {
   final VoidCallback buy;
-  final double subTotal;
-  CartPriceTile({required this.buy, required this.subTotal, super.key});
+  final CartStableData data;
+  CartPriceTile({required this.buy, required this.data, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final subTotal = data.getSubTotalPrice();
+    inspect(data.discount);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: Container(
@@ -30,9 +35,9 @@ class CartPriceTile extends StatelessWidget {
             ),
             const Divider(),
             Row(
-              children: const [
+              children: [
                 Expanded(child: Text('Desconto')),
-                Text('R\$ 0.0')
+                Text('R\$ ${data.discount.toStringAsFixed(2)}')
               ],
             ),
             const Divider(),
@@ -50,7 +55,7 @@ class CartPriceTile extends StatelessWidget {
               children: [
                 const Expanded(child: Text('Total')),
                 Text(
-                  'R\$ ${subTotal}',
+                  'R\$ ${data.getTotalPrice(subTotal, data.discount).toStringAsFixed(2)}',
                   style: TextStyle(color: Colors.blue),
                 )
               ],
