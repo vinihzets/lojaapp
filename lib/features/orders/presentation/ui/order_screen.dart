@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
@@ -60,11 +63,19 @@ class _OrderScreenState extends State<OrderScreen> {
                           children: [
                             Card(
                               child: ExpansionTile(
-                                  title: Text(
-                                'Id: ${e.orderId}',
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              )),
+                                title: Text(
+                                  'Id: ${e.orderId}',
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                children: [
+                                  Text('Preco total: ${e.totalPrice}'),
+                                  Column(
+                                    children: [],
+                                  )
+                                ],
+                              ),
                             ),
                           ],
                         ))
