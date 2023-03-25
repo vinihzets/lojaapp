@@ -1,3 +1,4 @@
+import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 
 class OrderDto extends OrderEntity {
@@ -10,7 +11,11 @@ class OrderDto extends OrderEntity {
   );
 
   factory OrderDto.fromJson(Map<dynamic, dynamic> map) {
-    return OrderDto(map['products'], map['productsPrice'], map['status'],
-        map['totalPrice'], map['orderId']);
+    return OrderDto(
+        (map['products'] as List).map((e) => ProductsDto.fromJson(e)).toList(),
+        map['productsPrice'],
+        map['status'],
+        map['totalPrice'],
+        map['orderId']);
   }
 }

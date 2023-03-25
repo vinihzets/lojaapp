@@ -3,7 +3,7 @@ abstract class ProductsEntity {
   String image;
   String name;
   String priceUnity;
-  String quantity;
+  int quantity;
   String size;
 
   ProductsEntity(this.description, this.image, this.name, this.priceUnity,

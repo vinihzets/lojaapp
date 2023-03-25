@@ -5,6 +5,7 @@ import 'package:lojaapp/core/services/auth/auth_service.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
 import 'package:lojaapp/features/orders/data/datasources/order_datasources.dart';
 import 'package:lojaapp/features/orders/data/dtos/order_dto.dart';
+import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 
 class OrderDataSourcesRemoteImp implements OrderDataSources {
@@ -27,6 +28,7 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
 
       final list =
           documents.docs.map((e) => OrderDto.fromJson(e.data())).toList();
+
       return Right(list);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ''));

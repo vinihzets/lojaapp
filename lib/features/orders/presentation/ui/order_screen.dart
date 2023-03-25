@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/features/orders/data/dtos/order_dto.dart';
 import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
@@ -56,6 +57,7 @@ class _OrderScreenState extends State<OrderScreen> {
               );
             } else if (state is BlocStableState) {
               List<OrderEntity> orders = state.data;
+              inspect(orders);
 
               return ListView(
                 children: orders
@@ -72,8 +74,19 @@ class _OrderScreenState extends State<OrderScreen> {
                                 children: [
                                   Text('Preco total: ${e.totalPrice}'),
                                   Column(
-                                    children: [],
-                                  )
+                                      children: e.products
+                                          .map((e) => Row(
+                                                children: [
+                                                  Image.network(
+                                                    e.image,
+                                                    width: 40,
+                                                  ),
+                                                  Text(e.name),
+                                                  Text(e.quantity.toString()),
+                                                  Text(e.size),
+                                                ],
+                                              ))
+                                          .toList())
                                 ],
                               ),
                             ),

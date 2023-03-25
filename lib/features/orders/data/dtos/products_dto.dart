@@ -15,7 +15,7 @@ class ProductsDto extends ProductsEntity {
       map['description'],
       map['image'],
       map['name'],
-      map['priceUnity'],
+      map['price'],
       map['quantity'],
       map['size'],
     );
