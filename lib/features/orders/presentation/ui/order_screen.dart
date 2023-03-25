@@ -9,6 +9,7 @@ import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
+import 'package:lojaapp/main.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -30,7 +31,12 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () =>
+                bloc.event.add(OrderEventNavigate(context, gConsts.homeScreen)),
+            icon: const Icon(Icons.chevron_left_outlined)),
+      ),
       body: BlocScreenBuilder(
           stream: bloc.state,
           builder: (state) {
@@ -57,7 +63,6 @@ class _OrderScreenState extends State<OrderScreen> {
               );
             } else if (state is BlocStableState) {
               List<OrderEntity> orders = state.data;
-              inspect(orders);
 
               return ListView(
                 children: orders
@@ -72,19 +77,72 @@ class _OrderScreenState extends State<OrderScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 children: [
-                                  Text('Preco total: ${e.totalPrice}'),
+                                  Text(
+                                      'Preco total: R\$ ${e.totalPrice.toStringAsFixed(2)}'),
                                   Column(
                                       children: e.products
-                                          .map((e) => Row(
-                                                children: [
-                                                  Image.network(
-                                                    e.image,
-                                                    width: 40,
-                                                  ),
-                                                  Text(e.name),
-                                                  Text(e.quantity.toString()),
-                                                  Text(e.size),
-                                                ],
+                                          .map((e) => Container(
+                                                padding:
+                                                    const EdgeInsets.all(12),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Valor unitario: ${e.priceUnity}',
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Image.network(
+                                                            e.image,
+                                                            width: 80,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                            child: Text(
+                                                          'item: ${e.name}',
+                                                          style: const TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                        Expanded(
+                                                            child: Text(
+                                                          'quantidade: ${e.quantity}'
+                                                              .toString(),
+                                                          style: const TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                        Expanded(
+                                                            child: Text(
+                                                          'tamanho: ${e.size}',
+                                                          style: const TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ))
                                           .toList())
                                 ],

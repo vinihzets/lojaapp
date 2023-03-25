@@ -7,3 +7,9 @@ class OrderEventGet implements OrderEvent {
 
   OrderEventGet(this.context);
 }
+
+class OrderEventNavigate implements OrderEvent {
+  BuildContext context;
+  String routeName;
+  OrderEventNavigate(this.context, this.routeName);
+}

@@ -6,16 +6,20 @@ import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
 
-mixin SnackMixin {
+mixin HudMixins {
   showSnack(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(message),
       backgroundColor: Colors.red,
     ));
   }
+
+  navigate(BuildContext context, String routeName) {
+    Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => false);
+  }
 }
 
-class OrderBloc with SnackMixin {
+class OrderBloc with HudMixins {
   GetOrdersUseCase getOrdersUseCase;
 
   OrderBloc(this.getOrdersUseCase) {
@@ -42,6 +46,8 @@ class OrderBloc with SnackMixin {
   _mapListenEvent(OrderEvent event) {
     if (event is OrderEventGet) {
       getOrders(event.context);
+    } else if (event is OrderEventNavigate) {
+      navigate(event.context, event.routeName);
     }
   }
 

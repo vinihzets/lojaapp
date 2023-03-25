@@ -6,6 +6,12 @@ abstract class ProductsEntity {
   int quantity;
   String size;
 
-  ProductsEntity(this.description, this.image, this.name, this.priceUnity,
-      this.quantity, this.size);
+  ProductsEntity(
+    this.description,
+    this.image,
+    this.name,
+    this.priceUnity,
+    this.quantity,
+    this.size,
+  );
 }
