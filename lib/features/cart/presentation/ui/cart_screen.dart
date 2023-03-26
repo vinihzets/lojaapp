@@ -36,6 +36,7 @@ class _CartScreenState extends State<CartScreen> {
           backgroundColor: Colors.black,
           title: const Text('Meu Carrinho'),
           centerTitle: true,
+          actions: [Text('')],
         ),
         body: Card(
           margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),

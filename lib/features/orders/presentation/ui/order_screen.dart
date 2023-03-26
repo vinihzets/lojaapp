@@ -9,6 +9,7 @@ import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
+import 'package:lojaapp/features/orders/presentation/widgets/build_status_widgets_order_screen.dart';
 import 'package:lojaapp/main.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         leading: IconButton(
             onPressed: () =>
                 bloc.event.add(OrderEventNavigate(context, gConsts.homeScreen)),
@@ -42,8 +44,6 @@ class _OrderScreenState extends State<OrderScreen> {
           builder: (state) {
             if (state is BlocEmptyState) {
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Icon(
                     Icons.playlist_add_check,
@@ -70,76 +70,88 @@ class _OrderScreenState extends State<OrderScreen> {
                           children: [
                             Card(
                               child: ExpansionTile(
+                                tilePadding: const EdgeInsets.symmetric(
+                                  horizontal: 4.0,
+                                ),
+                                childrenPadding:
+                                    const EdgeInsets.symmetric(horizontal: 3.0),
+                                expandedCrossAxisAlignment:
+                                    CrossAxisAlignment.stretch,
                                 title: Text(
-                                  'Id: ${e.orderId}',
+                                  'Pedido: ${e.orderId}',
                                   style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 children: [
+                                  Row(
+                                    children: [
+                                      buildStatusCircleWidgets(
+                                          '1',
+                                          'Aguardando Pagamento',
+                                          e.status.toInt(),
+                                          1),
+                                      const SizedBox(
+                                        width: 4.0,
+                                      ),
+                                      buildStatusCircleWidgets(
+                                          '2',
+                                          'Pagamento Aprovado',
+                                          e.status.toInt(),
+                                          2),
+                                      const SizedBox(
+                                        width: 6.0,
+                                      ),
+                                      buildStatusCircleWidgets('3',
+                                          'Transporte', e.status.toInt(), 3),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16.0,
+                                  ),
+                                  const Text(
+                                    'Descricao: ',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 6.0,
+                                  ),
+                                  const Text('Desconto R\$ 0.00'),
+                                  const SizedBox(
+                                    height: 6.0,
+                                  ),
                                   Text(
-                                      'Preco total: R\$ ${e.totalPrice.toStringAsFixed(2)}'),
+                                    'Valor total R\$ ${e.totalPrice.toStringAsFixed(2)}',
+                                    style: const TextStyle(),
+                                  ),
+                                  const SizedBox(
+                                    height: 6.0,
+                                  ),
+                                  const Text(
+                                    'Items: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   Column(
                                       children: e.products
                                           .map((e) => Container(
                                                 padding:
-                                                    const EdgeInsets.all(12),
+                                                    const EdgeInsets.all(6),
                                                 child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
                                                   children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'Valor unitario: ${e.priceUnity}',
-                                                          style: const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )
-                                                      ],
+                                                    Text(
+                                                      '${e.quantity} x ${e.name} R\$ ${e.priceUnity} tamanho: ${e.size}',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Image.network(
-                                                            e.image,
-                                                            width: 80,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                            child: Text(
-                                                          'item: ${e.name}',
-                                                          style: const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )),
-                                                        Expanded(
-                                                            child: Text(
-                                                          'quantidade: ${e.quantity}'
-                                                              .toString(),
-                                                          style: const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )),
-                                                        Expanded(
-                                                            child: Text(
-                                                          'tamanho: ${e.size}',
-                                                          style: const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )),
-                                                      ],
+                                                    const SizedBox(
+                                                      height: 4.0,
                                                     ),
                                                   ],
                                                 ),

@@ -63,7 +63,7 @@ class CartPriceTile extends StatelessWidget {
                         backgroundColor:
                             MaterialStatePropertyAll(Colors.black)),
                     onPressed: buy,
-                    child: const Text('Comprar')))
+                    child: const Text('Finalizar Pedido')))
           ],
         ),
       ),

@@ -197,7 +197,7 @@ class CartBloc with SnackMixin, NavigateMixin {
     orderRequest.fold((l) {
       showSnack(context, l.message, Colors.red);
     }, (r) {
-      showSnack(context, 'Ordem de Compra criada com sucesso', Colors.green);
+      showSnack(context, 'Pedido realizado com sucesso', Colors.green);
       navigateRemoveUntil(context, gConsts.orderScreen);
     });
   }
