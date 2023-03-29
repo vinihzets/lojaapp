@@ -26,10 +26,11 @@ class RegisterDataSourceImp implements RegisterDataSource {
 
       db.add({
         'email': email,
-        'password': password,
-        'id': '',
       }).then((value) => {
-            db.doc(value.id).update({'docId': value.id})
+            db.doc(value.id).update({
+              'docId': value.id,
+              'userId': authService.auth.currentUser!.uid,
+            })
           });
 
       return Right(registerRequest);

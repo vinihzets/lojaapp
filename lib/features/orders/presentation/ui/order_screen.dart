@@ -84,23 +84,39 @@ class _OrderScreenState extends State<OrderScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 children: [
+                                  const Text(
+                                    'Status do Pedido: ',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       buildStatusCircleWidgets(
                                           '1',
                                           'Aguardando Pagamento',
                                           e.status.toInt(),
                                           1),
-                                      const SizedBox(
-                                        width: 4.0,
+                                      Container(
+                                        height: 1,
+                                        width: 10.0,
+                                        color: Colors.grey,
                                       ),
                                       buildStatusCircleWidgets(
                                           '2',
                                           'Pagamento Aprovado',
                                           e.status.toInt(),
                                           2),
-                                      const SizedBox(
-                                        width: 6.0,
+                                      Container(
+                                        height: 1,
+                                        width: 10,
+                                        color: Colors.grey,
                                       ),
                                       buildStatusCircleWidgets('3',
                                           'Transporte', e.status.toInt(), 3),
