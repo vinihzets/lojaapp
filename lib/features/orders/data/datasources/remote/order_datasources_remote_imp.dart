@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lojaapp/core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -22,8 +24,7 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
 
       final documents = await database
           .collection('orders')
-          .doc(userId)
-          .collection('order')
+          .where('userId', isEqualTo: userId)
           .get();
 
       final list =

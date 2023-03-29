@@ -110,11 +110,7 @@ class CartDataSourcesRemoteImp implements CartDataSource {
     final userId = authService.auth.currentUser!.uid;
 
     try {
-      final dbAddOrder = await dbService
-          .collection('orders')
-          .doc(userId)
-          .collection('order')
-          .add({
+      final dbAddOrder = await dbService.collection('orders').add({
         'userId': userId,
         'products': cartProductsDto.map((e) => e.toMap()).toList(),
         'productsPrice': productsPrice,
@@ -122,11 +118,9 @@ class CartDataSourcesRemoteImp implements CartDataSource {
         'totalPrice': totalPrice,
         'status': 1,
       }).then((value) => dbService
-              .collection('orders')
-              .doc(userId)
-              .collection('order')
-              .doc(value.id)
-              .update({'orderId': value.id}));
+          .collection('orders')
+          .doc(value.id)
+          .update({'orderId': value.id}));
 
       QuerySnapshot items = await databaseService.db
           .collection('cart')

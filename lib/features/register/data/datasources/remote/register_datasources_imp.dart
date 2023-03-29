@@ -24,14 +24,9 @@ class RegisterDataSourceImp implements RegisterDataSource {
           .createUserWithEmailAndPassword(email: email, password: password);
       final db = databaseService.db.collection('users');
 
-      db.add({
+      db.doc(authService.auth.currentUser!.uid).set({
         'email': email,
-      }).then((value) => {
-            db.doc(value.id).update({
-              'docId': value.id,
-              'userId': authService.auth.currentUser!.uid,
-            })
-          });
+      });
 
       return Right(registerRequest);
     } on FirebaseAuthException catch (e) {

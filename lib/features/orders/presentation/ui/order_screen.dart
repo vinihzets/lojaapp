@@ -44,6 +44,7 @@ class _OrderScreenState extends State<OrderScreen> {
           builder: (state) {
             if (state is BlocEmptyState) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Icon(
                     Icons.playlist_add_check,
