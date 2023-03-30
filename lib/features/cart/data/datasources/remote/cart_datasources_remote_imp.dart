@@ -117,10 +117,8 @@ class CartDataSourcesRemoteImp implements CartDataSource {
         'discount': discount,
         'totalPrice': totalPrice,
         'status': 1,
-      }).then((value) => dbService
-          .collection('orders')
-          .doc(value.id)
-          .update({'orderId': value.id}));
+      }).then((value) => dbService.collection('orders').doc(value.id).update(
+          {'orderId': value.id, 'user': authService.auth.currentUser!.email}));
 
       QuerySnapshot items = await databaseService.db
           .collection('cart')
