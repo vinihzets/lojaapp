@@ -49,14 +49,11 @@ class InitializeBloc with NavigateMixin {
 
   isLogged(BuildContext context) async {
     try {
-      authService.auth.authStateChanges().listen((User? user) {
-        if (user != null) {
-          dispatchEvent(InitializeEventIsLogged(context, gConsts.homeScreen));
-        } else {
-          dispatchEvent(
-              InitializeEventIsNotLogged(context, gConsts.loginScreen));
-        }
-      });
+      if (authService.auth.currentUser != null) {
+        dispatchEvent(InitializeEventIsLogged(context, gConsts.homeScreen));
+      } else {
+        dispatchEvent(InitializeEventIsNotLogged(context, gConsts.loginScreen));
+      }
     } on FirebaseException catch (e) {
       RemoteFailure(message: e.message ?? '');
     }
