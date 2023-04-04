@@ -26,6 +26,9 @@ class GridProductTile extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.network(
                   product.images.first,
+                  fit: BoxFit.cover,
+                  width: 250,
+                  height: 250,
                 ),
               ),
               Padding(
