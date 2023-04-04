@@ -29,6 +29,7 @@ class ProductsDto extends ProductsEntity {
       'price': price,
       'description': description,
       'size': sizeProduct,
+      'images': images,
     };
   }
 }

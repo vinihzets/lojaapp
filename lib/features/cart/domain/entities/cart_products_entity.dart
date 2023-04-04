@@ -1,12 +1,12 @@
 class CartProductsEntity {
   String description;
   String name;
-  String imageUrl;
+  List images;
   String price;
   String size;
   int quantity;
   String id;
 
-  CartProductsEntity(this.description, this.name, this.imageUrl, this.price,
+  CartProductsEntity(this.description, this.name, this.images, this.price,
       this.size, this.quantity, this.id);
 }

@@ -22,7 +22,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
         Container(
           padding: const EdgeInsets.all(8.0),
           width: 120,
-          child: Image.network(widget.product.imageUrl),
+          child: Image.network(widget.product.images.first),
         ),
         Expanded(
             child: Container(

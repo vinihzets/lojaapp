@@ -4,7 +4,7 @@ class CartProductsDto extends CartProductsEntity {
   CartProductsDto(
     super.description,
     super.name,
-    super.imageUrl,
+    super.images,
     super.price,
     super.size,
     super.quantity,
@@ -15,7 +15,7 @@ class CartProductsDto extends CartProductsEntity {
     return CartProductsDto(
       map['description'],
       map['name'],
-      map['image'],
+      map['images'],
       map['price'],
       map['size'],
       map['quantity'],
@@ -27,7 +27,6 @@ class CartProductsDto extends CartProductsEntity {
     return {
       'description': description,
       'name': name,
-      'image': imageUrl,
       'price': price,
       'size': size,
       'quantity': quantity,
