@@ -24,7 +24,7 @@ class GridProductTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.network(
-                        e.imageUrl,
+                        e.images.first,
                         width: 20,
                       ),
                       Padding(

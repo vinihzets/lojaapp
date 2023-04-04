@@ -22,7 +22,7 @@ class ListProductTile extends StatelessWidget {
                   child: Row(
                     children: [
                       Image.network(
-                        e.imageUrl,
+                        e.images.first,
                         fit: BoxFit.cover,
                         height: 250,
                       ),

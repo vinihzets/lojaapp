@@ -4,7 +4,6 @@ class ProductsEntity {
   List images;
   String price;
   String description;
-  String imageUrl;
   String? sizeProduct;
   // String? cartId;
   // int quantity;
@@ -15,7 +14,6 @@ class ProductsEntity {
     this.images,
     this.price,
     this.description,
-    this.imageUrl,
     this.sizeProduct,
     // this.quantity,
   );

@@ -7,7 +7,6 @@ class ProductsDto extends ProductsEntity {
     super.images,
     super.price,
     super.description,
-    super.imageUrl,
     super.sizeProduct,
     // super.quantity,
   );
@@ -19,7 +18,6 @@ class ProductsDto extends ProductsEntity {
       map['images'],
       map['price'],
       map['description'],
-      map['image'],
       map['sizeProduct'],
       // map['quantity'],
     );
@@ -31,7 +29,6 @@ class ProductsDto extends ProductsEntity {
       'price': price,
       'description': description,
       'size': sizeProduct,
-      'image': imageUrl,
     };
   }
 }
