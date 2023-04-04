@@ -55,7 +55,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       GridView.builder(
-                          itemCount: 8,
+                          itemCount: listProducts.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
@@ -63,18 +63,18 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                   crossAxisSpacing: 4.0,
                                   childAspectRatio: 0.65),
                           itemBuilder: (context, index) {
+                            final product = listProducts[index];
                             return GridProductTile(
-                              listProducts: listProducts,
-                              bloc: bloc,
-                            );
+                                product: product, bloc: bloc);
                           }),
                       ListView.builder(
                           shrinkWrap: true,
-                          itemCount: 6,
+                          itemCount: listProducts.length,
                           padding: const EdgeInsets.all(4),
                           itemBuilder: (context, index) {
+                            final product = listProducts[index];
                             return ListProductTile(
-                              listProducts: listProducts,
+                              product: product,
                               bloc: bloc,
                             );
                           })
