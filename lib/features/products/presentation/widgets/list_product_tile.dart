@@ -23,6 +23,7 @@ class ListProductTile extends StatelessWidget {
                 product.images.first,
                 fit: BoxFit.cover,
                 height: 250,
+                width: 200,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

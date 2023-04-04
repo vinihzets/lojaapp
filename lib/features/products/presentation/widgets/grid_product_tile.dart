@@ -19,14 +19,13 @@ class GridProductTile extends StatelessWidget {
           onTap: () =>
               bloc.event.add(ProductsEventNavigateDetails(context, product)),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.network(
                   product.images.first,
-                  width: 20,
                 ),
               ),
               Padding(
