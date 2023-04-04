@@ -28,6 +28,7 @@ class CartProductsDto extends CartProductsEntity {
       'description': description,
       'name': name,
       'price': price,
+      'image': images.first,
       'size': size,
       'quantity': quantity,
       'id': id,

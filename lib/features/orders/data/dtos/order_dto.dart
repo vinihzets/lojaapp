@@ -8,14 +8,17 @@ class OrderDto extends OrderEntity {
     super.status,
     super.totalPrice,
     super.idOrder,
+    super.discount,
   );
 
   factory OrderDto.fromJson(Map<dynamic, dynamic> map) {
     return OrderDto(
-        (map['products'] as List).map((e) => ProductsDto.fromJson(e)).toList(),
-        map['productsPrice'],
-        map['status'],
-        map['totalPrice'],
-        map['orderId']);
+      (map['products'] as List).map((e) => ProductsDto.fromJson(e)).toList(),
+      map['productsPrice'],
+      map['status'],
+      map['totalPrice'],
+      map['orderId'],
+      map['discount'],
+    );
   }
 }

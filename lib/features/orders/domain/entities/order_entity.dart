@@ -6,12 +6,8 @@ class OrderEntity {
   num status;
   num totalPrice;
   String orderId;
+  num discount;
 
-  OrderEntity(
-    this.products,
-    this.productsPrice,
-    this.status,
-    this.totalPrice,
-    this.orderId,
-  );
+  OrderEntity(this.products, this.productsPrice, this.status, this.totalPrice,
+      this.orderId, this.discount);
 }

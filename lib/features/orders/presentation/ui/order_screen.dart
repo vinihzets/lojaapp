@@ -135,7 +135,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   const SizedBox(
                                     height: 6.0,
                                   ),
-                                  const Text('Desconto R\$ 0.00'),
+                                  Text('Desconto R\$ ${e.discount}'),
                                   const SizedBox(
                                     height: 6.0,
                                   ),
