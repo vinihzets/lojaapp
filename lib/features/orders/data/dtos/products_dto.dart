@@ -20,4 +20,26 @@ class ProductsDto extends ProductsEntity {
       map['size'],
     );
   }
+
+  toMap() {
+    return {
+      'description': description,
+      'image': image,
+      'name': name,
+      'price': priceUnity,
+      'quantity': quantity,
+      'size': size,
+    };
+  }
+
+  toMapApi() {
+    return {
+      'title': name,
+      'description': description,
+      'picture_url': image,
+      'quantity': quantity,
+      'currency_id': 'BRL',
+      'unity_price': priceUnity,
+    };
+  }
 }

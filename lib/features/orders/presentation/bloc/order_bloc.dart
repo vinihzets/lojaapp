@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
 import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
@@ -55,7 +56,7 @@ class OrderBloc with HudMixins {
     } else if (event is OrderInitPlatformVersion) {
       initPlatformVersion(event.context);
     } else if (event is OrderGeneratePreferences) {
-      // createClient();
+      createPreferences(event.context, event.entity);
     }
   }
 
@@ -83,8 +84,8 @@ class OrderBloc with HudMixins {
     });
   }
 
-  createPreferences(BuildContext context) async {
-    final preferencesRequest = await mercadoPagoUseCase.createaPreference();
+  createPreferences(BuildContext context, OrderEntity e) async {
+    final preferencesRequest = await mercadoPagoUseCase.createaPreference(e);
     preferencesRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {

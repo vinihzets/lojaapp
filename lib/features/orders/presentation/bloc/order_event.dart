@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 
 abstract class OrderEvent {}
 
@@ -21,7 +22,8 @@ class OrderInitPlatformVersion implements OrderEvent {
 }
 
 class OrderGeneratePreferences implements OrderEvent {
-  String name;
+  BuildContext context;
+  OrderEntity entity;
 
-  OrderGeneratePreferences(this.name);
+  OrderGeneratePreferences(this.context, this.entity);
 }

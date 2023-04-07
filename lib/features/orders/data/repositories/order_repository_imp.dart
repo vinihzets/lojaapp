@@ -23,7 +23,7 @@ class OrderRepositoryImp implements OrderRepository {
     return orderDataSources.initPlatformState();
   }
 
-  Future<Either<Failure, PaymentEntity>> createPreference() {
-    return orderDataSources.createPreference();
+  Future<Either<Failure, dynamic>> createPreference(OrderEntity entity) {
+    return orderDataSources.createPreference(entity);
   }
 }

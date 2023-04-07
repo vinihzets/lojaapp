@@ -181,8 +181,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                                 ),
                                               ))
                                           .toList()),
-                                  _buildPayment(
-                                      context, e.status.toInt(), bloc),
+                                  _buildPayment(context, e, bloc),
                                 ],
                               ),
                             ),
@@ -197,12 +196,13 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 }
 
-_buildPayment(BuildContext context, num e, OrderBloc bloc) {
-  if (e < 2) {
+_buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc) {
+  if (e.status.toInt() < 2) {
     return Center(
       child: TextButton(
         onPressed: () async {
-          inspect(FirebaseAuth.instance.currentUser!.email);
+          bloc.createPreferences(context, e);
+
           _buildModalBottomSheet(context, bloc);
         },
         child: const Text('Realizar Pagamento'),
@@ -233,7 +233,6 @@ _buildModalBottomSheet(BuildContext context, OrderBloc bloc) {
               ElevatedButton(
                   onPressed: () {
                     // bloc.createClient(context, 'Shurarai', 'testa');
-                    bloc.createPreferences(context);
                   },
                   child: const Text('ir')),
               ElevatedButton(
@@ -241,7 +240,7 @@ _buildModalBottomSheet(BuildContext context, OrderBloc bloc) {
                     PaymentResult result =
                         await MercadoPagoMobileCheckout.startCheckout(
                       'TEST-41fa6116-fe1d-411d-9a2b-fb19403303ae',
-                      '185567692-ed8f48c7-48d8-4211-8cc9-32919fb7a00c',
+                      '185567692-61cd8ac9-1a26-4b40-a94f-b2807a41823a',
                     );
                   },
                   child: Text('teste'))

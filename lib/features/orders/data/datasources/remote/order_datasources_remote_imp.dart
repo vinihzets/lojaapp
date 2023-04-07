@@ -12,8 +12,10 @@ import 'package:lojaapp/core/services/database/database_service.dart';
 import 'package:lojaapp/features/orders/data/datasources/order_datasources.dart';
 import 'package:lojaapp/features/orders/data/dtos/order_dto.dart';
 import 'package:lojaapp/features/orders/data/dtos/payment_dto.dart';
+import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
+import 'package:lojaapp/features/orders/domain/entities/products_entity.dart';
 import 'package:mercado_pago_mobile_checkout/mercado_pago_mobile_checkout.dart';
 import 'package:http/http.dart' as http;
 
@@ -55,23 +57,31 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
     }
   }
 
-  Future<Either<Failure, PaymentEntity>> createPreference() async {
+  Future<Either<Failure, dynamic>> createPreference(OrderEntity entity) async {
     var url = Uri.parse(
         'https://api.mercadopago.com/checkout/preferences?access_token=TEST-3070843847140697-040512-6401310aa21c05c200efdffc93666002-185567692');
 
-    Map<String, String> header = {'Content-type': 'application/json'};
+    Map<String, String> header = {
+      'Authorization':
+          'Bearer TEST-3070843847140697-040512-6401310aa21c05c200efdffc93666002-185567692',
+      'Content-type': 'application/json'
+    };
 
-    Map bodyPost = {
-      "items": [
-        {
-          "title": "Dummy Item",
-          "description": "Multicolor Item",
-          "quantity": 1,
-          "currency_id": "ARS",
-          "unit_price": 10.0
-        }
-      ],
-      "payer": {"email": "payer@email.com"}
+    toMap(ProductsEntity prod) {
+      return {
+        'title': prod.name,
+        'description': prod.description,
+        'picture_url': prod.image,
+        'category_id': 'roupas',
+        'quantity': prod.quantity,
+        'currency_id': 'BRL',
+        'unit_price': num.parse(prod.priceUnity),
+      };
+    }
+
+    Map<String, dynamic> bodyPost = {
+      "items": entity.products.map((e) => toMap(e)).toList(),
+      "payer": {"email": auth.auth.currentUser!.email}
     };
 
     try {
@@ -79,11 +89,18 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
 
       var response = await http.post(url, headers: header, body: convertJson);
       Map<String, dynamic> decode = jsonDecode(response.body);
-      final decoded = PaymentDto.fromJson(decode);
 
-      return Right(decoded);
-    } on Response catch (_) {
-      return Left(RemoteFailure(message: 'tente novamente mais tarde'));
+      if (response.statusCode > 199 && response.statusCode < 300) {
+        inspect(response.statusCode);
+        final decoded = PaymentDto.fromJson(decode);
+        inspect(decode);
+
+        return Right(decoded);
+      } else {
+        return Right(Left(RemoteFailure(message: 'Erro na Api')));
+      }
+    } on HttpResponse catch (e) {
+      return Left(RemoteFailure(message: e.reasonPhrase));
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 import 'package:lojaapp/core/failure/failure.dart';
+import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
 import 'package:lojaapp/features/orders/domain/repositories/order_repository.dart';
 import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase.dart';
@@ -17,7 +18,7 @@ class MercadoPagoUseCaseImp implements MercadoPagoUseCase {
     return orderRepository.initPlatformState();
   }
 
-  Future<Either<Failure, PaymentEntity>> createaPreference() {
-    return orderRepository.createPreference();
+  Future<Either<Failure, dynamic>> createaPreference(OrderEntity entity) {
+    return orderRepository.createPreference(entity);
   }
 }
