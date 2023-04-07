@@ -27,4 +27,9 @@ class OrderRepositoryImp implements OrderRepository {
   Future<Either<Failure, PaymentEntity>> createPreference(OrderEntity entity) {
     return orderDataSources.createPreference(entity);
   }
+
+  @override
+  Future<Either<Failure, void>> statusIncrement(OrderEntity entity) {
+    return orderDataSources.statusIncrement(entity);
+  }
 }

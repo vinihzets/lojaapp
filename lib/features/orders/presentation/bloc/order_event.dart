@@ -35,3 +35,10 @@ class OrderGeneratePreferences implements OrderEvent {
 
   OrderGeneratePreferences(this.context, this.entity);
 }
+
+class OrderEventStatusIncrement implements OrderEvent {
+  BuildContext context;
+  OrderEntity entity;
+
+  OrderEventStatusIncrement(this.context, this.entity);
+}

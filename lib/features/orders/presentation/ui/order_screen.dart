@@ -16,14 +16,13 @@ import 'package:flutter/services.dart';
 import 'package:mercado_pago_mobile_checkout/mercado_pago_mobile_checkout.dart';
 import 'package:http/http.dart' as http;
 
-class OrderScreen extends StatefulWidget {
+class OrderScreen extends StatefulWidget with HudMixins {
   const OrderScreen({super.key});
-
   @override
   State<OrderScreen> createState() => _OrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _OrderScreenState extends State<OrderScreen> with HudMixins {
   late OrderBloc bloc;
   final String publicKey = 'TEST-41fa6116-fe1d-411d-9a2b-fb19403303ae';
 
@@ -81,8 +80,10 @@ class _OrderScreenState extends State<OrderScreen> {
                               child: ExpansionTile(
                                 onExpansionChanged: (value) {
                                   if (value == true) {
-                                    bloc.event.add(
-                                        OrderGeneratePreferences(context, e));
+                                    if (e.status < 2) {
+                                      bloc.event.add(
+                                          OrderGeneratePreferences(context, e));
+                                    }
                                   }
                                 },
                                 tilePadding: const EdgeInsets.symmetric(
@@ -203,7 +204,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                           return _buildPayment(context, e, bloc,
                                               publicKey, preferenceKey);
                                         } else {
-                                          return SizedBox.shrink();
+                                          return const SizedBox.shrink();
                                         }
                                       }),
                                 ],
@@ -227,15 +228,20 @@ _buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc,
       child: TextButton(
         onPressed: () async {
           // bloc.createPreferences(context, e);
-          try {
-            bloc.event.add(OrderGeneratePreferences(context, e));
+          bloc.event.add(OrderGeneratePreferences(context, e));
 
-            PaymentResult result =
-                await MercadoPagoMobileCheckout.startCheckout(
-              publicKey,
-              preferenceKey,
-            );
-          } catch (e) {}
+          PaymentResult result = await MercadoPagoMobileCheckout.startCheckout(
+            publicKey,
+            preferenceKey,
+          );
+
+          if (result.status == 'approved') {
+            // ignore: use_build_context_synchronously
+            bloc.event.add(OrderEventStatusIncrement(context, e));
+          } else {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('teste')));
+          }
         },
         child: const Text('Realizar Pagamento'),
       ),
@@ -243,41 +249,4 @@ _buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc,
   } else {
     return Container();
   }
-}
-
-_buildModalBottomSheet(BuildContext context, OrderBloc bloc, String publicKey,
-    String preferenceKey) {
-  final nameController = TextEditingController();
-  inspect(publicKey);
-
-  return showModalBottomSheet(
-      context: context,
-      builder: (context) => ListView(
-            children: [
-              Row(
-                children: [
-                  const Text('Nome'),
-                  Expanded(
-                    child: TextFormField(
-                      controller: nameController,
-                    ),
-                  ),
-                ],
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    // bloc.createClient(context, 'Shurarai', 'testa');
-                  },
-                  child: const Text('ir')),
-              ElevatedButton(
-                  onPressed: () async {
-                    PaymentResult result =
-                        await MercadoPagoMobileCheckout.startCheckout(
-                      publicKey,
-                      preferenceKey,
-                    );
-                  },
-                  child: Text('teste'))
-            ],
-          ));
 }

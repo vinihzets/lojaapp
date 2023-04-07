@@ -46,6 +46,8 @@ import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart'
 import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase_imp.dart';
 import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase.dart';
 import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase_imp.dart';
+import 'package:lojaapp/features/orders/domain/usecases/order_status_usecase.dart';
+import 'package:lojaapp/features/orders/domain/usecases/order_status_usecase_imp.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
 import 'package:lojaapp/features/products/data/datasources/products_datasource.dart';
 import 'package:lojaapp/features/products/data/datasources/remote/products_datasource_remote_imp.dart';
@@ -112,6 +114,9 @@ class Injector {
 
     //usecases
 
+    getIt.registerLazySingleton<OrderStatusUseCase>(
+        () => OrderStatusUseCaseImp(getIt()));
+
     getIt.registerLazySingleton<MercadoPagoUseCase>(
         () => MercadoPagoUseCaseImp(getIt()));
 
@@ -143,7 +148,7 @@ class Injector {
 
     //controllers
 
-    getIt.registerFactory(() => OrderBloc(getIt(), getIt()));
+    getIt.registerFactory(() => OrderBloc(getIt(), getIt(), getIt()));
     getIt.registerFactory<CartBloc>(
         () => CartBloc(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt(), getIt()));

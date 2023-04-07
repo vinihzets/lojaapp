@@ -100,4 +100,22 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
       return Left(RemoteFailure(message: e.reasonPhrase));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> statusIncrement(OrderEntity orderEntity) async {
+    try {
+      orderEntity.status++;
+      inspect(orderEntity.status);
+      final db = databaseService.db
+          .collection('orders')
+          .doc(orderEntity.orderId)
+          .update({
+        'status': orderEntity.status,
+      });
+
+      return Right(db);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
 }

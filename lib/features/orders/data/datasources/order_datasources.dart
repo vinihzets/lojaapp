@@ -10,4 +10,5 @@ abstract class OrderDataSources {
   Future<Either<Failure, String>> initPlatformState();
 
   Future<Either<Failure, PaymentEntity>> createPreference(OrderEntity entity);
+  Future<Either<Failure, void>> statusIncrement(OrderEntity orderEntity);
 }

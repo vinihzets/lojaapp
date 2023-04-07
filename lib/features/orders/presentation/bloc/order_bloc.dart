@@ -8,7 +8,9 @@ import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
 import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
 import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase.dart';
+import 'package:lojaapp/features/orders/domain/usecases/order_status_usecase.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
+import 'package:lojaapp/main.dart';
 
 mixin HudMixins {
   showSnack(BuildContext context, String message) {
@@ -30,16 +32,19 @@ mixin HudMixins {
 class OrderBloc with HudMixins {
   GetOrdersUseCase getOrdersUseCase;
   MercadoPagoUseCase mercadoPagoUseCase;
+  OrderStatusUseCase orderStatusUseCase;
 
-  String publicKey = '';
-  String preferenceId = '';
-  OrderBloc(this.getOrdersUseCase, this.mercadoPagoUseCase) {
+  late List<OrderEntity> _cache;
+
+  OrderBloc(
+      this.getOrdersUseCase, this.mercadoPagoUseCase, this.orderStatusUseCase) {
     _event = StreamController();
     _state = StreamController();
 
     _statePayment = StreamController.broadcast();
 
     _event.stream.listen(_mapListenEvent);
+    _cache = [];
   }
 
   late StreamController<OrderEvent> _event;
@@ -74,6 +79,8 @@ class OrderBloc with HudMixins {
       createPreferences(event.context, event.entity);
     } else if (event is OrderEventNavigateThenArgs) {
       navigateThenArgs(event.context, event.routeName, event.args);
+    } else if (event is OrderEventStatusIncrement) {
+      statusOrderIncrement(event.context, event.entity);
     }
   }
 
@@ -82,10 +89,12 @@ class OrderBloc with HudMixins {
     orderRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
+      _cache = r;
+
       if (r.isEmpty) {
         _dispatchState(BlocEmptyState());
       } else {
-        _dispatchState(BlocStableState(data: r));
+        _dispatchState(BlocStableState(data: _cache));
       }
     });
   }
@@ -107,6 +116,17 @@ class OrderBloc with HudMixins {
       showSnack(context, l.message);
     }, (r) {
       dispatchStatePayment(BlocStableState(data: r));
+    });
+  }
+
+  statusOrderIncrement(BuildContext context, OrderEntity entity) async {
+    final statusIncrementRequest =
+        await orderStatusUseCase.statusIncrement(entity);
+    statusIncrementRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      _dispatchState(BlocStableState(data: _cache));
+      // navigate(context, gConsts.homeScreen);
     });
   }
 }
