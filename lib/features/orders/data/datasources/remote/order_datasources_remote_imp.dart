@@ -91,10 +91,7 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
       var response = await http.post(url, headers: header, body: convertJson);
       Map<String, dynamic> decode = jsonDecode(response.body);
 
-      inspect(response.statusCode);
       final decoded = PaymentDto.fromJson(decode);
-      inspect(decoded);
-
       return Right(decoded);
     } on HttpResponse catch (e) {
       return Left(RemoteFailure(message: e.reasonPhrase));
@@ -105,7 +102,6 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
   Future<Either<Failure, void>> statusIncrement(OrderEntity orderEntity) async {
     try {
       orderEntity.status++;
-      inspect(orderEntity.status);
       final db = databaseService.db
           .collection('orders')
           .doc(orderEntity.orderId)

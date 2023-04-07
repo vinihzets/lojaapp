@@ -66,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: CustomDrawer(bloc: bloc),
       body: Stack(children: [
-        buildGradientColor(),
         Padding(
             padding: const EdgeInsets.all(16.0),
             child: BlocScreenBuilder(

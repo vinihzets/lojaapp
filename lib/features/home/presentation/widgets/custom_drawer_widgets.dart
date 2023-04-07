@@ -22,55 +22,57 @@ class CustomDrawer extends StatelessWidget {
         );
 
     return Drawer(
+        backgroundColor: Colors.black,
         child: Stack(children: [
-      buildDrawer(),
-      Positioned(
-          top: width / 2 - 150,
-          left: width / 2 - 180,
-          bottom: 0,
-          child: const Text(
-            'Find Wear Clothings',
-            style: TextStyle(
-                color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
-          )),
-      Positioned(
-          top: width / 2 - 100,
-          left: width / 2 - 160,
-          bottom: 0,
-          child: Column(
-            children: [
-              const Divider(),
-              DrawerTile(
-                onPressed: () {
-                  bloc.event.add(
-                      HomeEventDrawerNavigate(context, gConsts.homeScreen));
-                  bloc.event.add(HomeEventGetCategories());
-                },
-                icon: Icons.home,
-                text: 'Home',
-              ),
-              DrawerTile(
-                  onPressed: () => bloc.event.add(
-                      HomeEventDrawerNavigate(context, gConsts.homeScreen)),
-                  icon: Icons.location_on,
-                  text: 'Localizacao'),
-              DrawerTile(
-                  onPressed: () => bloc.event.add(HomeEventDrawerNavigate(
-                      context, gConsts.categoriesScreen)),
-                  icon: Icons.list,
-                  text: 'Categorias'),
-              DrawerTile(
-                  onPressed: () => bloc.event.add(
-                      HomeEventDrawerNavigate(context, gConsts.cartScreen)),
-                  icon: Icons.card_giftcard_sharp,
-                  text: 'Meu Carrinho'),
-              DrawerTile(
-                  onPressed: () => bloc.event.add(
-                      HomeEventDrawerNavigate(context, gConsts.orderScreen)),
-                  icon: Icons.playlist_add_check,
-                  text: 'Meus Pedidos'),
-            ],
-          ))
-    ]));
+          Positioned(
+              top: width / 2 - 150,
+              left: width / 2 - 180,
+              bottom: 0,
+              child: const Text(
+                'Find Wear Clothings',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold),
+              )),
+          Positioned(
+              top: width / 2 - 100,
+              left: width / 2 - 160,
+              bottom: 0,
+              child: Column(
+                children: [
+                  const Divider(),
+                  DrawerTile(
+                    onPressed: () {
+                      bloc.event.add(
+                          HomeEventDrawerNavigate(context, gConsts.homeScreen));
+                      bloc.event.add(HomeEventGetCategories());
+                    },
+                    icon: Icons.home,
+                    text: 'Home',
+                  ),
+                  DrawerTile(
+                      onPressed: () => bloc.event.add(
+                          HomeEventDrawerNavigate(context, gConsts.homeScreen)),
+                      icon: Icons.location_on,
+                      text: 'Localizacao'),
+                  DrawerTile(
+                      onPressed: () => bloc.event.add(HomeEventDrawerNavigate(
+                          context, gConsts.categoriesScreen)),
+                      icon: Icons.list,
+                      text: 'Categorias'),
+                  DrawerTile(
+                      onPressed: () => bloc.event.add(
+                          HomeEventDrawerNavigate(context, gConsts.cartScreen)),
+                      icon: Icons.card_giftcard_sharp,
+                      text: 'Meu Carrinho'),
+                  DrawerTile(
+                      onPressed: () => bloc.event.add(HomeEventDrawerNavigate(
+                          context, gConsts.orderScreen)),
+                      icon: Icons.playlist_add_check,
+                      text: 'Meus Pedidos'),
+                ],
+              ))
+        ]));
   }
 }

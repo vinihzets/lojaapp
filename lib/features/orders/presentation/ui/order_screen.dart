@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/core/utils/payment_translator.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
@@ -198,8 +199,6 @@ class _OrderScreenState extends State<OrderScreen> with HudMixins {
                                               state.data;
                                           final preferenceKey =
                                               result.preferenceId;
-                                          inspect(preferenceKey);
-                                          inspect(publicKey);
 
                                           return _buildPayment(context, e, bloc,
                                               publicKey, preferenceKey);
@@ -227,7 +226,6 @@ _buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc,
     return Center(
       child: TextButton(
         onPressed: () async {
-          // bloc.createPreferences(context, e);
           bloc.event.add(OrderGeneratePreferences(context, e));
 
           PaymentResult result = await MercadoPagoMobileCheckout.startCheckout(
@@ -236,11 +234,12 @@ _buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc,
           );
 
           if (result.status == 'approved') {
-            // ignore: use_build_context_synchronously
             bloc.event.add(OrderEventStatusIncrement(context, e));
+          } else if (result.status == null) {
           } else {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('teste')));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.red,
+                content: Text(PaymentTranslator.translator(result.status))));
           }
         },
         child: const Text('Realizar Pagamento'),
