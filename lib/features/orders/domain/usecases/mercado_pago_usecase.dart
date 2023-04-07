@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:http/http.dart';
 import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
 
-abstract class OrderDataSources {
-  Future<Either<Failure, List<OrderEntity>>> getOrders();
+abstract class MercadoPagoUseCase {
   Future<Either<Failure, String>> initPlatformState();
-
-  Future<Either<Failure, PaymentEntity>> createPreference();
+  Future<Either<Failure, PaymentEntity>> createaPreference();
 }

@@ -13,3 +13,15 @@ class OrderEventNavigate implements OrderEvent {
   String routeName;
   OrderEventNavigate(this.context, this.routeName);
 }
+
+class OrderInitPlatformVersion implements OrderEvent {
+  BuildContext context;
+
+  OrderInitPlatformVersion(this.context);
+}
+
+class OrderGeneratePreferences implements OrderEvent {
+  String name;
+
+  OrderGeneratePreferences(this.name);
+}

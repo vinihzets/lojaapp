@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
+import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
 
 mixin HudMixins {
@@ -21,8 +22,11 @@ mixin HudMixins {
 
 class OrderBloc with HudMixins {
   GetOrdersUseCase getOrdersUseCase;
+  MercadoPagoUseCase mercadoPagoUseCase;
 
-  OrderBloc(this.getOrdersUseCase) {
+  String publicKey = '';
+  String preferenceId = '';
+  OrderBloc(this.getOrdersUseCase, this.mercadoPagoUseCase) {
     _event = StreamController();
     _state = StreamController();
 
@@ -48,6 +52,10 @@ class OrderBloc with HudMixins {
       getOrders(event.context);
     } else if (event is OrderEventNavigate) {
       navigate(event.context, event.routeName);
+    } else if (event is OrderInitPlatformVersion) {
+      initPlatformVersion(event.context);
+    } else if (event is OrderGeneratePreferences) {
+      // createClient();
     }
   }
 
@@ -61,6 +69,26 @@ class OrderBloc with HudMixins {
       } else {
         _dispatchState(BlocStableState(data: r));
       }
+    });
+  }
+
+  initPlatformVersion(
+    BuildContext context,
+  ) async {
+    final platformRequest = await mercadoPagoUseCase.initPlatformState();
+    platformRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      return r;
+    });
+  }
+
+  createPreferences(BuildContext context) async {
+    final preferencesRequest = await mercadoPagoUseCase.createaPreference();
+    preferencesRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      inspect(r);
     });
   }
 }

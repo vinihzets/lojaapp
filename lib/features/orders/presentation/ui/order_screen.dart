@@ -1,16 +1,19 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/features/orders/data/dtos/order_dto.dart';
-import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
 import 'package:lojaapp/features/orders/presentation/widgets/build_status_widgets_order_screen.dart';
 import 'package:lojaapp/main.dart';
+import 'package:flutter/services.dart';
+import 'package:mercado_pago_mobile_checkout/mercado_pago_mobile_checkout.dart';
+import 'package:http/http.dart' as http;
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -25,7 +28,10 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
     bloc = GetIt.I.get();
-    bloc.dispatchEvent(OrderEventGet(context));
+
+    bloc.event.add(OrderEventGet(context));
+    bloc.initPlatformVersion(context);
+
     super.initState();
   }
 
@@ -174,7 +180,9 @@ class _OrderScreenState extends State<OrderScreen> {
                                                   ],
                                                 ),
                                               ))
-                                          .toList())
+                                          .toList()),
+                                  _buildPayment(
+                                      context, e.status.toInt(), bloc),
                                 ],
                               ),
                             ),
@@ -187,4 +195,56 @@ class _OrderScreenState extends State<OrderScreen> {
           }),
     );
   }
+}
+
+_buildPayment(BuildContext context, num e, OrderBloc bloc) {
+  if (e < 2) {
+    return Center(
+      child: TextButton(
+        onPressed: () async {
+          inspect(FirebaseAuth.instance.currentUser!.email);
+          _buildModalBottomSheet(context, bloc);
+        },
+        child: const Text('Realizar Pagamento'),
+      ),
+    );
+  } else {
+    return Container();
+  }
+}
+
+_buildModalBottomSheet(BuildContext context, OrderBloc bloc) {
+  final nameController = TextEditingController();
+
+  return showModalBottomSheet(
+      context: context,
+      builder: (context) => ListView(
+            children: [
+              Row(
+                children: [
+                  const Text('Nome'),
+                  Expanded(
+                    child: TextFormField(
+                      controller: nameController,
+                    ),
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    // bloc.createClient(context, 'Shurarai', 'testa');
+                    bloc.createPreferences(context);
+                  },
+                  child: const Text('ir')),
+              ElevatedButton(
+                  onPressed: () async {
+                    PaymentResult result =
+                        await MercadoPagoMobileCheckout.startCheckout(
+                      'TEST-41fa6116-fe1d-411d-9a2b-fb19403303ae',
+                      '185567692-ed8f48c7-48d8-4211-8cc9-32919fb7a00c',
+                    );
+                  },
+                  child: Text('teste'))
+            ],
+          ));
 }
