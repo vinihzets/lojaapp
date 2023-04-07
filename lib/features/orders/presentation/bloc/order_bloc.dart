@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
+import 'package:lojaapp/features/orders/data/dtos/payment_dto.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
+import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
 import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
 import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
@@ -19,6 +21,10 @@ mixin HudMixins {
   navigate(BuildContext context, String routeName) {
     Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => false);
   }
+
+  navigateThenArgs(BuildContext context, String routeName, Object args) {
+    Navigator.of(context).pushNamed(routeName, arguments: args);
+  }
 }
 
 class OrderBloc with HudMixins {
@@ -31,6 +37,8 @@ class OrderBloc with HudMixins {
     _event = StreamController();
     _state = StreamController();
 
+    _statePayment = StreamController.broadcast();
+
     _event.stream.listen(_mapListenEvent);
   }
 
@@ -40,12 +48,19 @@ class OrderBloc with HudMixins {
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
 
+  late StreamController<BlocState> _statePayment;
+  Stream<BlocState> get statePayment => _statePayment.stream;
+
   dispatchEvent(OrderEvent event) {
     _event.add(event);
   }
 
   _dispatchState(BlocState state) {
     _state.add(state);
+  }
+
+  dispatchStatePayment(BlocState state) {
+    _statePayment.add(state);
   }
 
   _mapListenEvent(OrderEvent event) {
@@ -57,6 +72,8 @@ class OrderBloc with HudMixins {
       initPlatformVersion(event.context);
     } else if (event is OrderGeneratePreferences) {
       createPreferences(event.context, event.entity);
+    } else if (event is OrderEventNavigateThenArgs) {
+      navigateThenArgs(event.context, event.routeName, event.args);
     }
   }
 
@@ -89,7 +106,7 @@ class OrderBloc with HudMixins {
     preferencesRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      inspect(r);
+      dispatchStatePayment(BlocStableState(data: r));
     });
   }
 }

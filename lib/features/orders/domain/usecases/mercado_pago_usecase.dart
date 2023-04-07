@@ -8,5 +8,5 @@ import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
 
 abstract class MercadoPagoUseCase {
   Future<Either<Failure, String>> initPlatformState();
-  Future<Either<Failure, dynamic>> createaPreference(OrderEntity entity);
+  Future<Either<Failure, PaymentEntity>> createaPreference(OrderEntity entity);
 }

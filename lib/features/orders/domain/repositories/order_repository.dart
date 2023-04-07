@@ -11,5 +11,5 @@ abstract class OrderRepository {
   Future<Either<Failure, List<OrderEntity>>> getOrders();
   Future<Either<Failure, String>> initPlatformState();
 
-  Future<Either<Failure, dynamic>> createPreference(OrderEntity entity);
+  Future<Either<Failure, PaymentEntity>> createPreference(OrderEntity entity);
 }

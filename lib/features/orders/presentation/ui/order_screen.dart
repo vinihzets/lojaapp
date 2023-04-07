@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lojaapp/core/architeture/bloc_builder.dart';
 import 'package:lojaapp/core/architeture/bloc_state.dart';
 import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
+import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
 import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
 import 'package:lojaapp/features/orders/presentation/widgets/build_status_widgets_order_screen.dart';
@@ -24,6 +25,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   late OrderBloc bloc;
+  final String publicKey = 'TEST-41fa6116-fe1d-411d-9a2b-fb19403303ae';
 
   @override
   void initState() {
@@ -77,6 +79,12 @@ class _OrderScreenState extends State<OrderScreen> {
                           children: [
                             Card(
                               child: ExpansionTile(
+                                onExpansionChanged: (value) {
+                                  if (value == true) {
+                                    bloc.event.add(
+                                        OrderGeneratePreferences(context, e));
+                                  }
+                                },
                                 tilePadding: const EdgeInsets.symmetric(
                                   horizontal: 4.0,
                                 ),
@@ -181,7 +189,23 @@ class _OrderScreenState extends State<OrderScreen> {
                                                 ),
                                               ))
                                           .toList()),
-                                  _buildPayment(context, e, bloc),
+                                  BlocScreenBuilder(
+                                      stream: bloc.statePayment,
+                                      builder: (state) {
+                                        if (state is BlocStableState) {
+                                          final PaymentEntity result =
+                                              state.data;
+                                          final preferenceKey =
+                                              result.preferenceId;
+                                          inspect(preferenceKey);
+                                          inspect(publicKey);
+
+                                          return _buildPayment(context, e, bloc,
+                                              publicKey, preferenceKey);
+                                        } else {
+                                          return SizedBox.shrink();
+                                        }
+                                      }),
                                 ],
                               ),
                             ),
@@ -196,14 +220,22 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 }
 
-_buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc) {
+_buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc,
+    String publicKey, String preferenceKey) {
   if (e.status.toInt() < 2) {
     return Center(
       child: TextButton(
         onPressed: () async {
-          bloc.createPreferences(context, e);
+          // bloc.createPreferences(context, e);
+          try {
+            bloc.event.add(OrderGeneratePreferences(context, e));
 
-          _buildModalBottomSheet(context, bloc);
+            PaymentResult result =
+                await MercadoPagoMobileCheckout.startCheckout(
+              publicKey,
+              preferenceKey,
+            );
+          } catch (e) {}
         },
         child: const Text('Realizar Pagamento'),
       ),
@@ -213,8 +245,10 @@ _buildPayment(BuildContext context, OrderEntity e, OrderBloc bloc) {
   }
 }
 
-_buildModalBottomSheet(BuildContext context, OrderBloc bloc) {
+_buildModalBottomSheet(BuildContext context, OrderBloc bloc, String publicKey,
+    String preferenceKey) {
   final nameController = TextEditingController();
+  inspect(publicKey);
 
   return showModalBottomSheet(
       context: context,
@@ -239,8 +273,8 @@ _buildModalBottomSheet(BuildContext context, OrderBloc bloc) {
                   onPressed: () async {
                     PaymentResult result =
                         await MercadoPagoMobileCheckout.startCheckout(
-                      'TEST-41fa6116-fe1d-411d-9a2b-fb19403303ae',
-                      '185567692-61cd8ac9-1a26-4b40-a94f-b2807a41823a',
+                      publicKey,
+                      preferenceKey,
                     );
                   },
                   child: Text('teste'))

@@ -57,7 +57,8 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
     }
   }
 
-  Future<Either<Failure, dynamic>> createPreference(OrderEntity entity) async {
+  Future<Either<Failure, PaymentEntity>> createPreference(
+      OrderEntity entity) async {
     var url = Uri.parse(
         'https://api.mercadopago.com/checkout/preferences?access_token=TEST-3070843847140697-040512-6401310aa21c05c200efdffc93666002-185567692');
 
@@ -90,15 +91,11 @@ class OrderDataSourcesRemoteImp implements OrderDataSources {
       var response = await http.post(url, headers: header, body: convertJson);
       Map<String, dynamic> decode = jsonDecode(response.body);
 
-      if (response.statusCode > 199 && response.statusCode < 300) {
-        inspect(response.statusCode);
-        final decoded = PaymentDto.fromJson(decode);
-        inspect(decode);
+      inspect(response.statusCode);
+      final decoded = PaymentDto.fromJson(decode);
+      inspect(decoded);
 
-        return Right(decoded);
-      } else {
-        return Right(Left(RemoteFailure(message: 'Erro na Api')));
-      }
+      return Right(decoded);
     } on HttpResponse catch (e) {
       return Left(RemoteFailure(message: e.reasonPhrase));
     }

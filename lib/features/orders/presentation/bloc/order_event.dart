@@ -15,6 +15,14 @@ class OrderEventNavigate implements OrderEvent {
   OrderEventNavigate(this.context, this.routeName);
 }
 
+class OrderEventNavigateThenArgs implements OrderEvent {
+  BuildContext context;
+  String routeName;
+  Object args;
+
+  OrderEventNavigateThenArgs(this.context, this.routeName, this.args);
+}
+
 class OrderInitPlatformVersion implements OrderEvent {
   BuildContext context;
 

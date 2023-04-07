@@ -18,7 +18,7 @@ class MercadoPagoUseCaseImp implements MercadoPagoUseCase {
     return orderRepository.initPlatformState();
   }
 
-  Future<Either<Failure, dynamic>> createaPreference(OrderEntity entity) {
+  Future<Either<Failure, PaymentEntity>> createaPreference(OrderEntity entity) {
     return orderRepository.createPreference(entity);
   }
 }
