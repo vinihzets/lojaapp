@@ -13,7 +13,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
 
-    Widget buildDrawer() => Container(
+    Widget buildGradient() => Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
             Color.fromARGB(255, 243, 161, 123),

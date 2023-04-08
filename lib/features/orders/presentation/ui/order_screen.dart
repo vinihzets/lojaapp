@@ -1,21 +1,15 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/core/architeture/bloc_builder.dart';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/core/utils/payment_translator.dart';
-import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
-import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
-import 'package:lojaapp/features/orders/presentation/bloc/order_bloc.dart';
-import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
-import 'package:lojaapp/features/orders/presentation/widgets/build_status_widgets_order_screen.dart';
-import 'package:lojaapp/main.dart';
-import 'package:flutter/services.dart';
+import '../../../../core/architeture/bloc_builder.dart';
+import '../../../../core/architeture/bloc_state.dart';
+import '../../../../core/utils/payment_translator.dart';
+import '../../domain/entities/order_entity.dart';
+import '../../domain/entities/payment_entity.dart';
+import '../bloc/order_bloc.dart';
+import '../bloc/order_event.dart';
+import '../widgets/build_status_widgets_order_screen.dart';
+import '../../../../main.dart';
 import 'package:mercado_pago_mobile_checkout/mercado_pago_mobile_checkout.dart';
-import 'package:http/http.dart' as http;
 
 class OrderScreen extends StatefulWidget with HudMixins {
   const OrderScreen({super.key});

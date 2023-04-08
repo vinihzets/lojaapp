@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/core/architeture/bloc_builder.dart';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
-import 'package:lojaapp/features/cart/presentation/widgets/cart_price_tile.dart';
-import 'package:lojaapp/features/cart/presentation/widgets/items_cart_tile_widget.dart';
-import 'package:lojaapp/features/cart/presentation/widgets/discount_card_widget.dart';
-import 'package:lojaapp/main.dart';
+import '../../../../core/architeture/bloc_builder.dart';
+import '../../../../core/architeture/bloc_state.dart';
+import '../bloc/cart_bloc.dart';
+import '../bloc/cart_event.dart';
+import '../widgets/cart_price_tile.dart';
+import '../widgets/items_cart_tile_widget.dart';
+import '../widgets/discount_card_widget.dart';
+import '../../../../main.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -36,7 +36,6 @@ class _CartScreenState extends State<CartScreen> {
           backgroundColor: Colors.black,
           title: const Text('Meu Carrinho'),
           centerTitle: true,
-          actions: [Text('')],
         ),
         body: Card(
           margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),

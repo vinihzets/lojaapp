@@ -1,16 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/features/orders/data/dtos/payment_dto.dart';
-import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
-import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
-import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
-import 'package:lojaapp/features/orders/domain/usecases/mercado_pago_usecase.dart';
-import 'package:lojaapp/features/orders/domain/usecases/order_status_usecase.dart';
-import 'package:lojaapp/features/orders/presentation/bloc/order_event.dart';
-import 'package:lojaapp/main.dart';
+import '../../../../core/architeture/bloc_state.dart';
+import '../../domain/entities/order_entity.dart';
+import '../../domain/usecases/get_orders_usecase.dart';
+import '../../domain/usecases/mercado_pago_usecase.dart';
+import '../../domain/usecases/order_status_usecase.dart';
+import 'order_event.dart';
 
 mixin HudMixins {
   showSnack(BuildContext context, String message) {
