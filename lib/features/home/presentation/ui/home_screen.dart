@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lojaapp/features/home/domain/entities/product_entity.dart';
+import 'package:lojaapp/features/home/presentation/widgets/news_product_tile.dart';
 import '../../../../core/architeture/bloc_state.dart';
 import '../bloc/home_bloc.dart';
 import '../bloc/home_event.dart';
@@ -21,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     bloc = GetIt.I.get();
+
+    bloc.event.add(HomeEventGetNews(context));
     super.initState();
   }
 
@@ -72,7 +78,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 stream: bloc.state,
                 builder: (state) {
                   if (state is BlocStableState) {
-                    return const Text(' Tudo ok!');
+                    final List<ProductEntity> list = state.data;
+                    return GridView.builder(
+                        itemCount: list.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 4.0,
+                                crossAxisSpacing: 4.0,
+                                childAspectRatio: 0.65),
+                        itemBuilder: (context, index) {
+                          final product = list[index];
+                          return NewsProductTile(product: product, bloc: bloc);
+                        });
                   } else if (state is BlocLoadingState) {
                     return const CircularProgressIndicator();
                   }
@@ -85,7 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           //  bloc.event
           // .add(HomeEventDrawerNavigate(context, gConsts.cartScreen));
-          bloc.getNews(context);
         },
         child: const Icon(Icons.card_travel_rounded),
       ),

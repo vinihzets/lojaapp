@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lojaapp/features/home/domain/entities/product_entity.dart';
 
 abstract class HomeEvent {}
 
@@ -21,4 +22,11 @@ class HomeEventGetNews implements HomeEvent {
   BuildContext context;
 
   HomeEventGetNews(this.context);
+}
+
+class HomeEventNavigateToDetails implements HomeEvent {
+  BuildContext context;
+  ProductEntity entity;
+
+  HomeEventNavigateToDetails(this.context, this.entity);
 }

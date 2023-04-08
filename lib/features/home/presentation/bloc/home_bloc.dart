@@ -27,6 +27,10 @@ class HomeBloc with HudMixins {
     _event.stream.listen(_dispatchEvent);
   }
 
+  _dispatchState(BlocState state) {
+    _state.add(state);
+  }
+
   _dispatchEvent(HomeEvent event) {
     if (event is HomeEventDrawerNavigate) {
       navigate(event.context, event.routeName);
@@ -34,6 +38,9 @@ class HomeBloc with HudMixins {
       signOut(event.context);
     } else if (event is HomeEventGetNews) {
       getNews(event.context);
+    } else if (event is HomeEventNavigateToDetails) {
+      navigateThenArgs(
+          event.context, gConsts.productsDetailsScreen, event.entity);
     }
   }
 
@@ -53,7 +60,7 @@ class HomeBloc with HudMixins {
     getRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      inspect(r);
+      _dispatchState(BlocStableState(data: r));
     });
   }
 }
