@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/features/home/domain/repositories/home_repository.dart';
-import 'package:lojaapp/features/home/domain/usecases/use_case.dart';
+
+import '../../../../core/failure/failure.dart';
+import '../repositories/home_repository.dart';
+import 'use_case.dart';
 
 class SignOutUseCase implements UseCase<void, NoParams> {
   HomeRepository homeRepository;

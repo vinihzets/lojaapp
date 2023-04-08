@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lojaapp/core/failure/failure.dart';
+import '../../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/core/services/database/database_service.dart';
-import 'package:lojaapp/features/categories/data/datasources/categories_datasource.dart';
-import 'package:lojaapp/features/categories/data/dto/categories_dto.dart';
-import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
+import '../../../../../core/services/database/database_service.dart';
+import '../categories_datasource.dart';
+import '../../dto/categories_dto.dart';
+import '../../../domain/entities/categories_entity.dart';
 
 class CategoriesDataSourceRemoteImp implements CategoriesDataSource {
   DatabaseService databaseService;

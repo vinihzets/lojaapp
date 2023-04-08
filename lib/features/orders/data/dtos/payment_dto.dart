@@ -1,4 +1,4 @@
-import 'package:lojaapp/features/orders/domain/entities/payment_entity.dart';
+import '../../domain/entities/payment_entity.dart';
 
 class PaymentDto extends PaymentEntity {
   PaymentDto(super.preferenceId, super.clientId, super.dateCreated);

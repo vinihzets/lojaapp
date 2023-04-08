@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
-import 'package:lojaapp/features/categories/domain/repositories/categories_repository.dart';
-import 'package:lojaapp/features/home/domain/usecases/use_case.dart';
+import '../../../../core/failure/failure.dart';
+import '../entities/categories_entity.dart';
+import '../repositories/categories_repository.dart';
+import '../../../home/domain/usecases/use_case.dart';
 
 class NoParams {}
 

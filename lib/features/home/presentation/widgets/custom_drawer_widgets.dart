@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lojaapp/features/home/presentation/bloc/home_event.dart';
-import 'package:lojaapp/features/home/presentation/widgets/drawer_tile_widgets.dart';
-import 'package:lojaapp/main.dart';
+import '../bloc/home_bloc.dart';
+import '../bloc/home_event.dart';
+import 'drawer_tile_widgets.dart';
+import '../../../../main.dart';
 
 class CustomDrawer extends StatelessWidget {
   final HomeBloc bloc;
@@ -13,13 +13,13 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
 
-    Widget buildGradient() => Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-            Color.fromARGB(255, 243, 161, 123),
-            Color.fromARGB(255, 229, 246, 252)
-          ], begin: Alignment.topLeft, end: Alignment.bottomLeft)),
-        );
+    // Widget buildGradient() => Container(
+    //       decoration: const BoxDecoration(
+    //           gradient: LinearGradient(colors: [
+    //         Color.fromARGB(255, 243, 161, 123),
+    //         Color.fromARGB(255, 229, 246, 252)
+    //       ], begin: Alignment.topLeft, end: Alignment.bottomLeft)),
+    //     );
 
     return Drawer(
         backgroundColor: Colors.black,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:lojaapp/features/cart/presentation/bloc/cart_event.dart';
+import '../bloc/cart_bloc.dart';
+import '../bloc/cart_event.dart';
 
 class DiscountCard extends StatelessWidget {
   final CartBloc bloc;

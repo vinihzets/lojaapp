@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/cart/presentation/bloc/cart_bloc.dart';
+import '../bloc/cart_bloc.dart';
 
 class CartPriceTile extends StatelessWidget {
   final VoidCallback buy;

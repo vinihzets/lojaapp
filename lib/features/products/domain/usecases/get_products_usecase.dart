@@ -1,8 +1,8 @@
-import 'package:lojaapp/core/failure/failure.dart';
+import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
-import 'package:lojaapp/features/products/domain/repositories/products_repository.dart';
-import 'package:lojaapp/features/products/domain/usecases/usecase.dart';
+import '../entities/products_entity.dart';
+import '../repositories/products_repository.dart';
+import 'usecase.dart';
 
 class GetProductsUseCase implements UseCase {
   ProductsRepository productsRepository;

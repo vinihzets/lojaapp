@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/core/architeture/bloc_builder.dart';
-import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
-import 'package:lojaapp/features/categories/presentation/bloc/categories_bloc.dart';
-import 'package:lojaapp/features/categories/presentation/bloc/categories_event.dart';
-import 'package:lojaapp/main.dart';
+import '../../../../core/architeture/bloc_builder.dart';
+import '../../domain/entities/categories_entity.dart';
+import '../bloc/categories_bloc.dart';
+import '../bloc/categories_event.dart';
+import '../../../../main.dart';
 
 import '../../../../core/architeture/bloc_state.dart';
 

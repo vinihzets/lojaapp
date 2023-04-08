@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/core/services/auth/auth_service.dart';
-import 'package:lojaapp/features/home/data/datasources/home_datasources.dart';
+import '../../../../../core/failure/failure.dart';
+import '../../../../../core/services/auth/auth_service.dart';
+import '../home_datasources.dart';
 
 class HomeDataSourceRemoteImp implements HomeDataSource {
   AuthService authService;

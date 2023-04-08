@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lojaapp/core/failure/failure.dart';
+import '../../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/core/services/auth/auth_service.dart';
-import 'package:lojaapp/core/services/database/database_service.dart';
-import 'package:lojaapp/features/products/data/datasources/products_datasource.dart';
-import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
-import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
+import '../../../../../core/services/auth/auth_service.dart';
+import '../../../../../core/services/database/database_service.dart';
+import '../products_datasource.dart';
+import '../../dtos/products_dto.dart';
+import '../../../domain/entities/products_entity.dart';
 
 class ProductsDataSourceRemoteImp implements ProductsDataSource {
   DatabaseService databaseService;

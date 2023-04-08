@@ -1,5 +1,5 @@
-import 'package:lojaapp/features/orders/data/dtos/products_dto.dart';
-import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
+import 'products_dto.dart';
+import '../../domain/entities/order_entity.dart';
 
 class OrderDto extends OrderEntity {
   OrderDto(

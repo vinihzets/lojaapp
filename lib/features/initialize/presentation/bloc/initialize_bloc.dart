@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/core/services/auth/auth_service.dart';
-import 'package:lojaapp/features/initialize/presentation/bloc/initialize_event.dart';
-import 'package:lojaapp/main.dart';
+import '../../../../core/architeture/bloc_state.dart';
+import '../../../../core/failure/failure.dart';
+import '../../../../core/services/auth/auth_service.dart';
+import 'initialize_event.dart';
+import '../../../../main.dart';
 
 class NavigateMixin {
   navigate(BuildContext context, String routeName) {

@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lojaapp/core/failure/failure.dart';
+import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
-import 'package:lojaapp/features/cart/domain/repositories/cart_repository.dart';
-import 'package:lojaapp/features/cart/domain/usecases/add_cart_order_usecase.dart';
+import '../../data/dto/cart_products_dto.dart';
+import '../repositories/cart_repository.dart';
+import 'add_cart_order_usecase.dart';
 
 class AddCartOrderUseCaseImp implements AddCartOrderUseCase {
   CartRepository cartRepository;

@@ -1,8 +1,8 @@
-import 'package:lojaapp/core/failure/failure.dart';
+import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/features/categories/data/datasources/categories_datasource.dart';
-import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
-import 'package:lojaapp/features/categories/domain/repositories/categories_repository.dart';
+import '../datasources/categories_datasource.dart';
+import '../../domain/entities/categories_entity.dart';
+import '../../domain/repositories/categories_repository.dart';
 
 class CategoriesRepositoryImp implements CategoriesRepository {
   CategoriesDataSource categoriesDataSource;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/core/architeture/bloc_builder.dart';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
-import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
-import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
-import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
-import 'package:lojaapp/features/products/presentation/widgets/grid_product_tile.dart';
-import 'package:lojaapp/features/products/presentation/widgets/list_product_tile.dart';
+import '../../../../core/architeture/bloc_builder.dart';
+import '../../../../core/architeture/bloc_state.dart';
+import '../../../categories/domain/entities/categories_entity.dart';
+import '../../domain/entities/products_entity.dart';
+import '../bloc/products_bloc.dart';
+import '../bloc/products_event.dart';
+import '../widgets/grid_product_tile.dart';
+import '../widgets/list_product_tile.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});

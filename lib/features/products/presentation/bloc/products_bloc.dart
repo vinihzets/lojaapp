@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
-import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
-import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
-import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
-import 'package:lojaapp/features/products/domain/usecases/add_item_to_cart_usecase.dart';
-import 'package:lojaapp/features/products/domain/usecases/usecase.dart';
-import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
-import 'package:lojaapp/main.dart';
+import '../../../../core/architeture/bloc_state.dart';
+import '../../../categories/domain/entities/categories_entity.dart';
+import '../../data/dtos/products_dto.dart';
+import '../../domain/entities/products_entity.dart';
+import '../../domain/usecases/add_item_to_cart_usecase.dart';
+import '../../domain/usecases/usecase.dart';
+import 'products_event.dart';
+import '../../../../main.dart';
 
 mixin HudMixins {
   showSnackBar(BuildContext context, String message) {

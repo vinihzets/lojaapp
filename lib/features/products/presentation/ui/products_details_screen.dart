@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/features/products/data/dtos/products_dto.dart';
-import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
-import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
+import '../../data/dtos/products_dto.dart';
+import '../bloc/products_bloc.dart';
+import '../bloc/products_event.dart';
 
 class ProductsDetailsScreen extends StatefulWidget {
   const ProductsDetailsScreen({super.key});

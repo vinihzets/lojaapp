@@ -1,13 +1,15 @@
-import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
-import 'package:lojaapp/core/failure/failure.dart';
+import '../entities/order_entity.dart';
+import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/features/orders/domain/repositories/order_repository.dart';
-import 'package:lojaapp/features/orders/domain/usecases/get_orders_usecase.dart';
+import '../repositories/order_repository.dart';
+import 'get_orders_usecase.dart';
 
 class GetOrdersUseCaseImp implements GetOrdersUseCase {
   OrderRepository orderRepository;
 
   GetOrdersUseCaseImp(this.orderRepository);
+
+  @override
   Future<Either<Failure, List<OrderEntity>>> getOrders() {
     return orderRepository.getOrders();
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/orders/domain/entities/order_entity.dart';
+import '../../domain/entities/order_entity.dart';
 
 abstract class OrderEvent {}
 

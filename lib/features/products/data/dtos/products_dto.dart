@@ -1,4 +1,4 @@
-import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
+import '../../domain/entities/products_entity.dart';
 
 class ProductsDto extends ProductsEntity {
   ProductsDto(

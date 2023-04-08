@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
+import '../../../../core/architeture/bloc_state.dart';
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/categories/domain/usecases/get_categories_usecase.dart';
-import 'package:lojaapp/features/categories/presentation/bloc/categories_event.dart';
+import '../../domain/usecases/get_categories_usecase.dart';
+import 'categories_event.dart';
 
 mixin NavigateMixin {
   void navigateWithaArguments(

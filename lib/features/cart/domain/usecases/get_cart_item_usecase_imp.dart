@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:lojaapp/core/failure/failure.dart';
+import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
-import 'package:lojaapp/features/cart/domain/repositories/cart_repository.dart';
-import 'package:lojaapp/features/cart/domain/usecases/get_cart_item_usecase.dart';
+import '../../data/dto/cart_products_dto.dart';
+import '../repositories/cart_repository.dart';
+import 'get_cart_item_usecase.dart';
 
 class AddCartUseCaseImp implements GetItemsCart {
   CartRepository cartRepository;

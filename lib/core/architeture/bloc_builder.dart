@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lojaapp/core/architeture/bloc_state.dart';
+
+import 'bloc_state.dart';
 
 class BlocScreenBuilder extends StatelessWidget {
   final Stream<BlocState> stream;

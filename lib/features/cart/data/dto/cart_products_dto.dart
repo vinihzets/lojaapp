@@ -1,4 +1,4 @@
-import 'package:lojaapp/features/cart/domain/entities/cart_products_entity.dart';
+import '../../domain/entities/cart_products_entity.dart';
 
 class CartProductsDto extends CartProductsEntity {
   CartProductsDto(

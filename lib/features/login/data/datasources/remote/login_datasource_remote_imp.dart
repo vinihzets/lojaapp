@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/core/services/auth/auth_service.dart';
-import 'package:lojaapp/features/login/data/datasources/login_datasource.dart';
+import '../../../../../core/failure/failure.dart';
+import '../../../../../core/services/auth/auth_service.dart';
+import '../login_datasource.dart';
 
 class LoginDataSourceRemoteImp implements LoginDataSource {
   AuthService authService;

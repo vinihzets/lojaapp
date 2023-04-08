@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/register/domain/usecases/register_usecase.dart';
-import 'package:lojaapp/features/register/presentation/bloc/register_event.dart';
-import 'package:lojaapp/features/register/presentation/bloc/register_state.dart';
-import 'package:lojaapp/main.dart';
+import '../../domain/usecases/register_usecase.dart';
+import 'register_event.dart';
+import 'register_state.dart';
+import '../../../../main.dart';
 
 class RegisterBloC {
   RegisterUseCase registerUseCase;

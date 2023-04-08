@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/features/cart/data/datasources/cart_datasources.dart';
-import 'package:lojaapp/features/cart/data/dto/cart_products_dto.dart';
-import 'package:lojaapp/features/cart/domain/repositories/cart_repository.dart';
+import '../../../../core/failure/failure.dart';
+import '../datasources/cart_datasources.dart';
+import '../dto/cart_products_dto.dart';
+import '../../domain/repositories/cart_repository.dart';
 
 class CartRepositoryImp implements CartRepository {
   CartDataSource cartDataSource;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/login/presentation/bloc/login_bloc.dart';
+import '../bloc/login_bloc.dart';
 
 import '../bloc/login_event.dart';
 

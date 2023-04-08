@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lojaapp/core/failure/failure.dart';
-import 'package:lojaapp/features/login/domain/repositories/login_repository.dart';
-import 'package:lojaapp/features/login/domain/usecases/login_usecase.dart';
+import '../../../../core/failure/failure.dart';
+import '../repositories/login_repository.dart';
+import 'login_usecase.dart';
 
 class LoginUseCaseImp implements LoginUseCase {
   LoginRepository loginRepository;

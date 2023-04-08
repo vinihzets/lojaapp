@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/login/presentation/bloc/login_event.dart';
-import 'package:lojaapp/features/login/presentation/bloc/login_state.dart';
-import 'package:lojaapp/main.dart';
+import 'login_event.dart';
+import 'login_state.dart';
+import '../../../../main.dart';
 
 import '../../domain/usecases/login_usecase.dart';
 

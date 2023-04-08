@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/products/domain/entities/products_entity.dart';
-import 'package:lojaapp/features/products/presentation/bloc/products_bloc.dart';
-import 'package:lojaapp/features/products/presentation/bloc/products_event.dart';
+import '../../domain/entities/products_entity.dart';
+import '../bloc/products_bloc.dart';
+import '../bloc/products_event.dart';
 
 class GridProductTile extends StatelessWidget {
   final ProductsEntity product;

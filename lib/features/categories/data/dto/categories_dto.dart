@@ -1,4 +1,4 @@
-import 'package:lojaapp/features/categories/domain/entities/categories_entity.dart';
+import '../../domain/entities/categories_entity.dart';
 
 class CategoriesDto extends CategoriesEntity {
   CategoriesDto(super.name, super.imageCategory, super.id);

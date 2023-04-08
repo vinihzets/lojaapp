@@ -1,4 +1,4 @@
-import 'package:lojaapp/features/orders/domain/entities/products_entity.dart';
+import 'products_entity.dart';
 
 class OrderEntity {
   List<ProductsEntity> products;
