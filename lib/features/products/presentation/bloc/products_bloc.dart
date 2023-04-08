@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lojaapp/core/utils/hud_mixins.dart';
 import '../../../../core/architeture/bloc_state.dart';
 import '../../../categories/domain/entities/categories_entity.dart';
 import '../../data/dtos/products_dto.dart';
@@ -8,17 +9,6 @@ import '../../domain/usecases/add_item_to_cart_usecase.dart';
 import '../../domain/usecases/usecase.dart';
 import 'products_event.dart';
 import '../../../../main.dart';
-
-mixin HudMixins {
-  showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  navigate(BuildContext context, String routeName) {
-    Navigator.of(context).pushNamed(routeName);
-  }
-}
 
 class ProductsBloc with HudMixins {
   UseCase useCase;
@@ -63,7 +53,7 @@ class ProductsBloc with HudMixins {
     final productsRequest = await useCase(categories.id);
 
     productsRequest.fold((l) {
-      showSnackBar(context, l.message);
+      showSnack(context, l.message);
     }, (r) {
       _dispatchState(BlocStableState(data: r));
     });
@@ -73,9 +63,9 @@ class ProductsBloc with HudMixins {
     final cartRequest = await addItemToCartUseCase(productsDto);
 
     cartRequest.fold((l) {
-      showSnackBar(context, l.message);
+      showSnack(context, l.message);
     }, (r) {
-      showSnackBar(context, 'Item adicionado com sucesso ao carrinho!!');
+      showSnack(context, 'Item adicionado com sucesso ao carrinho!!');
       navigate(context, gConsts.cartScreen);
       _dispatchState(BlocStableState(data: r));
     });

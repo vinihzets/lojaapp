@@ -1,28 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lojaapp/core/utils/hud_mixins.dart';
 import '../../../../core/architeture/bloc_state.dart';
 import '../../domain/entities/order_entity.dart';
 import '../../domain/usecases/get_orders_usecase.dart';
 import '../../domain/usecases/mercado_pago_usecase.dart';
 import '../../domain/usecases/order_status_usecase.dart';
 import 'order_event.dart';
-
-mixin HudMixins {
-  showSnack(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.red,
-    ));
-  }
-
-  navigate(BuildContext context, String routeName) {
-    Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => false);
-  }
-
-  navigateThenArgs(BuildContext context, String routeName, Object args) {
-    Navigator.of(context).pushNamed(routeName, arguments: args);
-  }
-}
 
 class OrderBloc with HudMixins {
   GetOrdersUseCase getOrdersUseCase;

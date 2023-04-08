@@ -11,13 +11,13 @@ import '../widgets/build_status_widgets_order_screen.dart';
 import '../../../../main.dart';
 import 'package:mercado_pago_mobile_checkout/mercado_pago_mobile_checkout.dart';
 
-class OrderScreen extends StatefulWidget with HudMixins {
+class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
   @override
   State<OrderScreen> createState() => _OrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> with HudMixins {
+class _OrderScreenState extends State<OrderScreen> {
   late OrderBloc bloc;
   final String publicKey = 'TEST-41fa6116-fe1d-411d-9a2b-fb19403303ae';
 

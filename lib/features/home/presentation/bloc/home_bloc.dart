@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:lojaapp/core/utils/hud_mixins.dart';
+import 'package:lojaapp/features/home/domain/usecases/get_news_usecase.dart';
 import '../../../../core/architeture/bloc_state.dart';
 import '../../domain/usecases/use_case.dart';
 import 'home_event.dart';
@@ -7,8 +10,9 @@ import '../../../../main.dart';
 
 import '../../domain/usecases/sign_out_usecase.dart';
 
-class HomeBloc {
+class HomeBloc with HudMixins {
   SignOutUseCase signOutUseCase;
+  GetNewsUseCase getNewsUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -16,7 +20,7 @@ class HomeBloc {
   late StreamController<HomeEvent> _event;
   Sink<HomeEvent> get event => _event.sink;
 
-  HomeBloc(this.signOutUseCase) {
+  HomeBloc(this.signOutUseCase, this.getNewsUseCase) {
     _state = StreamController.broadcast();
     _event = StreamController.broadcast();
 
@@ -25,9 +29,11 @@ class HomeBloc {
 
   _dispatchEvent(HomeEvent event) {
     if (event is HomeEventDrawerNavigate) {
-      onPressedNavigate(event.context, event.routeName);
+      navigate(event.context, event.routeName);
     } else if (event is HomeEventSignOut) {
       signOut(event.context);
+    } else if (event is HomeEventGetNews) {
+      getNews(event.context);
     }
   }
 
@@ -38,12 +44,16 @@ class HomeBloc {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(l.message)));
     }, (r) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(gConsts.loginScreen, (route) => false);
+      navigate(context, gConsts.loginScreen);
     });
   }
 
-  onPressedNavigate(BuildContext context, String name) {
-    Navigator.of(context).pushNamed(name);
+  getNews(BuildContext context) async {
+    final getRequest = await getNewsUseCase.getNews();
+    getRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      inspect(r);
+    });
   }
 }

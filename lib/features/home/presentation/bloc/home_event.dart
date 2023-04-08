@@ -16,3 +16,9 @@ class HomeEventSignOut implements HomeEvent {
 }
 
 class HomeEventGetCategories implements HomeEvent {}
+
+class HomeEventGetNews implements HomeEvent {
+  BuildContext context;
+
+  HomeEventGetNews(this.context);
+}

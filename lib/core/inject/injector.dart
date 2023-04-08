@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:lojaapp/features/home/domain/usecases/get_news_usecase.dart';
+import 'package:lojaapp/features/home/domain/usecases/get_news_usecase_imp.dart';
 import '../services/auth/auth_service.dart';
 import '../services/database/database_service.dart';
 import '../../features/cart/data/datasources/cart_datasources.dart';
@@ -81,7 +83,7 @@ class Injector {
     getIt.registerLazySingleton<LoginDataSource>(
         () => LoginDataSourceRemoteImp(getIt()));
     getIt.registerLazySingleton<HomeDataSource>(
-        () => HomeDataSourceRemoteImp(getIt()));
+        () => HomeDataSourceRemoteImp(getIt(), getIt()));
     getIt.registerLazySingleton<CategoriesDataSource>(
         () => CategoriesDataSourceRemoteImp(getIt()));
 
@@ -114,6 +116,8 @@ class Injector {
 
     //usecases
 
+    getIt.registerLazySingleton<GetNewsUseCase>(
+        () => GetNewsUseCaseImp(getIt()));
     getIt.registerLazySingleton<OrderStatusUseCase>(
         () => OrderStatusUseCaseImp(getIt()));
 
@@ -153,7 +157,7 @@ class Injector {
         () => CartBloc(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<ProductsBloc>(() => ProductsBloc(getIt(), getIt()));
     getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(getIt()));
-    getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt()));
+    getIt.registerFactory<HomeBloc>(() => HomeBloc(getIt(), getIt()));
     getIt.registerFactory<RegisterBloC>(
         () => RegisterBloC(registerUseCase: getIt()));
 

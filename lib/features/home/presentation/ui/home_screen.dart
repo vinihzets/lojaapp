@@ -77,13 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const CircularProgressIndicator();
                   }
 
-                  return const CircularProgressIndicator();
+                  return Container();
                 }))
       ]),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
-        onPressed: () => bloc.event
-            .add(HomeEventDrawerNavigate(context, gConsts.cartScreen)),
+        onPressed: () {
+          //  bloc.event
+          // .add(HomeEventDrawerNavigate(context, gConsts.cartScreen));
+          bloc.getNews(context);
+        },
         child: const Icon(Icons.card_travel_rounded),
       ),
     );
