@@ -55,7 +55,11 @@ class ProductsBloc with HudMixins {
     productsRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      _dispatchState(BlocStableState(data: r));
+      if (r.isNotEmpty) {
+        _dispatchState(BlocStableState(data: r));
+      } else if (r.isEmpty) {
+        _dispatchState(BlocEmptyState());
+      }
     });
   }
 

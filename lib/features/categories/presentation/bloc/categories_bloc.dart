@@ -45,7 +45,11 @@ class CategoriesBloc with NavigateMixin {
     final getRequest = await getCategoriesUseCase(params: NoParams());
 
     getRequest.fold((l) {}, (r) {
-      _dispatchState(BlocStableState(data: r));
+      if (r.isNotEmpty) {
+        _dispatchState(BlocStableState(data: r));
+      } else if (r.isEmpty) {
+        _dispatchState(BlocEmptyState());
+      }
     });
   }
 

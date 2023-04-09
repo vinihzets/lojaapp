@@ -80,7 +80,21 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           })
                     ]);
               } else {
-                return const SizedBox.shrink();
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.remove_shopping_cart_sharp,
+                      size: 68,
+                    ),
+                    Text(
+                      'Essa categoria nao possui produto cadastrado ainda !!',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ));
               }
             }),
       ),
