@@ -87,8 +87,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           final product = list[index];
                           return NewsProductTile(product: product, bloc: bloc);
                         });
-                  } else if (state is BlocLoadingState) {
-                    return const CircularProgressIndicator();
+                  } else if (state is BlocEmptyState) {
+                    return Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.add_shopping_cart_outlined,
+                              size: 70,
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              'A colecao de novidades ainda esta vazia =(',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                          ]),
+                    );
                   }
 
                   return Container();
