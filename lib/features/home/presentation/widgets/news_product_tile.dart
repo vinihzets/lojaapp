@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/home/domain/entities/product_entity.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 import 'package:lojaapp/features/home/presentation/bloc/home_bloc.dart';
+import 'package:lojaapp/features/home/presentation/bloc/home_event.dart';
 
 class NewsProductTile extends StatelessWidget {
   final ProductEntity product;
@@ -13,8 +14,8 @@ class NewsProductTile extends StatelessWidget {
     return Card(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         GestureDetector(
-          // onTap: () =>
-          //     bloc.event.add(HomeEventNavigateToDetails(context, product)),
+          onTap: () =>
+              bloc.event.add(HomeEventNavigateToDetails(context, product)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

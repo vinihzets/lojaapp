@@ -7,12 +7,9 @@ class ProductEntity {
   String price;
   String description;
   String? sizeProduct;
-  String id;
+  String productId;
   String idCategory;
   Timestamp createdAt;
-
-  // String? cartId;
-  // int quantity;
 
   ProductEntity(
     this.name,
@@ -21,9 +18,8 @@ class ProductEntity {
     this.price,
     this.description,
     this.sizeProduct,
-    this.id,
+    this.productId,
     this.idCategory,
     this.createdAt,
-    // this.quantity,
   );
 }

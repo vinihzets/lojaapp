@@ -8,7 +8,7 @@ class ProductDto extends ProductEntity {
     super.price,
     super.description,
     super.sizeProduct,
-    super.id,
+    super.productId,
     super.idCategory,
     super.createdAt,
   );
@@ -21,8 +21,8 @@ class ProductDto extends ProductEntity {
       map['price'],
       map['description'],
       map['sizeProduct'],
-      map['id'],
-      map['idCategory'],
+      map['productId'],
+      map['categoryId'],
       map['createdAt'],
     );
   }

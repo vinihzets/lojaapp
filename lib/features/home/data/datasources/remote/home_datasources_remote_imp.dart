@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lojaapp/core/global/product_dto.dart';
 import 'package:lojaapp/core/services/database/database_service.dart';
-import 'package:lojaapp/features/home/data/dto/product_dto.dart';
 import '../../../../../core/failure/failure.dart';
 import '../../../../../core/services/auth/auth_service.dart';
 import '../home_datasources.dart';

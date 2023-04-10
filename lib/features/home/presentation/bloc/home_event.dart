@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lojaapp/features/home/domain/entities/product_entity.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 
 abstract class HomeEvent {}
 

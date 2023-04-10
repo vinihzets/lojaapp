@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojaapp/features/home/domain/entities/product_entity.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 import 'package:lojaapp/features/home/presentation/widgets/news_product_tile.dart';
 import '../../../../core/architeture/bloc_state.dart';
 import '../bloc/home_bloc.dart';
