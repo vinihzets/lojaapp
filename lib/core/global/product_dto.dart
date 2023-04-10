@@ -1,25 +1,29 @@
-import '../../domain/entities/products_entity.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 
-class ProductsDto extends ProductsEntity {
-  ProductsDto(
+class ProductDto extends ProductEntity {
+  ProductDto(
     super.name,
     super.sizes,
     super.images,
     super.price,
     super.description,
     super.sizeProduct,
-    // super.quantity,
+    super.id,
+    super.idCategory,
+    super.createdAt,
   );
 
-  factory ProductsDto.fromJson(Map map) {
-    return ProductsDto(
+  factory ProductDto.fromJson(Map map) {
+    return ProductDto(
       map['name'],
       map['sizes'],
       map['images'],
       map['price'],
       map['description'],
       map['sizeProduct'],
-      // map['quantity'],
+      map['id'],
+      map['idCategory'],
+      map['createdAt'],
     );
   }
 

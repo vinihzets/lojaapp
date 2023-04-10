@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:lojaapp/core/global/product_dto.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 import '../../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../../core/services/auth/auth_service.dart';
 import '../../../../../core/services/database/database_service.dart';
 import '../products_datasource.dart';
-import '../../dtos/products_dto.dart';
-import '../../../domain/entities/products_entity.dart';
 
 class ProductsDataSourceRemoteImp implements ProductsDataSource {
   DatabaseService databaseService;
@@ -13,7 +13,7 @@ class ProductsDataSourceRemoteImp implements ProductsDataSource {
   ProductsDataSourceRemoteImp(this.databaseService, this.authService);
 
   @override
-  Future<Either<Failure, List<ProductsEntity>>> getProducts(String uid) async {
+  Future<Either<Failure, List<ProductEntity>>> getProducts(String uid) async {
     try {
       final getProducts = await databaseService.db
           .collection('products')
@@ -22,7 +22,7 @@ class ProductsDataSourceRemoteImp implements ProductsDataSource {
           .get();
 
       final request =
-          getProducts.docs.map((e) => ProductsDto.fromJson(e.data())).toList();
+          getProducts.docs.map((e) => ProductDto.fromJson(e.data())).toList();
       return Right(request);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? 'Erro nao encontrado'));
@@ -30,8 +30,7 @@ class ProductsDataSourceRemoteImp implements ProductsDataSource {
   }
 
   @override
-  Future<Either<Failure, dynamic>> addItemToCart(
-      ProductsDto productsDto) async {
+  Future<Either<Failure, dynamic>> addItemToCart(ProductDto productsDto) async {
     try {
       final String idUser = authService.auth.currentUser!.uid;
 

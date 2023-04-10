@@ -1,6 +1,7 @@
+import 'package:lojaapp/core/global/product_dto.dart';
+
 import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import '../../data/dtos/products_dto.dart';
 import '../repositories/products_repository.dart';
 import 'add_item_to_cart_usecase.dart';
 
@@ -10,7 +11,7 @@ class AddItemToCartUseCaseImp implements AddItemToCartUseCase {
   AddItemToCartUseCaseImp(this.productsRepository);
 
   @override
-  Future<Either<Failure, dynamic>> call(ProductsDto productsDto) {
+  Future<Either<Failure, dynamic>> call(ProductDto productsDto) {
     return productsRepository.addItemToCart(productsDto);
   }
 }

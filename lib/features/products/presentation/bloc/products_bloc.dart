@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lojaapp/core/global/product_dto.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 import 'package:lojaapp/core/utils/hud_mixins.dart';
 import '../../../../core/architeture/bloc_state.dart';
 import '../../../categories/domain/entities/categories_entity.dart';
-import '../../data/dtos/products_dto.dart';
-import '../../domain/entities/products_entity.dart';
 import '../../domain/usecases/add_item_to_cart_usecase.dart';
 import '../../domain/usecases/usecase.dart';
 import 'products_event.dart';
@@ -41,7 +41,7 @@ class ProductsBloc with HudMixins {
     }
   }
 
-  navigateToDetails(BuildContext context, ProductsEntity entity) {
+  navigateToDetails(BuildContext context, ProductEntity entity) {
     Navigator.of(context)
         .pushNamed(gConsts.productsDetailsScreen, arguments: entity);
   }
@@ -63,7 +63,7 @@ class ProductsBloc with HudMixins {
     });
   }
 
-  addToCart(BuildContext context, ProductsDto productsDto) async {
+  addToCart(BuildContext context, ProductDto productsDto) async {
     final cartRequest = await addItemToCartUseCase(productsDto);
 
     cartRequest.fold((l) {

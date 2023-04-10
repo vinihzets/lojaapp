@@ -9,6 +9,7 @@ class GetNewsUseCaseImp implements GetNewsUseCase {
 
   GetNewsUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, List<ProductEntity>>> getNews() {
     return homeRepository.getNews();
   }

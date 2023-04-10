@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/products_entity.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 import '../bloc/products_bloc.dart';
 import '../bloc/products_event.dart';
 
 class GridProductTile extends StatelessWidget {
-  final ProductsEntity product;
+  final ProductEntity product;
   final ProductsBloc bloc;
 
   const GridProductTile({required this.product, required this.bloc, super.key});

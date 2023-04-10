@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../data/dtos/products_dto.dart';
-import '../../domain/entities/products_entity.dart';
+import 'package:lojaapp/core/global/product_dto.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 
 abstract class ProductsEvent {}
 
@@ -13,14 +13,14 @@ class ProductsEventGet implements ProductsEvent {
 
 class ProductsEventNavigateDetails implements ProductsEvent {
   BuildContext context;
-  ProductsEntity entity;
+  ProductEntity entity;
 
   ProductsEventNavigateDetails(this.context, this.entity);
 }
 
 class ProductsEventAddToCart implements ProductsEvent {
   BuildContext context;
-  ProductsDto productsDto;
+  ProductDto productsDto;
 
   ProductsEventAddToCart(this.context, this.productsDto);
 }

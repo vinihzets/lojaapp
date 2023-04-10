@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lojaapp/features/home/domain/entities/product_entity.dart';
 import 'package:lojaapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lojaapp/features/home/presentation/bloc/home_event.dart';
 
 class NewsProductTile extends StatelessWidget {
   final ProductEntity product;

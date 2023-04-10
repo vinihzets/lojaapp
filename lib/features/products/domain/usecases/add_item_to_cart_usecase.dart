@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:lojaapp/core/global/product_dto.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 import '../../../../core/failure/failure.dart';
-import '../../data/dtos/products_dto.dart';
 
 abstract class AddItemToCartUseCase {
-  Future<Either<Failure, dynamic>> call(ProductsDto productsDto);
+  Future<Either<Failure, dynamic>> call(ProductDto productsDto);
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
 import '../../../../core/architeture/bloc_builder.dart';
 import '../../../../core/architeture/bloc_state.dart';
 import '../../../categories/domain/entities/categories_entity.dart';
-import '../../domain/entities/products_entity.dart';
 import '../bloc/products_bloc.dart';
 import '../bloc/products_event.dart';
 import '../widgets/grid_product_tile.dart';
@@ -49,7 +49,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
             stream: bloc.state,
             builder: (state) {
               if (state is BlocStableState) {
-                List<ProductsEntity> listProducts = state.data;
+                List<ProductEntity> listProducts = state.data;
 
                 return TabBarView(
                     physics: const NeverScrollableScrollPhysics(),

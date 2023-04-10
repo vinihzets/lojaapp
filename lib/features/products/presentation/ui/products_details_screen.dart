@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import '../../data/dtos/products_dto.dart';
+import 'package:lojaapp/core/global/product_dto.dart';
+
 import '../bloc/products_bloc.dart';
 import '../bloc/products_event.dart';
 
@@ -25,8 +26,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ProductsDto product =
-        ModalRoute.of(context)!.settings.arguments as ProductsDto;
+    ProductDto product =
+        ModalRoute.of(context)!.settings.arguments as ProductDto;
 
     return Scaffold(
         backgroundColor: Colors.grey[200],

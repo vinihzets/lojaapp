@@ -1,8 +1,10 @@
+import 'package:lojaapp/core/global/product_dto.dart';
+import 'package:lojaapp/core/global/product_entity.dart';
+
 import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import '../datasources/products_datasource.dart';
-import '../dtos/products_dto.dart';
-import '../../domain/entities/products_entity.dart';
+
 import '../../domain/repositories/products_repository.dart';
 
 class ProductsRepositoryImp implements ProductsRepository {
@@ -11,12 +13,12 @@ class ProductsRepositoryImp implements ProductsRepository {
   ProductsRepositoryImp(this.productsDataSource);
 
   @override
-  Future<Either<Failure, List<ProductsEntity>>> getProducts(String uid) {
+  Future<Either<Failure, List<ProductEntity>>> getProducts(String uid) {
     return productsDataSource.getProducts(uid);
   }
 
   @override
-  Future<Either<Failure, dynamic>> addItemToCart(ProductsDto productsDto) {
+  Future<Either<Failure, dynamic>> addItemToCart(ProductDto productsDto) {
     return productsDataSource.addItemToCart(productsDto);
   }
 }

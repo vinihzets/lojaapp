@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lojaapp/core/utils/hud_mixins.dart';
 import 'package:lojaapp/features/home/domain/usecases/get_news_usecase.dart';
